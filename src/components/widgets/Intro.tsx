@@ -14,6 +14,7 @@ export function Intro({
   return (
     <View className="my-1 flex-row flex-wrap ">
       <TouchableHighlight
+        underlayColor="#DDDDDD"
         onLongPress={() => {
           setKey(name);
         }}
@@ -24,10 +25,12 @@ export function Intro({
           <Text className="px-4 py-1 text-2xl">{name}</Text>
         </View>
       </TouchableHighlight>
-      <View
-        className={`flex flex-col gap-1 w-full mt-1 ${active ? "" : "hidden"}`}
-      >
-        {children}
+      <View className="ps-5 w-full">
+        <View
+          className={`w-full border rounded mt-1 ${active ? "" : "hidden"}`}
+        >
+          {children}
+        </View>
       </View>
     </View>
   );

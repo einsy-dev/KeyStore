@@ -13,10 +13,15 @@ export default function App() {
   return (
     <>
       <ScrollView className="p-4 ">
-        {Object.keys(context).map((key) => (
+        {Object.keys(context.data).map((key) => (
           <Intro name={key} key={key} setKey={setKey}>
-            {Object.keys(context[key]).map((key2) => (
-              <IntroItem key={key2} name={key2} value={context[key][key2]} />
+            {Object.keys(context.data[key]).map((key2) => (
+              <IntroItem
+                key={key2}
+                name={key2}
+                value={context.data[key][key2]}
+                className="[&>*]:bg-red-200"
+              />
             ))}
           </Intro>
         ))}
@@ -28,14 +33,20 @@ export default function App() {
           <CirclePlus size={"50px"} />
         </TouchableHighlight>
       </ScrollView>
-      <Modal active={modal ? true : false} setActive={setModal}>
+      <Modal
+        active={modal ? true : false}
+        setActive={setModal}
+        className="gap-4"
+      >
         <NewIntro onSubmit={setIntro} />
       </Modal>
+
       <Modal
         active={key ? true : false}
         setActive={() => {
           setKey("");
         }}
+        className="gap-4"
       >
         <NewIntroItem
           onSubmit={(...newData) => {

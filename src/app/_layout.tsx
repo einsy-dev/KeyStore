@@ -1,4 +1,4 @@
-import { MyContext } from "@/lib/store";
+import { MyContextProvider } from "@/lib/store";
 import {
   DarkTheme,
   DefaultTheme,
@@ -16,7 +16,7 @@ export default function Layout() {
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <StatusBar />
       <SafeAreaProvider>
-        <MyContext.Provider value={{}}>
+        <MyContextProvider>
           <SafeAreaView className="flex-1">
             <Stack>
               <Stack.Screen
@@ -29,7 +29,7 @@ export default function Layout() {
               />
             </Stack>
           </SafeAreaView>
-        </MyContext.Provider>
+        </MyContextProvider>
       </SafeAreaProvider>
     </ThemeProvider>
   );

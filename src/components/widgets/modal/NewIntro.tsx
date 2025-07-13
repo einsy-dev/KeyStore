@@ -6,7 +6,7 @@ export function NewIntro({ onSubmit }: { onSubmit: (data: string) => void }) {
 
   return (
     <>
-      <View className="rounded p-4 bg-white w-full gap-4">
+      <View className="rounded p-4 bg-white w-full">
         <Text className="text-center text-2xl">Add new</Text>
         <TextInput
           className="border rounded px-4"
