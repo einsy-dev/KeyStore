@@ -5,6 +5,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/components/*": ["./src/components/*"],
+      "@/shared/*": ["./src/components/shared/*"],
+      "@/widgets/*": ["./src/components/widgets/*"],
       "@/assets/*": ["./src/assets/*"]
     }
   },
@@ -13,6 +15,7 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
-    "nativewind-env.d.ts"
+    "nativewind-env.d.ts",
+    "**/*.d.ts"
   ]
 }

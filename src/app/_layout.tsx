@@ -1,3 +1,4 @@
+import { MyContext } from "@/lib/store";
 import {
   DarkTheme,
   DefaultTheme,
@@ -15,15 +16,20 @@ export default function Layout() {
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <StatusBar />
       <SafeAreaProvider>
-        <SafeAreaView className="flex-1">
-          <Stack>
-            <Stack.Screen
-              name="(pages)/index"
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen name="+not-found" options={{ headerShown: false }} />
-          </Stack>
-        </SafeAreaView>
+        <MyContext.Provider value={{}}>
+          <SafeAreaView className="flex-1">
+            <Stack>
+              <Stack.Screen
+                name="(pages)/index"
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="+not-found"
+                options={{ headerShown: false }}
+              />
+            </Stack>
+          </SafeAreaView>
+        </MyContext.Provider>
       </SafeAreaProvider>
     </ThemeProvider>
   );
