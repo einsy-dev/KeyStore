@@ -7,7 +7,8 @@
       "@/components/*": ["./src/components/*"],
       "@/shared/*": ["./src/components/shared/*"],
       "@/widgets/*": ["./src/components/widgets/*"],
-      "@/assets/*": ["./src/assets/*"]
+      "@/assets/*": ["./src/assets/*"],
+      "@/lib/*": ["./src/lib/*"]
     }
   },
   "include": [

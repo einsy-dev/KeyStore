@@ -1,4 +1,5 @@
-import { MyContextProvider } from "@/lib/store";
+import { Modal } from "@/components/widgets/Modal";
+import store from "@/lib/store";
 import {
   DarkTheme,
   DefaultTheme,
@@ -8,15 +9,15 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { Provider } from "react-redux";
 import "../assets/css/global.css";
-
 export default function Layout() {
   const colorScheme = useColorScheme();
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <StatusBar />
       <SafeAreaProvider>
-        <MyContextProvider>
+        <Provider store={store}>
           <SafeAreaView className="flex-1">
             <Stack>
               <Stack.Screen
@@ -28,8 +29,9 @@ export default function Layout() {
                 options={{ headerShown: false }}
               />
             </Stack>
+            <Modal />
           </SafeAreaView>
-        </MyContextProvider>
+        </Provider>
       </SafeAreaProvider>
     </ThemeProvider>
   );

@@ -1,5 +1,4 @@
 export { Intro } from "./Intro";
-export { IntroItem } from "./IntroItem";
-export { NewIntro } from "./modal/NewIntro";
-export { NewIntroItem } from "./modal/NewIntroItem";
+export { NewIntro } from "./Modal/NewIntro";
+export { NewIntroItem } from "./Modal/NewIntroItem";
 

@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { Text, TextInput, TouchableHighlight, View } from "react-native";
 
-export function NewIntroItem({
-  onSubmit
+export function NewIntro({
+  onSubmit = (data) => data
 }: {
-  onSubmit: (introItem: string, value: string) => void;
+  onSubmit?: (data: string) => void;
 }) {
   const [name, setName] = useState("");
-  const [value, setValue] = useState("");
+
   return (
     <>
-      <View className="rounded p-4 bg-white w-full gap-4">
+      <View className="rounded p-4 bg-white w-full">
         <Text className="text-center text-2xl">Add new</Text>
         <TextInput
           className="border rounded px-4"
@@ -22,20 +22,10 @@ export function NewIntroItem({
             });
           }}
         />
-        <TextInput
-          className="border rounded px-4"
-          value={value}
-          onChangeText={(text) => {
-            setValue((prev) => {
-              prev = text;
-              return prev;
-            });
-          }}
-        />
       </View>
       <TouchableHighlight
         onPress={() => {
-          onSubmit(name, value);
+          onSubmit(name);
         }}
         className="rounded bg-white w-full py-2"
       >
