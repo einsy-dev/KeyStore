@@ -1,9 +1,19 @@
-interface DataI {
-	[key: string]: { [key: string]: string };
+type KeyI = {
+	id?: number
+	name: string
+	value: string
+}
+
+type DataI = {
+	id?: number
+	name: string
+	keys?: KeyI[]
 }
 
 interface ModalI {
 	active?: boolean
-	dataKey?: string
-	type?: 'Intro' | 'IntroItem' | "Confirm"
+	type?: ModalType
+	data?: DataI
 }
+
+type ModalType = 'Intro' | 'EditIntro' | 'IntroItem' | 'EditIntroItem' | "Confirm"
