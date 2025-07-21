@@ -4,16 +4,24 @@ type KeyI = {
 	value: string
 }
 
-type DataI = {
+interface DataI {
 	id?: number
 	name: string
-	keys?: KeyI[]
+	keys: KeyI[]
+}
+
+
+interface ContextMenuI {
+	active?: boolean
+	menu?: ContextMenuItemI[]
+}
+interface ContextMenuItemI {
+	name: string
+	callback: (param?: any) => void
 }
 
 interface ModalI {
-	active?: boolean
-	type?: ModalType
-	data?: DataI
+	active: boolean
+	onSubmit?: (data: any) => void
+	data?: any
 }
-
-type ModalType = 'Intro' | 'EditIntro' | 'IntroItem' | 'EditIntroItem' | "Confirm"

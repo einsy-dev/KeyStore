@@ -11,6 +11,7 @@ export function Item({
   async function copy(text: string) {
     await Clipboard.setStringAsync(text);
   }
+  console.log("key", data);
   return (
     <TouchableOpacity onPress={() => copy(data.value)}>
       <Text className={"px-4 py-1 text-3xl border rounded mb-1" + className}>

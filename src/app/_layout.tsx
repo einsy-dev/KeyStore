@@ -1,4 +1,5 @@
-import { Modal } from "@/components/widgets/Modal";
+import { AppModal } from "@/components/widgets/AppModal";
+import { ContextMenu } from "@/components/widgets/ContextMenu";
 import store from "@/lib/store";
 import {
   DarkTheme,
@@ -29,7 +30,8 @@ export default function Layout() {
                 options={{ headerShown: false }}
               />
             </Stack>
-            <Modal />
+            <ContextMenu />
+            <AppModal />
           </SafeAreaView>
         </Provider>
       </SafeAreaProvider>
