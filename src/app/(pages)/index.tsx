@@ -16,7 +16,8 @@ export default function App() {
           setModal({
             active: true,
             data: { name: "" },
-            onSubmit: (newIntro) => dispatch(createIntro(newIntro))
+            onSubmit: (newIntro) =>
+              dispatch(createIntro({ ...newIntro, keys: [] }))
           })
         );
       }
@@ -30,7 +31,7 @@ export default function App() {
     >
       <ScrollView className="p-4">
         {data.map((el: any, index: number) => (
-          <Intro key={index} data={{ ...el, keys: [] }} />
+          <Intro key={index} data={el} />
         ))}
       </ScrollView>
     </Pressable>

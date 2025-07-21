@@ -23,25 +23,53 @@ export const dataSlice = createSlice({
     },
     deleteIntro: (
       state: { data: DataI[] },
-      { payload }: { payload: DataI }
+      { payload }: { payload: { id: number } }
     ) => {
       console.log("delete");
-      state.data.splice(state.data.indexOf(payload), 1);
+      state.data.splice(
+        state.data.indexOf(state.data.find((el) => el.id! === payload.id)!),
+        1
+      );
       storage.set("data", state.data);
     },
 
     createKey: (
       state: { data: DataI[] },
-      { payload }: { payload: { data: DataI; key: KeyI } }
-    ) => {},
+      { payload }: { payload: { introId: number; key: KeyI } }
+    ) => {
+      console.log("createKey");
+      const intro = state.data.find((el) => el.id! === payload.introId);
+      if (!intro) return;
+      if (!Array.isArray(intro.keys)) intro.keys = [];
+      intro.keys.push({ id: intro.keys.length, ...payload.key });
+      storage.set("data", state.data);
+    },
     updateKey: (
       state: { data: DataI[] },
-      { payload }: { payload: { data: DataI; key: KeyI } }
-    ) => {},
+      {
+        payload
+      }: { payload: { introId: number; keyId: number; keyData: KeyI } }
+    ) => {
+      const intro = state.data.find((el) => el.id! === payload.introId);
+      if (!intro) return;
+      const key = intro.keys.find((key) => key.id === payload.keyId);
+      if (!key) return;
+      key.name = payload.keyData.name;
+      key.value = payload.keyData.value;
+      storage.set("data", state.data);
+    },
     deleteKey: (
       state: { data: DataI[] },
-      { payload }: { payload: { data: DataI; key: KeyI } }
-    ) => {}
+      { payload }: { payload: { introId: number; keyId: number } }
+    ) => {
+      const intro = state.data.find((el) => el.id! === payload.introId);
+      if (!intro) return;
+      intro.keys.splice(
+        intro.keys.indexOf(intro.keys.find((key) => key.id === payload.keyId)!),
+        1
+      );
+      storage.set("data", state.data);
+    }
   }
 });
 

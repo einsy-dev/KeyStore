@@ -1,22 +1,56 @@
+import { deleteKey, updateKey } from "@/lib/store/data";
+import { setContextMenu, setModal } from "@/lib/store/modal";
 import * as Clipboard from "expo-clipboard";
-import { Text, TouchableOpacity } from "react-native";
+import { Pressable, Text } from "react-native";
+import { useDispatch } from "react-redux";
 
 export function Item({
-  data,
+  introId,
+  introKey,
   className = ""
 }: {
-  data: KeyI;
+  introId: number;
+  introKey: KeyI;
   className?: string;
 }) {
-  async function copy(text: string) {
-    await Clipboard.setStringAsync(text);
-  }
-  console.log("key", data);
+  const dispatch = useDispatch();
+  const menu: ContextMenuItemI[] = [
+    {
+      name: "Edit",
+      callback: () => {
+        dispatch(
+          setModal({
+            active: true,
+            data: { name: introKey.name, value: introKey.value },
+            onSubmit: (newKey) => {
+              dispatch(
+                updateKey({ introId, keyId: introKey.id!, keyData: newKey })
+              );
+            }
+          })
+        );
+      }
+    },
+    {
+      name: "Delete",
+      callback: () => {
+        dispatch(deleteKey({ introId, keyId: introKey.id! }));
+      }
+    }
+  ];
+
   return (
-    <TouchableOpacity onPress={() => copy(data.value)}>
+    <Pressable
+      onPress={() => copy(introKey.value)}
+      onLongPress={() => dispatch(setContextMenu({ active: true, menu }))}
+    >
       <Text className={"px-4 py-1 text-3xl border rounded mb-1" + className}>
-        {data.name}
+        {introKey.name}
       </Text>
-    </TouchableOpacity>
+    </Pressable>
   );
+}
+
+async function copy(text: string) {
+  await Clipboard.setStringAsync(text);
 }

@@ -18,8 +18,8 @@ export function Intro({ data }: { data: DataI }) {
           setModal({
             active: true,
             data: { name: "", value: "" },
-            onSubmit: (newData) => {
-              dispatch(createKey(newData));
+            onSubmit: (key) => {
+              dispatch(createKey({ introId: data.id!, key }));
             }
           })
         );
@@ -42,7 +42,7 @@ export function Intro({ data }: { data: DataI }) {
     {
       name: "Delete",
       callback: () => {
-        dispatch(deleteIntro(data));
+        dispatch(deleteIntro({ id: data.id! }));
       }
     }
   ];
@@ -60,7 +60,7 @@ export function Intro({ data }: { data: DataI }) {
       </TouchableOpacity>
       <View className={`flex-1 ms-4 mt-1 ${active ? "" : "hidden"}`}>
         {data.keys.map((key: any) => (
-          <Item key={key.id} data={key} />
+          <Item key={key.id} introId={data.id!} introKey={key} />
         ))}
       </View>
     </View>
