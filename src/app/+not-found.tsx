@@ -1,8 +1,8 @@
-import { Text, View } from "react-native";
+import { Text, View } from "@/shared";
 
 export default function NotFound() {
   return (
-    <View className="bg-red-200">
+    <View>
       <Text>Not found</Text>
     </View>
   );

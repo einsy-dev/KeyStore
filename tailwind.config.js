@@ -6,7 +6,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        transparent: "rgba(0,0,0,0.5)"
+        "v-black": "hsl(0, 0%, 10%)",
+        "v-dark": "hsl(0, 0%, 15%)",
+        "v-light": "hsl(0, 0%, 100%)",
+        "v-red": "hsl(358, 77%, 46%)",
+        "v-50": "rgba(0, 0, 0, 0.5)",
       }
     },
   },

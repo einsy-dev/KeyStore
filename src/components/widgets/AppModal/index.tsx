@@ -1,7 +1,8 @@
 import { selectModal, setModal } from "@/lib/store/modal";
+import { Text, View } from "@/shared";
 import { capitalize } from "@/utils/capitalize";
 import { useEffect, useState } from "react";
-import { Modal, Pressable, Text, TextInput, View } from "react-native";
+import { Modal, Pressable, TextInput, TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 export function AppModal() {
@@ -21,33 +22,31 @@ export function AppModal() {
     >
       <Pressable
         onPress={() => dispatch(setModal({ active: false }))}
-        className="flex-1 justify-center p-4"
+        className="flex-1 justify-center p-4 bg-v-50"
       >
         <Pressable
           onPress={(e) => e.stopPropagation()}
-          className="h-1/2 p-4 bg-white border rounded-lg overflow-hidden justify-between"
+          className="h-1/2 p-4 border rounded-2xl overflow-hidden justify-between modal"
         >
-          <Text className="text-center text-2xl">REPLACE</Text>
-          <View>
+          <View className="flex-1 justify-center">
             {Object.keys(value).map((key) => (
-              <View key={key} className="gap-2  p-2">
-                <Text className="text-2xl">{capitalize(key)}</Text>
+              <View key={key} className="gap-2 bg-p p-2">
+                <Text className="text-2xl modal_t">{capitalize(key)}</Text>
                 <TextInput
                   value={value[key as keyof DataI].toString()}
                   onChangeText={(text) =>
                     setValue((prev: any) => ({ ...prev, [key]: text }))
                   }
-                  className="border px-4 rounded text-xl"
+                  className="border px-4 rounded-2xl text-2xl modal_t modal_ti"
                 />
               </View>
             ))}
           </View>
-          <Pressable
-            onPress={() => modal.onSubmit!(value)}
-            className="bg-red-400  px-4 py-2 items-center rounded-full"
-          >
-            <Text className="text-2xl">Submit</Text>
-          </Pressable>
+          <TouchableOpacity onPress={() => modal.onSubmit!(value)}>
+            <Text className="text-2xl modal_btn text-center rounded-2xl py-2">
+              Submit
+            </Text>
+          </TouchableOpacity>
         </Pressable>
       </Pressable>
     </Modal>

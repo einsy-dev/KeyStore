@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 export default function App() {
   const data = useSelector(selectData);
   const dispatch = useDispatch();
-
   const menu = [
     {
       name: "New Intro",
@@ -26,8 +25,8 @@ export default function App() {
 
   return (
     <Pressable
-      onLongPress={(e) => dispatch(setContextMenu({ active: true, menu }))}
-      className="flex-1"
+      onLongPress={() => dispatch(setContextMenu({ active: true, menu }))}
+      className="app flex-1"
     >
       <ScrollView className="p-4">
         {data.map((el: any, index: number) => (

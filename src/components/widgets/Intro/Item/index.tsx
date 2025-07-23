@@ -1,7 +1,10 @@
 import { deleteKey, updateKey } from "@/lib/store/data";
 import { setContextMenu, setModal } from "@/lib/store/modal";
+import { Text, View } from "@/shared";
 import * as Clipboard from "expo-clipboard";
-import { Pressable, Text } from "react-native";
+import { Clipboard as Copy } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
+import { TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 
 export function Item({
@@ -14,6 +17,8 @@ export function Item({
   className?: string;
 }) {
   const dispatch = useDispatch();
+  const { colorScheme } = useColorScheme();
+
   const menu: ContextMenuItemI[] = [
     {
       name: "Edit",
@@ -40,14 +45,15 @@ export function Item({
   ];
 
   return (
-    <Pressable
+    <TouchableOpacity
       onPress={() => copy(introKey.value)}
       onLongPress={() => dispatch(setContextMenu({ active: true, menu }))}
     >
-      <Text className={"px-4 py-1 text-3xl border rounded mb-1" + className}>
-        {introKey.name}
-      </Text>
-    </Pressable>
+      <View className="intro_item_v flex flex-row justify-between items-center px-8 py-2 mb-1 rounded-2xl">
+        <Text className="intro_item_t text-3xl">{introKey.name}</Text>
+        <Copy color={colorScheme === "light" ? "black" : "white"} />
+      </View>
+    </TouchableOpacity>
   );
 }
 

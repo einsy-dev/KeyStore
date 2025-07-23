@@ -1,5 +1,6 @@
 import { selectContextMenu, setContextMenu } from "@/lib/store/modal";
-import { Modal, Pressable, Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "@/shared";
+import { Modal, Pressable, TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 export function ContextMenu() {
@@ -19,7 +20,7 @@ export function ContextMenu() {
           dispatch(setContextMenu({ active: false }));
         }}
       >
-        <View className=" m-2 mt-auto border-2 rounded-2xl overflow-hidden p-4 bg-white">
+        <View className="m-2 mt-auto rounded-2xl overflow-hidden p-4 context_menu_v">
           {modal.menu?.map((el: any) => (
             <TouchableOpacity
               key={el.name}
@@ -28,7 +29,7 @@ export function ContextMenu() {
                 dispatch(setContextMenu({ active: false }));
               }}
             >
-              <Text className="text-2xl px-4 py-1">{el.name}</Text>
+              <Text className="text-2xl px-4 py-1 context_menu_t">{el.name}</Text>
             </TouchableOpacity>
           ))}
         </View>

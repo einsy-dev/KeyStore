@@ -1,3 +1,50 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer components {
+	.app {
+		@apply bg-v-light dark:bg-v-black;
+	}
+
+	.intro_t {
+		@apply border-2 dark:border-0 dark:bg-v-dark dark:text-v-light;
+	}
+
+	.intro_item_v {
+		@apply border-2 dark:border-0 dark:bg-v-dark;
+	}
+
+	.intro_item_t {
+		@apply dark:bg-v-dark dark:text-v-light;
+	}
+
+	.context_menu_v {
+		@apply border-2 dark:border-0 dark:bg-v-dark
+	}
+
+	.context_menu_t {
+		@apply dark:text-v-light
+	}
+
+	.modal {
+		@apply border dark:border-0 bg-white dark:bg-v-dark
+	}
+
+	.modal_v {
+		@apply dark:bg-v-dark
+	}
+
+	.modal_t {
+		@apply dark:text-v-light
+	}
+
+	.modal_ti {
+		@apply dark:border-v-light
+	}
+
+	.modal_btn {
+		@apply dark:border-white border dark:bg-v-dark
+	}
+}
