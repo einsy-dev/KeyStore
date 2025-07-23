@@ -26,9 +26,9 @@ export function AppModal() {
       >
         <Pressable
           onPress={(e) => e.stopPropagation()}
-          className="h-1/2 p-4 border rounded-2xl overflow-hidden justify-between modal"
+          className="p-4 border rounded-2xl overflow-hidden justify-between modal"
         >
-          <View className="flex-1 justify-center">
+          <View className="mb-4 justify-center">
             {Object.keys(value).map((key) => (
               <View key={key} className="gap-2 bg-p p-2">
                 <Text className="text-2xl modal_t">{capitalize(key)}</Text>
@@ -37,7 +37,7 @@ export function AppModal() {
                   onChangeText={(text) =>
                     setValue((prev: any) => ({ ...prev, [key]: text }))
                   }
-                  className="border px-4 rounded-2xl text-2xl modal_t modal_ti"
+                  className="border px-4 rounded-2xl text-2xl modal_ti"
                 />
               </View>
             ))}

@@ -41,10 +41,10 @@
 	}
 
 	.modal_ti {
-		@apply dark:border-v-light
+		@apply dark:border-v-light dark:text-v-light
 	}
 
 	.modal_btn {
-		@apply dark:border-white border dark:bg-v-dark
+		@apply dark:border-white border dark:bg-v-dark dark:text-v-light
 	}
 }
