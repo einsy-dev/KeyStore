@@ -9,7 +9,6 @@ export const dataSlice = createSlice({
       state: { data: DataI[] },
       { payload }: { payload: DataI }
     ) => {
-      console.log("create");
       state.data.push({ id: state.data.length, ...payload });
       storage.set("data", state.data);
     },
@@ -17,7 +16,6 @@ export const dataSlice = createSlice({
       state: { data: DataI[] },
       { payload }: { payload: { id: number; name: string } }
     ) => {
-      console.log("update");
       state.data.find((el) => el.id! === payload.id)!.name = payload.name;
       storage.set("data", state.data);
     },
@@ -25,7 +23,6 @@ export const dataSlice = createSlice({
       state: { data: DataI[] },
       { payload }: { payload: { id: number } }
     ) => {
-      console.log("delete");
       state.data.splice(
         state.data.indexOf(state.data.find((el) => el.id! === payload.id)!),
         1
@@ -37,7 +34,6 @@ export const dataSlice = createSlice({
       state: { data: DataI[] },
       { payload }: { payload: { introId: number; key: KeyI } }
     ) => {
-      console.log("createKey");
       const intro = state.data.find((el) => el.id! === payload.introId);
       if (!intro) return;
       if (!Array.isArray(intro.keys)) intro.keys = [];

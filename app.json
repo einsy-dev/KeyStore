@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ReactNative",
-    "slug": "ReactNative",
+    "name": "PasswordStorage",
+    "slug": "PasswordStorage",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/images/icon.png",
@@ -17,7 +17,7 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.einsy.ReactNative"
+      "package": "com.einsy.PasswordStorage"
     },
     "web": {
       "bundler": "metro",
@@ -49,7 +49,7 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "720e02a7-dc87-4698-9a54-aafe065e22f1"
+        "projectId": "f5851a52-06ff-467e-9942-d7619abf26df"
       }
     }
   }
