@@ -54,7 +54,7 @@ export function Intro({ data }: { data: DataI }) {
         onPress={() => setActive((prev) => !prev)}
         onLongPress={() => dispatch(setContextMenu({ active: true, menu }))}
       >
-        <Text className="intro_t px-6 py-4 text-4xl rounded-2xl">{data.name}</Text>
+        <Text className="intro_t px-6 py-4 text-3xl rounded-2xl">{data.name}</Text>
       </TouchableOpacity>
       <View className={`ms-5 mt-1 ${active ? "" : "hidden"}`}>
         {data.keys.map((key: any) => (
