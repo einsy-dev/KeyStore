@@ -19,11 +19,6 @@
       "edgeToEdgeEnabled": true,
       "package": "com.einsy.PasswordStorage"
     },
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./src/assets/images/favicon.png"
-    },
     "plugins": [
       "expo-router",
       [
