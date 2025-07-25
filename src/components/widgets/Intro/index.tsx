@@ -60,7 +60,7 @@ export function Intro({ data }: { data: DataI }) {
         onLongPress={() => dispatch(setContextMenu({ active: true, menu }))}
       >
         <View className="intro_v px-6 py-4 rounded-2xl flex-row justify-between items-center">
-          <Text className="intro_t text-3xl">{data.name}</Text>
+          <Text className="intro_t text-3xl w-80">{data.name}</Text>
           <Arrow color={colorScheme === "light" ? "black" : "white"} />
         </View>
       </TouchableOpacity>

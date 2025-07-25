@@ -56,12 +56,14 @@ export function Item({
         setTimeout(() => {
           setCopyState(false);
         }, 3500);
-        dispatch(setPopup({ active: true, message: "Value coppied" }));
+        dispatch(
+          setPopup({ active: true, message: `"${introKey.name}" copied` })
+        );
       }}
       onLongPress={() => dispatch(setContextMenu({ active: true, menu }))}
     >
-      <View className="intro_item_v flex flex-row justify-between items-center px-8 py-2 mb-1 rounded-2xl">
-        <Text className="intro_item_t text-3xl">{introKey.name}</Text>
+      <View className="intro_item_v flex flex-row justify-between items-center px-6 py-2 mb-1 rounded-2xl">
+        <Text className="intro_item_t text-3xl w-80">{introKey.name}</Text>
         <Icon color={colorScheme === "light" ? "black" : "white"} />
       </View>
     </TouchableOpacity>

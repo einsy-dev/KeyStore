@@ -19,8 +19,8 @@ export function Popup() {
 
   if (popup.active) {
     return (
-      <View className="popup_v flex-row  absolute top-5 left-1/2 -translate-x-[50%]  rounded-2xl py-2  justify-around items-center w-[65%]">
-        <Text className="popup_t text-2xl">{popup.message}</Text>
+      <View className="popup_v flex-row  absolute top-5 left-1/2 -translate-x-[50%]  rounded-2xl p-2 justify-around items-center w-80">
+        <Text className="popup_t text-2xl max-w-[80%]">{popup.message}</Text>
         <ClipboardCheck
           size={32}
           color={colorScheme === "light" ? "black" : "white"}
