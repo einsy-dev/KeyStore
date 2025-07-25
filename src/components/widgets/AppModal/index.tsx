@@ -33,7 +33,7 @@ export function AppModal() {
       >
         <Pressable
           onPress={(e) => e.stopPropagation()}
-          className="p-4 border rounded-2xl overflow-hidden justify-between modal"
+          className="p-4 border rounded-3xl overflow-hidden justify-between modal"
         >
           <View className="mb-4 justify-center">
             {Object.keys(value).map((key) => (
@@ -44,7 +44,7 @@ export function AppModal() {
                   onChangeText={(text) =>
                     setValue((prev: any) => ({ ...prev, [key]: text }))
                   }
-                  className="border px-4 rounded-2xl text-2xl modal_ti"
+                  className="border px-4 py-2 rounded-2xl text-2xl  modal_ti"
                 />
               </View>
             ))}
@@ -60,7 +60,7 @@ export function AppModal() {
               );
             }}
           >
-            <Text className="text-2xl modal_btn text-center rounded-2xl py-2">
+            <Text className="text-2xl modal_btn text-center rounded-2xl ios:py-2">
               Submit
             </Text>
           </TouchableOpacity>

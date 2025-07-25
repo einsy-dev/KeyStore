@@ -59,7 +59,7 @@ export function Intro({ data }: { data: DataI }) {
         onPress={() => setActive((prev) => !prev)}
         onLongPress={() => dispatch(setContextMenu({ active: true, menu }))}
       >
-        <View className="intro_v px-6 py-4 rounded-2xl flex-row justify-between items-center">
+        <View className="intro_v px-6 py-4 rounded-3xl flex-row justify-between items-center">
           <Text className="intro_t text-3xl w-80">{data.name}</Text>
           <Arrow color={colorScheme === "light" ? "black" : "white"} />
         </View>

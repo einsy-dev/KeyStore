@@ -53,7 +53,7 @@
 	}
 
 	.popup_v {
-		@apply dark:border-v-red border dark:bg-black dark:text-v-light
+		@apply dark:border-v-red border bg-v-light dark:bg-black dark:text-v-light
 	}
 
 	.popup_t {

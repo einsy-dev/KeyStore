@@ -62,7 +62,7 @@ export function Item({
       }}
       onLongPress={() => dispatch(setContextMenu({ active: true, menu }))}
     >
-      <View className="intro_item_v flex flex-row justify-between items-center px-6 py-2 mb-1 rounded-2xl">
+      <View className="intro_item_v flex flex-row justify-between items-center px-6 py-3 mb-1 rounded-3xl">
         <Text className="intro_item_t text-3xl w-80">{introKey.name}</Text>
         <Icon color={colorScheme === "light" ? "black" : "white"} />
       </View>
