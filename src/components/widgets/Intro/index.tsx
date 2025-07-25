@@ -64,11 +64,13 @@ export function Intro({ data }: { data: DataI }) {
           <Arrow color={colorScheme === "light" ? "black" : "white"} />
         </View>
       </TouchableOpacity>
-      <View className={`ms-5 mt-1 ${active ? "" : "hidden"}`}>
-        {data.keys.map((key: any) => (
-          <Item key={key.id} introId={data.id!} introKey={key} />
-        ))}
-      </View>
+      {data.keys.length ? (
+        <View className={`ms-5 mt-1 ${active ? "" : "hidden"}`}>
+          {data.keys.map((key: any) => (
+            <Item key={key.id} introId={data.id!} introKey={key} />
+          ))}
+        </View>
+      ) : null}
     </View>
   );
 }
