@@ -4,7 +4,7 @@ import { Text, View } from "@/shared";
 import { ChevronDown, ChevronUp, GripVertical } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 import { useState } from "react";
-import { Pressable, TouchableOpacity } from "react-native";
+import { Pressable } from "react-native";
 import { useDispatch } from "react-redux";
 import { Item } from "./Item";
 
@@ -55,7 +55,7 @@ export function Intro({ data }: { data: DataI }) {
 
   return (
     <View className="my-1 flex-1">
-      <TouchableOpacity
+      <Pressable
         onPress={() => setActive((prev) => !prev)}
         onLongPress={() => dispatch(setContextMenu({ active: true, menu }))}
       >
@@ -74,7 +74,7 @@ export function Intro({ data }: { data: DataI }) {
           <Text className="intro_t text-3xl w-80 py-4">{data.name}</Text>
           <Arrow color={colorScheme === "light" ? "black" : "white"} />
         </View>
-      </TouchableOpacity>
+      </Pressable>
       {data.keys.length ? (
         <View className={`ms-5 mt-1 ${active ? "" : "hidden"}`}>
           {data.keys.map((key: any) => (
