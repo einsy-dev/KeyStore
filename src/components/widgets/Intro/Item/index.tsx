@@ -3,23 +3,25 @@ import { setContextMenu, setModal } from "@/lib/store/modal";
 import { setPopup } from "@/lib/store/popup";
 import { Text, View } from "@/shared";
 import * as Clipboard from "expo-clipboard";
-import { Clipboard as Copy } from "lucide-react-native";
+import { ClipboardCheck, Clipboard as Copy } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
+import { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 
 export function Item({
   introId,
-  introKey,
-  className = ""
+  introKey
 }: {
   introId: number;
   introKey: KeyI;
-  className?: string;
 }) {
+  const [copyState, setCopyState] = useState(false);
   const dispatch = useDispatch();
-  const { colorScheme } = useColorScheme();
 
+  const Icon = copyState ? ClipboardCheck : Copy;
+
+  const { colorScheme } = useColorScheme();
   const menu: ContextMenuItemI[] = [
     {
       name: "Edit",
@@ -50,13 +52,17 @@ export function Item({
     <TouchableOpacity
       onPress={() => {
         copy(introKey.value);
+        setCopyState(true);
+        setTimeout(() => {
+          setCopyState(false);
+        }, 3500);
         dispatch(setPopup({ active: true, message: "Value coppied" }));
       }}
       onLongPress={() => dispatch(setContextMenu({ active: true, menu }))}
     >
       <View className="intro_item_v flex flex-row justify-between items-center px-8 py-2 mb-1 rounded-2xl">
         <Text className="intro_item_t text-3xl">{introKey.name}</Text>
-        <Copy color={colorScheme === "light" ? "black" : "white"} />
+        <Icon color={colorScheme === "light" ? "black" : "white"} />
       </View>
     </TouchableOpacity>
   );

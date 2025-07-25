@@ -13,15 +13,18 @@ export function Popup() {
     if (popup.active) {
       setTimeout(() => {
         dispatch(setPopup({ active: false }));
-      }, 3000);
+      }, 3500);
     }
   }, [popup, dispatch]);
 
   if (popup.active) {
     return (
-      <View className="popup_v flex-row gap-4 absolute top-5 left-1/2 -translate-x-[50%]  rounded-full py-2 px-10 justify-between items-center w-[60%]">
-        <Text className="popup_t ">{popup.message}</Text>
-        <ClipboardCheck color={colorScheme === "light" ? "black" : "white"} />
+      <View className="popup_v flex-row  absolute top-5 left-1/2 -translate-x-[50%]  rounded-2xl py-2  justify-around items-center w-[65%]">
+        <Text className="popup_t text-2xl">{popup.message}</Text>
+        <ClipboardCheck
+          size={32}
+          color={colorScheme === "light" ? "black" : "white"}
+        />
       </View>
     );
   }
