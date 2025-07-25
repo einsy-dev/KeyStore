@@ -1,10 +1,10 @@
 import { createKey, deleteIntro, updateIntro } from "@/lib/store/data";
 import { setContextMenu, setModal } from "@/lib/store/modal";
 import { Text, View } from "@/shared";
-import { ChevronDown, ChevronUp } from "lucide-react-native";
+import { ChevronDown, ChevronUp, GripVertical } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 import { useState } from "react";
-import { TouchableOpacity } from "react-native";
+import { Pressable, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 import { Item } from "./Item";
 
@@ -59,8 +59,19 @@ export function Intro({ data }: { data: DataI }) {
         onPress={() => setActive((prev) => !prev)}
         onLongPress={() => dispatch(setContextMenu({ active: true, menu }))}
       >
-        <View className="intro_v px-6 py-4 rounded-3xl flex-row justify-between items-center">
-          <Text className="intro_t text-3xl w-80">{data.name}</Text>
+        <View className="intro_v pe-6 rounded-3xl overflow-hidden flex-row justify-between items-center">
+          <Pressable
+            onLongPress={() => {
+              console.log("press");
+            }}
+          >
+            <View className="px-2 py-4 items-center justify-center">
+              <GripVertical
+                color={colorScheme === "light" ? "black" : "white"}
+              />
+            </View>
+          </Pressable>
+          <Text className="intro_t text-3xl w-80 py-4">{data.name}</Text>
           <Arrow color={colorScheme === "light" ? "black" : "white"} />
         </View>
       </TouchableOpacity>

@@ -60,7 +60,7 @@ export function AppModal() {
               );
             }}
           >
-            <Text className="text-2xl modal_btn text-center rounded-2xl ios:py-2">
+            <Text className="text-2xl modal_btn text-center rounded-2xl py-2">
               Submit
             </Text>
           </TouchableOpacity>
