@@ -1,5 +1,6 @@
 import { deleteKey, updateKey } from "@/lib/store/data";
 import { setContextMenu, setModal } from "@/lib/store/modal";
+import { setPopup } from "@/lib/store/popup";
 import { Text, View } from "@/shared";
 import * as Clipboard from "expo-clipboard";
 import { Clipboard as Copy } from "lucide-react-native";
@@ -47,7 +48,10 @@ export function Item({
 
   return (
     <TouchableOpacity
-      onPress={() => copy(introKey.value)}
+      onPress={() => {
+        copy(introKey.value);
+        dispatch(setPopup({ active: true, message: "Value coppied" }));
+      }}
       onLongPress={() => dispatch(setContextMenu({ active: true, menu }))}
     >
       <View className="intro_item_v flex flex-row justify-between items-center px-8 py-2 mb-1 rounded-2xl">

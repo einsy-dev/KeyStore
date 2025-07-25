@@ -8,8 +8,12 @@
 		@apply bg-v-light dark:bg-v-black;
 	}
 
-	.intro_t {
+	.intro_v {
 		@apply border-2 dark:border-v-red dark:bg-v-dark dark:text-v-light;
+	}
+
+	.intro_t {
+		@apply dark:text-v-light;
 	}
 
 	.intro_item_v {
@@ -46,5 +50,13 @@
 
 	.modal_btn {
 		@apply dark:border-v-red border dark:bg-black dark:text-v-light
+	}
+
+	.popup_v {
+		@apply dark:border-v-red border dark:bg-black dark:text-v-light
+	}
+
+	.popup_t {
+		@apply dark:text-v-light
 	}
 }

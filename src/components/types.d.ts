@@ -25,3 +25,8 @@ interface ModalI {
 	onSubmit?: (data: any) => void
 	data?: any
 }
+
+interface PopupI {
+  active: boolean;
+  message?: string;
+}

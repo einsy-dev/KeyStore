@@ -23,6 +23,8 @@ export function AppModal() {
     <Modal
       transparent
       onRequestClose={() => dispatch(setModal({ active: false }))}
+      navigationBarTranslucent
+      statusBarTranslucent
       visible={modal.active}
     >
       <Pressable
