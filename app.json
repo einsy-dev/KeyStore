@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Key Store",
-    "slug": "Key Store",
+    "slug": "key-store",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/images/icon.png",
@@ -44,7 +44,7 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "f5851a52-06ff-467e-9942-d7619abf26df"
+        "projectId": "7e7d5119-a6b0-4865-879b-3e9c6d399ada"
       }
     }
   }
