@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const defaulContextMenu: ContextMenuI = { active: false, menu: [] };
-const defaultModal: ModalI = { active: false, data: {} };
+const defaultModal: ModalI = { active: false, data: {}, required: {} };
 
 export const contextMenuSlice = createSlice({
   name: "modal",
   initialState: {
     contextMenu: { active: false, menu: null },
-    modal: { active: false, data: {} }
+    modal: { active: false, data: {}, required: {} }
   },
   reducers: {
     setContextMenu: (state, { payload }: { payload: ContextMenuI }) => {

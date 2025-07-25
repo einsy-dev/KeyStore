@@ -23,6 +23,7 @@ export function Intro({ data }: { data: DataI }) {
           setModal({
             active: true,
             data: { name: "", value: "" },
+            required: { name: true, value: true },
             onSubmit: (key) => {
               dispatch(createKey({ introId: data.id!, key }));
             }
@@ -37,6 +38,7 @@ export function Intro({ data }: { data: DataI }) {
           setModal({
             active: true,
             data: { name: data.name },
+            required: { name: true },
             onSubmit: (newData) => {
               dispatch(updateIntro({ id: data.id!, name: newData.name }));
               dispatch(setModal({ active: false }));
@@ -71,7 +73,9 @@ export function Intro({ data }: { data: DataI }) {
               />
             </View>
           </Pressable>
-          <Text className="intro_t text-3xl w-80 py-4">{data.name}</Text>
+          <Text className="intro_t text-3xl w-80 py-4" numberOfLines={1}>
+            {data.name}
+          </Text>
           <Arrow color={colorScheme === "light" ? "black" : "white"} />
         </View>
       </Pressable>

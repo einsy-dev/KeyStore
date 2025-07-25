@@ -14,10 +14,25 @@ export function AppModal() {
   const dispatch = useDispatch();
 
   const [value, setValue] = useState<ValueI>(modal.data || {});
+  const [err, setErr] = useState<string>("");
 
   useEffect(() => {
-    setValue(modal.data);
+    if (modal.data) setValue(modal.data);
+    setErr("");
   }, [modal]);
+
+  function handleSubmit() {
+    if (!validate(value, modal.required)) return setErr("Fill the form");
+
+    modal.onSubmit!(value);
+
+    setValue(
+      Object.keys(value).reduce((acc, val) => {
+        acc[val] = "";
+        return acc;
+      }, {} as ValueI)
+    );
+  }
 
   return (
     <Modal
@@ -48,18 +63,9 @@ export function AppModal() {
                 />
               </View>
             ))}
+            <Text className="text-v-red">{err}</Text>
           </View>
-          <TouchableOpacity
-            onPress={() => {
-              modal.onSubmit!(value);
-              setValue(
-                Object.keys(value).reduce((acc, val) => {
-                  acc[val] = "";
-                  return acc;
-                }, {} as ValueI)
-              );
-            }}
-          >
+          <TouchableOpacity onPress={handleSubmit}>
             <Text className="text-2xl modal_btn text-center rounded-2xl py-2">
               Submit
             </Text>
@@ -68,4 +74,17 @@ export function AppModal() {
       </Pressable>
     </Modal>
   );
+}
+
+function validate(
+  data: { [key: string]: string },
+  required?: { [key: string]: boolean }
+) {
+  let res = true;
+  Object.keys(data).forEach((key) => {
+    if (!data[key] && (!required || required[key] === true))
+      return (res = false);
+  });
+  console.log(res);
+  return res;
 }

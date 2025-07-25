@@ -15,6 +15,7 @@ export default function App() {
           setModal({
             active: true,
             data: { name: "" },
+            required: { name: true },
             onSubmit: (newIntro) =>
               dispatch(createIntro({ ...newIntro, keys: [] }))
           })

@@ -57,13 +57,19 @@ export function Item({
           setCopyState(false);
         }, 3500);
         dispatch(
-          setPopup({ active: true, message: `"${introKey.name}" copied` })
+          setPopup({
+            active: true,
+            message: "Copied to clipboard.",
+            icon: ClipboardCheck
+          })
         );
       }}
       onLongPress={() => dispatch(setContextMenu({ active: true, menu }))}
     >
       <View className="intro_item_v flex flex-row justify-between items-center px-6 py-3 mb-1 rounded-3xl">
-        <Text className="intro_item_t text-3xl w-80">{introKey.name}</Text>
+        <Text className="intro_item_t text-3xl w-80" numberOfLines={1}>
+          {introKey.name}
+        </Text>
         <Icon color={colorScheme === "light" ? "black" : "white"} />
       </View>
     </TouchableOpacity>

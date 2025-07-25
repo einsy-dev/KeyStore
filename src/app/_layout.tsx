@@ -1,4 +1,5 @@
 import { AppModal } from "@/components/widgets/AppModal";
+import { ConfirmModal } from "@/components/widgets/ConfirmModal";
 import { ContextMenu } from "@/components/widgets/ContextMenu";
 import { Popup } from "@/components/widgets/Popup";
 import store from "@/lib/store";
@@ -24,6 +25,7 @@ export default function Layout() {
             />
             <Stack.Screen name="+not-found" options={{ headerShown: false }} />
           </Stack>
+          <ConfirmModal />
           <ContextMenu />
           <AppModal />
           <Popup />

@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { ReactNode } from "react";
 
-const defaultModal: PopupI = { active: false, message: "" };
+const defaultModal: PopupI = { active: false, message: "", icon: null };
 
 export const popup = createSlice({
   name: "popup",
   initialState: {
-    popup: { active: false, message: "" }
+    popup: { active: false, message: "", icon: null as ReactNode }
   },
   reducers: {
     setPopup: (state, { payload }: { payload: PopupI }) => {
