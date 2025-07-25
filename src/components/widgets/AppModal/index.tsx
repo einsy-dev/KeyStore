@@ -5,10 +5,15 @@ import { useEffect, useState } from "react";
 import { Modal, Pressable, TextInput, TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
+interface ValueI {
+  [key: string]: string;
+}
+
 export function AppModal() {
   const modal: ModalI = useSelector(selectModal);
-  const [value, setValue] = useState<{ [key: string]: string }>({});
   const dispatch = useDispatch();
+
+  const [value, setValue] = useState<ValueI>(modal.data || {});
 
   useEffect(() => {
     setValue(modal.data);
@@ -42,7 +47,17 @@ export function AppModal() {
               </View>
             ))}
           </View>
-          <TouchableOpacity onPress={() => modal.onSubmit!(value)}>
+          <TouchableOpacity
+            onPress={() => {
+              modal.onSubmit!(value);
+              setValue(
+                Object.keys(value).reduce((acc, val) => {
+                  acc[val] = "";
+                  return acc;
+                }, {} as ValueI)
+              );
+            }}
+          >
             <Text className="text-2xl modal_btn text-center rounded-2xl py-2">
               Submit
             </Text>

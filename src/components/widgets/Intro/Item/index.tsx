@@ -31,6 +31,7 @@ export function Item({
               dispatch(
                 updateKey({ introId, keyId: introKey.id!, keyData: newKey })
               );
+              dispatch(setModal({ active: false }));
             }
           })
         );
