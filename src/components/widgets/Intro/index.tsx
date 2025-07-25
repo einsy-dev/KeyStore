@@ -1,3 +1,4 @@
+import { setConfirmModal } from "@/lib/store/confirmModal";
 import { createKey, deleteIntro, updateIntro } from "@/lib/store/data";
 import { setContextMenu, setModal } from "@/lib/store/modal";
 import { Text, View } from "@/shared";
@@ -50,7 +51,24 @@ export function Intro({ data }: { data: DataI }) {
     {
       name: "Delete",
       callback: () => {
-        dispatch(deleteIntro({ id: data.id! }));
+        dispatch(
+          setConfirmModal({
+            active: true,
+            message: "Are you sure?",
+            options: [
+              {
+                text: "No",
+                onPress: () => {}
+              },
+              {
+                text: "Yes",
+                onPress: () => {
+                  dispatch(deleteIntro({ id: data.id! }));
+                }
+              }
+            ]
+          })
+        );
       }
     }
   ];

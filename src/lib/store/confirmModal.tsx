@@ -9,10 +9,10 @@ const defaultConfirmModal: ConfirmModalI = {
 export const confirmModal = createSlice({
   name: "confirmModal",
   initialState: {
-    confirmModal: { active: false, data: {}, required: {} }
+    confirmModal: { active: false, text: {}, required: {} }
   },
   reducers: {
-    setConfirmModal: (state, { payload }: { payload: ContextMenuI }) => {
+    setConfirmModal: (state, { payload }: { payload: ConfirmModalI }) => {
       state.confirmModal = { ...defaultConfirmModal, ...payload } as any;
     }
   }

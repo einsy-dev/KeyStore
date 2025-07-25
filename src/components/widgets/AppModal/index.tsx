@@ -85,6 +85,5 @@ function validate(
     if (!data[key] && (!required || required[key] === true))
       return (res = false);
   });
-  console.log(res);
   return res;
 }
