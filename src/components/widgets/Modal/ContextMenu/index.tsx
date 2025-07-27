@@ -12,7 +12,7 @@ interface ContextMenuItemI {
 
 export function ContextMenu({ menu }: ContextMenuI) {
   return (
-    <View className="bg-v-light rounded-3xl mt-auto  overflow-hidden p-4 context_menu_v">
+    <View className="rounded-3xl mt-auto  overflow-hidden p-4 context_menu_v">
       {menu?.map((el: any) => (
         <TouchableOpacity
           key={el.name}

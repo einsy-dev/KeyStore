@@ -26,9 +26,11 @@ export function Intro({ data, drag }: { data: DataI; drag: any }) {
             component: (
               <Form
                 data={{ name: "", value: "" }}
+                required={{ name: true, value: true }}
                 onSubmit={(key: any) => {
                   dispatch(createKey({ introId: data.id!, key }));
                 }}
+                clear
               />
             )
           })
@@ -44,8 +46,10 @@ export function Intro({ data, drag }: { data: DataI; drag: any }) {
             component: (
               <Form
                 data={{ name: data.name }}
+                required={{ name: true }}
                 onSubmit={(intro: any) => {
                   dispatch(updateIntro({ id: data.id!, name: intro.name }));
+                  dispatch(setModal({ active: false }));
                 }}
               />
             )
@@ -64,9 +68,7 @@ export function Intro({ data, drag }: { data: DataI; drag: any }) {
                 title="Are you sure?"
                 onSubmit={() => {
                   dispatch(deleteIntro({ id: data.id! }));
-                  dispatch(setModal({ active: false }));
                 }}
-                onReject={() => dispatch(setModal({ active: false }))}
               />
             )
           })

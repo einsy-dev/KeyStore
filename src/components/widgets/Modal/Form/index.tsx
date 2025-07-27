@@ -14,10 +14,14 @@ interface ValueI {
 
 export function Form({
   data,
-  onSubmit
+  onSubmit,
+  required,
+  clear = false
 }: {
-  data?: ValueI;
+  data: ValueI;
   onSubmit: (value: ValueI) => void;
+  required?: { [key: string]: boolean };
+  clear?: boolean;
 }) {
   const [value, setValue] = useState<ValueI>({});
   const [err, setErr] = useState<string>("");
@@ -26,6 +30,22 @@ export function Form({
     if (data) setValue(data);
     setErr("");
   }, [data]);
+
+  function handleSubmit() {
+    if (!validate(value, required)) {
+      return setErr("Please fill all fields");
+    }
+    onSubmit(value);
+    setErr("");
+    if (clear) {
+      setValue((prev) =>
+        Object.keys(prev).reduce((acc: any, el: any) => {
+          acc[el] = "";
+          return acc;
+        }, {})
+      );
+    }
+  }
 
   return (
     <Pressable
@@ -47,11 +67,23 @@ export function Form({
         ))}
         <Text className="text-v-red">{err}</Text>
       </View>
-      <TouchableOpacity onPress={() => onSubmit(value)}>
+      <TouchableOpacity onPress={handleSubmit}>
         <Text className="text-2xl modal_btn text-center rounded-2xl py-2">
           Submit
         </Text>
       </TouchableOpacity>
     </Pressable>
   );
+}
+
+function validate(
+  data: { [key: string]: string },
+  required?: { [key: string]: boolean }
+) {
+  let res = true;
+  Object.keys(data).forEach((key) => {
+    if (!data[key] && (!required || required[key] === true))
+      return (res = false);
+  });
+  return res;
 }

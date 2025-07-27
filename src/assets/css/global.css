@@ -25,7 +25,7 @@
 	}
 
 	.context_menu_v {
-		@apply border-2 dark:border-v-red dark:bg-v-dark
+		@apply border-2 dark:border-v-red bg-v-light dark:bg-v-dark
 	}
 
 	.context_menu_t {
@@ -53,7 +53,7 @@
 	}
 
 	.popup_v {
-		@apply dark:border-v-red border bg-v-light dark:bg-black dark:text-v-light
+		@apply border-2 dark:border-v-red bg-v-light dark:bg-black dark:text-v-light
 	}
 
 	.popup_t {

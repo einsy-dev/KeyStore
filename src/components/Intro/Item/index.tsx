@@ -1,6 +1,6 @@
-import { ContextMenu, CopiedPopup } from "@/components/widgets";
+import { Confirm, ContextMenu, CopiedPopup, Form } from "@/components/widgets";
 import { setModal, setPopup } from "@/lib/store/app";
-import { deleteKey } from "@/lib/store/data";
+import { deleteKey, updateKey } from "@/lib/store/data";
 import { Text, View } from "@/shared";
 import * as Clipboard from "expo-clipboard";
 import { ClipboardCheck, Clipboard as Copy } from "lucide-react-native";
@@ -28,14 +28,19 @@ export function Item({
       callback: () => {
         dispatch(
           setModal({
-            active: true
-            // data: { name: introKey.name, value: introKey.value },
-            // onSubmit: (newKey) => {
-            //   dispatch(
-            //     updateKey({ introId, keyId: introKey.id!, keyData: newKey })
-            //   );
-            //   dispatch(setModal({ active: false }));
-            // }
+            active: true,
+            component: (
+              <Form
+                data={{ name: introKey.name, value: introKey.value }}
+                required={{ name: true, value: true }}
+                onSubmit={(val: any) => {
+                  dispatch(
+                    updateKey({ introId, keyId: introKey.id!, keyData: val })
+                  );
+                  dispatch(setModal({ active: false }));
+                }}
+              />
+            )
           })
         );
       }
@@ -43,7 +48,19 @@ export function Item({
     {
       name: "Delete",
       callback: () => {
-        dispatch(deleteKey({ introId, keyId: introKey.id! }));
+        dispatch(
+          setModal({
+            active: true,
+            component: (
+              <Confirm
+                title="Are you sure?"
+                onSubmit={() => {
+                  dispatch(deleteKey({ introId, keyId: introKey.id! }));
+                }}
+              />
+            )
+          })
+        );
       }
     }
   ];
@@ -68,7 +85,8 @@ export function Item({
         dispatch(
           setModal({
             active: true,
-            component: <ContextMenu name="" menu={menu} />
+            component: <ContextMenu name="" menu={menu} />,
+            position: "bottom"
           })
         )
       }

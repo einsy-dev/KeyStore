@@ -1,4 +1,6 @@
+import { setModal } from "@/lib/store/app";
 import { Pressable, Text, View } from "react-native";
+import { useDispatch } from "react-redux";
 
 interface ConfirmI {
   title: string;
@@ -7,6 +9,7 @@ interface ConfirmI {
 }
 
 export function Confirm({ title, onSubmit, onReject = () => "" }: ConfirmI) {
+  const dispatch = useDispatch();
   return (
     <Pressable
       onPress={(e) => e.stopPropagation()}
@@ -14,12 +17,22 @@ export function Confirm({ title, onSubmit, onReject = () => "" }: ConfirmI) {
     >
       <Text className="modal_t text-2xl text-center mb-4">{title}</Text>
       <View className="flex-row justify-evenly">
-        <Pressable onPress={() => onReject()}>
+        <Pressable
+          onPress={() => {
+            onReject();
+            dispatch(setModal({ active: false }));
+          }}
+        >
           <Text className="modal_t modal_btn rounded-2xl px-10 py-2">
             Reject
           </Text>
         </Pressable>
-        <Pressable onPress={() => onSubmit()}>
+        <Pressable
+          onPress={() => {
+            onSubmit();
+            dispatch(setModal({ active: false }));
+          }}
+        >
           <Text className="modal_t modal_btn rounded-2xl px-10 py-2">
             Submit
           </Text>
