@@ -12,7 +12,7 @@ interface ContextMenuItemI {
 
 export function ContextMenu({ menu }: ContextMenuI) {
   return (
-    <View className="rounded-3xl mt-auto  overflow-hidden p-4 context_menu_v">
+    <View className="rounded-3xl mt-auto  overflow-hidden p-4 border item">
       {menu?.map((el: any) => (
         <TouchableOpacity
           key={el.name}
@@ -20,7 +20,7 @@ export function ContextMenu({ menu }: ContextMenuI) {
             el.callback();
           }}
         >
-          <Text className="text-2xl px-4 py-1 context_menu_t">{el.name}</Text>
+          <Text className="text-2xl px-4 py-1 item">{el.name}</Text>
         </TouchableOpacity>
       ))}
     </View>

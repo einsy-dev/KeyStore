@@ -50,25 +50,25 @@ export function Form({
   return (
     <Pressable
       onPress={(e) => e.stopPropagation()}
-      className="p-4 border rounded-3xl overflow-hidden justify-between modal"
+      className="p-4 border item rounded-3xl overflow-hidden justify-between"
     >
       <View className="mb-4 justify-center">
         {Object.keys(value).map((key) => (
           <View key={key} className="gap-2 bg-p p-2">
-            <Text className="text-2xl modal_t">{capitalize(key)}</Text>
+            <Text className="text-2xl item">{capitalize(key)}</Text>
             <TextInput
               value={value[key as keyof DataI].toString()}
               onChangeText={(text) =>
                 setValue((prev: any) => ({ ...prev, [key]: text }))
               }
-              className="border px-4 py-2 rounded-2xl text-2xl  modal_ti"
+              className="border px-4 py-2 rounded-2xl text-2xl  item"
             />
           </View>
         ))}
         <Text className="text-v-red">{err}</Text>
       </View>
       <TouchableOpacity onPress={handleSubmit}>
-        <Text className="text-2xl modal_btn text-center rounded-2xl py-2">
+        <Text className="text-2xl border item text-center rounded-2xl py-2">
           Submit
         </Text>
       </TouchableOpacity>

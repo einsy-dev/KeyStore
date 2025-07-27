@@ -91,7 +91,7 @@ export function Intro({ data, drag }: { data: DataI; drag: any }) {
           )
         }
       >
-        <View className="intro_v pe-6 rounded-3xl overflow-hidden flex-row justify-between items-center">
+        <View className="border item pe-6 rounded-3xl overflow-hidden flex-row justify-between items-center">
           <TouchableOpacity onPressIn={drag}>
             <View className="px-2 py-4 items-center justify-center">
               <GripVertical
@@ -99,7 +99,7 @@ export function Intro({ data, drag }: { data: DataI; drag: any }) {
               />
             </View>
           </TouchableOpacity>
-          <Text className="intro_t text-3xl w-80 py-4" numberOfLines={1}>
+          <Text className="item text-3xl w-80 py-4" numberOfLines={1}>
             {data.name}
           </Text>
           <Arrow color={colorScheme === "light" ? "black" : "white"} />

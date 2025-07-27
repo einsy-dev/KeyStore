@@ -15,7 +15,7 @@ export function Confirm({ title, onSubmit, onReject = () => "" }: ConfirmI) {
       onPress={(e) => e.stopPropagation()}
       className="p-4 border rounded-3xl overflow-hidden justify-between modal"
     >
-      <Text className="modal_t text-2xl text-center mb-4">{title}</Text>
+      <Text className="item text-2xl text-center mb-4">{title}</Text>
       <View className="flex-row justify-evenly">
         <Pressable
           onPress={() => {
@@ -23,7 +23,7 @@ export function Confirm({ title, onSubmit, onReject = () => "" }: ConfirmI) {
             dispatch(setModal({ active: false }));
           }}
         >
-          <Text className="modal_t modal_btn rounded-2xl px-10 py-2">
+          <Text className="item border item rounded-2xl px-10 py-2">
             Reject
           </Text>
         </Pressable>
@@ -33,7 +33,7 @@ export function Confirm({ title, onSubmit, onReject = () => "" }: ConfirmI) {
             dispatch(setModal({ active: false }));
           }}
         >
-          <Text className="modal_t modal_btn rounded-2xl px-10 py-2">
+          <Text className="item border item rounded-2xl px-10 py-2">
             Submit
           </Text>
         </Pressable>
