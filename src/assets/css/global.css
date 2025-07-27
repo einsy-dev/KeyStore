@@ -9,7 +9,7 @@
 	}
 
 	.intro_v {
-		@apply border-2 dark:border-v-red dark:bg-v-dark dark:text-v-light;
+		@apply border-2 dark:border-v-red bg-v-light dark:bg-v-dark dark:text-v-light;
 	}
 
 	.intro_t {
@@ -17,7 +17,7 @@
 	}
 
 	.intro_item_v {
-		@apply border-2 dark:border-v-red dark:bg-v-dark;
+		@apply border-2 dark:border-v-red bg-v-light dark:bg-v-dark;
 	}
 
 	.intro_item_t {

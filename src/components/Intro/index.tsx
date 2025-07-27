@@ -8,13 +8,13 @@ import { useState } from "react";
 import { Pressable, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 
-import { Item } from "../Item";
+import { Item } from "./Item";
 
 export function Intro({ data, drag }: { data: DataI; drag: any }) {
   const { colorScheme } = useColorScheme();
   const dispatch = useDispatch();
   const [active, setActive] = useState(false);
-  const Arrow = active ? ChevronDown : ChevronUp;
+  const Arrow = active ? ChevronUp : ChevronDown;
 
   const menu = [
     {

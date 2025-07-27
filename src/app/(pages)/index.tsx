@@ -1,4 +1,5 @@
-import { ContextMenu, Form, Intro } from "@/components/widgets";
+import { Intro } from "@/components/Intro";
+import { ContextMenu, Form } from "@/components/widgets";
 import { setModal } from "@/lib/store/app";
 import { createIntro, selectData, setData } from "@/lib/store/data";
 import { useCallback } from "react";
