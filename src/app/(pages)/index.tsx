@@ -1,7 +1,9 @@
-import { Intro } from "@/components/widgets";
-import { createIntro, selectData } from "@/lib/store/data";
-import { setContextMenu, setModal } from "@/lib/store/modal";
-import { Pressable, ScrollView } from "react-native";
+import { ContextMenu, Form, Intro } from "@/components/widgets";
+import { setModal } from "@/lib/store/app";
+import { createIntro, selectData, setData } from "@/lib/store/data";
+import { useCallback } from "react";
+import { Pressable } from "react-native";
+import DragableFlatList from "react-native-draggable-flatlist";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function App() {
@@ -14,26 +16,47 @@ export default function App() {
         dispatch(
           setModal({
             active: true,
-            data: { name: "" },
-            required: { name: true },
-            onSubmit: (newIntro) =>
-              dispatch(createIntro({ ...newIntro, keys: [] }))
+            component: (
+              <Form
+                data={{ name: "" }}
+                onSubmit={(newIntro: any) =>
+                  dispatch(createIntro({ ...newIntro, keys: [] }))
+                }
+              />
+            )
           })
         );
       }
     }
   ];
 
+  const renderItem = useCallback(
+    ({ item, drag }: { item: DataI; drag: any }) => (
+      <Intro data={item} drag={drag} />
+    ),
+    []
+  );
+
   return (
     <Pressable
-      onLongPress={() => dispatch(setContextMenu({ active: true, menu }))}
+      onLongPress={() => {
+        dispatch(
+          setModal({
+            active: true,
+            component: <ContextMenu name="App" menu={menu} />,
+            position: "bottom"
+          })
+        );
+      }}
       className="app flex-1"
     >
-      <ScrollView className="p-4">
-        {data.map((el: any, index: number) => (
-          <Intro key={index} data={el} />
-        ))}
-      </ScrollView>
+      <DragableFlatList
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={(item: DataI) => item.id!.toString()}
+        onDragEnd={({ data }) => dispatch(setData(data))}
+        className="px-4"
+      />
     </Pressable>
   );
 }

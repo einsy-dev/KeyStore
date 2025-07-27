@@ -1,18 +1,18 @@
-import { setConfirmModal } from "@/lib/store/confirmModal";
-import { createKey, deleteIntro, updateIntro } from "@/lib/store/data";
-import { setContextMenu, setModal } from "@/lib/store/modal";
 import { Text, View } from "@/shared";
+import { setModal } from "@/store/app";
+import { createKey, deleteIntro, updateIntro } from "@/store/data";
+import { Confirm, ContextMenu, Form } from "@/widgets";
 import { ChevronDown, ChevronUp, GripVertical } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 import { useState } from "react";
-import { Pressable } from "react-native";
+import { Pressable, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
-import { Item } from "./Item";
 
-export function Intro({ data }: { data: DataI }) {
+import { Item } from "../Item";
+
+export function Intro({ data, drag }: { data: DataI; drag: any }) {
   const { colorScheme } = useColorScheme();
   const dispatch = useDispatch();
-
   const [active, setActive] = useState(false);
   const Arrow = active ? ChevronDown : ChevronUp;
 
@@ -23,11 +23,14 @@ export function Intro({ data }: { data: DataI }) {
         dispatch(
           setModal({
             active: true,
-            data: { name: "", value: "" },
-            required: { name: true, value: true },
-            onSubmit: (key) => {
-              dispatch(createKey({ introId: data.id!, key }));
-            }
+            component: (
+              <Form
+                data={{ name: "", value: "" }}
+                onSubmit={(key: any) => {
+                  dispatch(createKey({ introId: data.id!, key }));
+                }}
+              />
+            )
           })
         );
       }
@@ -38,12 +41,14 @@ export function Intro({ data }: { data: DataI }) {
         dispatch(
           setModal({
             active: true,
-            data: { name: data.name },
-            required: { name: true },
-            onSubmit: (newData) => {
-              dispatch(updateIntro({ id: data.id!, name: newData.name }));
-              dispatch(setModal({ active: false }));
-            }
+            component: (
+              <Form
+                data={{ name: data.name }}
+                onSubmit={(intro: any) => {
+                  dispatch(updateIntro({ id: data.id!, name: intro.name }));
+                }}
+              />
+            )
           })
         );
       }
@@ -52,21 +57,18 @@ export function Intro({ data }: { data: DataI }) {
       name: "Delete",
       callback: () => {
         dispatch(
-          setConfirmModal({
+          setModal({
             active: true,
-            message: "Are you sure?",
-            options: [
-              {
-                text: "No",
-                onPress: () => {}
-              },
-              {
-                text: "Yes",
-                onPress: () => {
+            component: (
+              <Confirm
+                title="Are you sure?"
+                onSubmit={() => {
                   dispatch(deleteIntro({ id: data.id! }));
-                }
-              }
-            ]
+                  dispatch(setModal({ active: false }));
+                }}
+                onReject={() => dispatch(setModal({ active: false }))}
+              />
+            )
           })
         );
       }
@@ -74,31 +76,35 @@ export function Intro({ data }: { data: DataI }) {
   ];
 
   return (
-    <View className="my-1 flex-1">
+    <View className="my-1">
       <Pressable
         onPress={() => setActive((prev) => !prev)}
-        onLongPress={() => dispatch(setContextMenu({ active: true, menu }))}
+        onLongPress={() =>
+          dispatch(
+            setModal({
+              active: true,
+              component: <ContextMenu name={data.name} menu={menu} />,
+              position: "bottom"
+            })
+          )
+        }
       >
         <View className="intro_v pe-6 rounded-3xl overflow-hidden flex-row justify-between items-center">
-          <Pressable
-            onLongPress={() => {
-              console.log("press");
-            }}
-          >
+          <TouchableOpacity onPressIn={drag}>
             <View className="px-2 py-4 items-center justify-center">
               <GripVertical
                 color={colorScheme === "light" ? "black" : "white"}
               />
             </View>
-          </Pressable>
+          </TouchableOpacity>
           <Text className="intro_t text-3xl w-80 py-4" numberOfLines={1}>
             {data.name}
           </Text>
           <Arrow color={colorScheme === "light" ? "black" : "white"} />
         </View>
       </Pressable>
-      {data.keys.length ? (
-        <View className={`ms-5 mt-1 ${active ? "" : "hidden"}`}>
+      {data.keys.length && active ? (
+        <View className="ms-5 mt-1">
           {data.keys.map((key: any) => (
             <Item key={key.id} introId={data.id!} introKey={key} />
           ))}

@@ -1,10 +1,8 @@
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
-import { confirmModal } from "./confirmModal";
+import { appSlice } from "./app";
 import { dataSlice } from "./data";
-import { contextMenuSlice } from "./modal";
-import { popup } from "./popup";
 
-const reducer = combineSlices(dataSlice, contextMenuSlice, popup, confirmModal);
+const reducer = combineSlices(dataSlice, appSlice);
 
 const store = configureStore({
   reducer,

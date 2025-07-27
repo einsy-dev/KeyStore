@@ -1,6 +1,5 @@
-import { deleteKey, updateKey } from "@/lib/store/data";
-import { setContextMenu, setModal } from "@/lib/store/modal";
-import { setPopup } from "@/lib/store/popup";
+import { setModal } from "@/lib/store/app";
+import { deleteKey } from "@/lib/store/data";
 import { Text, View } from "@/shared";
 import * as Clipboard from "expo-clipboard";
 import { ClipboardCheck, Clipboard as Copy } from "lucide-react-native";
@@ -22,20 +21,20 @@ export function Item({
   const Icon = copyState ? ClipboardCheck : Copy;
 
   const { colorScheme } = useColorScheme();
-  const menu: ContextMenuItemI[] = [
+  const menu = [
     {
       name: "Edit",
       callback: () => {
         dispatch(
           setModal({
-            active: true,
-            data: { name: introKey.name, value: introKey.value },
-            onSubmit: (newKey) => {
-              dispatch(
-                updateKey({ introId, keyId: introKey.id!, keyData: newKey })
-              );
-              dispatch(setModal({ active: false }));
-            }
+            active: true
+            // data: { name: introKey.name, value: introKey.value },
+            // onSubmit: (newKey) => {
+            //   dispatch(
+            //     updateKey({ introId, keyId: introKey.id!, keyData: newKey })
+            //   );
+            //   dispatch(setModal({ active: false }));
+            // }
           })
         );
       }
@@ -56,15 +55,15 @@ export function Item({
         setTimeout(() => {
           setCopyState(false);
         }, 3500);
-        dispatch(
-          setPopup({
-            active: true,
-            message: "Copied to clipboard.",
-            icon: ClipboardCheck
-          })
-        );
+        // dispatch(
+        //   setPopup({
+        //     active: true,
+        //     message: "Copied to clipboard.",
+        //     icon: ClipboardCheck
+        //   })
+        // );
       }}
-      onLongPress={() => dispatch(setContextMenu({ active: true, menu }))}
+      // onLongPress={() => dispatch(setContextMenu({ active: true, menu }))}
     >
       <View className="intro_item_v flex flex-row justify-between items-center px-6 py-3 mb-1 rounded-3xl">
         <Text className="intro_item_t text-3xl w-80" numberOfLines={1}>

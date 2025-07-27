@@ -5,6 +5,10 @@ export const dataSlice = createSlice({
   name: "data",
   initialState: { data: storage.get("data") || [] },
   reducers: {
+    setData: (state: { data: DataI[] }, { payload }: { payload: DataI[] }) => {
+      state.data = payload;
+      storage.set("data", payload);
+    },
     createIntro: (
       state: { data: DataI[] },
       { payload }: { payload: DataI }
@@ -70,6 +74,7 @@ export const dataSlice = createSlice({
 });
 
 export const {
+  setData,
   createIntro,
   updateIntro,
   deleteIntro,
