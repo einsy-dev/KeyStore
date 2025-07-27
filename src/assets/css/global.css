@@ -2,14 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer components {
+	.v_border {
+		@apply border-3 border-blue-600 dark:border-v-red
+	}
+
+
 	.app {
 		@apply bg-v-light dark:bg-v-black;
 	}
 
 	.intro_v {
-		@apply border-2 dark:border-v-red bg-v-light dark:bg-v-dark dark:text-v-light;
+		@apply v_border bg-v-light dark:bg-v-dark dark:text-v-light;
 	}
 
 	.intro_t {
@@ -17,7 +21,7 @@
 	}
 
 	.intro_item_v {
-		@apply border-2 dark:border-v-red bg-v-light dark:bg-v-dark;
+		@apply v_border bg-v-light dark:bg-v-dark;
 	}
 
 	.intro_item_t {
@@ -25,15 +29,15 @@
 	}
 
 	.context_menu_v {
-		@apply border-2 dark:border-v-red bg-v-light dark:bg-v-dark
+		@apply v_border bg-v-light dark:bg-v-dark v_afterline
 	}
 
 	.context_menu_t {
-		@apply dark:text-v-light
+		@apply dark:text-v-light v_border bg-v-red
 	}
 
 	.modal {
-		@apply border dark:border-v-red bg-white dark:bg-v-dark
+		@apply v_border bg-white dark:bg-v-dark
 	}
 
 	.modal_v {
@@ -45,15 +49,15 @@
 	}
 
 	.modal_ti {
-		@apply dark:border-v-light dark:text-v-light
+		@apply v_border dark:text-v-light
 	}
 
 	.modal_btn {
-		@apply dark:border-v-red border dark:bg-black dark:text-v-light
+		@apply v_border dark:bg-black dark:text-v-light
 	}
 
 	.popup_v {
-		@apply border-2 dark:border-v-red bg-v-light dark:bg-black dark:text-v-light
+		@apply v_border bg-v-light dark:bg-black dark:text-v-light
 	}
 
 	.popup_t {
