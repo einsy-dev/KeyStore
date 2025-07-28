@@ -68,7 +68,7 @@ export function Form({
         <Text className="text-v-red">{err}</Text>
       </View>
       <TouchableOpacity onPress={handleSubmit}>
-        <Text className="text-2xl border item text-center rounded-2xl py-2">
+        <Text className="border btn text-2xl text-center rounded-2xl py-2">
           Submit
         </Text>
       </TouchableOpacity>

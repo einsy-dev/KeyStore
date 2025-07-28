@@ -20,4 +20,8 @@
 	.item {
 		@apply bg-v-light dark:bg-v-dark dark:text-v-light
 	}
+
+	.btn {
+		@apply bg-blue-500 dark:bg-v-black text-white
+	}
 }

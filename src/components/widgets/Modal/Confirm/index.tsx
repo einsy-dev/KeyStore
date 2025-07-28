@@ -23,7 +23,7 @@ export function Confirm({ title, onSubmit, onReject = () => "" }: ConfirmI) {
             dispatch(setModal({ active: false }));
           }}
         >
-          <Text className="item border item rounded-2xl px-10 py-2">
+          <Text className="btn border item rounded-2xl px-10 py-2">
             Reject
           </Text>
         </Pressable>
@@ -33,7 +33,7 @@ export function Confirm({ title, onSubmit, onReject = () => "" }: ConfirmI) {
             dispatch(setModal({ active: false }));
           }}
         >
-          <Text className="item border item rounded-2xl px-10 py-2">
+          <Text className="btn border item rounded-2xl px-10 py-2">
             Submit
           </Text>
         </Pressable>
