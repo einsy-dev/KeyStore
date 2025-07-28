@@ -23,6 +23,7 @@ export default function App() {
                 onSubmit={(newIntro: any) =>
                   dispatch(createIntro({ ...newIntro, keys: [] }))
                 }
+                clear
               />
             )
           })

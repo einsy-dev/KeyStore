@@ -91,7 +91,7 @@ export function Intro({ data, drag }: { data: DataI; drag: any }) {
           )
         }
       >
-        <View className="border item pe-6 rounded-3xl overflow-hidden flex-row justify-between items-center">
+        <View className="border item pe-6 rounded-2xl overflow-hidden flex-row justify-between items-center">
           <TouchableOpacity onPressIn={drag}>
             <View className="px-2 py-4 items-center justify-center">
               <GripVertical

@@ -13,7 +13,7 @@ export function Confirm({ title, onSubmit, onReject = () => "" }: ConfirmI) {
   return (
     <Pressable
       onPress={(e) => e.stopPropagation()}
-      className="p-4 border rounded-3xl overflow-hidden justify-between modal"
+      className="p-4 border item rounded-2xl overflow-hidden justify-between modal"
     >
       <Text className="item text-2xl text-center mb-4">{title}</Text>
       <View className="flex-row justify-evenly">

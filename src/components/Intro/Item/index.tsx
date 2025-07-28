@@ -91,8 +91,8 @@ export function Item({
         )
       }
     >
-      <View className="border item flex flex-row justify-between items-center px-6 py-3 mb-1 rounded-3xl">
-        <Text className="item text-3xl w-80" numberOfLines={1}>
+      <View className="border item flex flex-row justify-between items-center px-6 py-3 mb-1 rounded-2xl">
+        <Text className="item text-2xl w-80" numberOfLines={1}>
           {introKey.name}
         </Text>
         <Icon color={colorScheme === "light" ? "black" : "white"} />

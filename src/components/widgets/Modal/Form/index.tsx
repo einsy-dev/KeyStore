@@ -50,7 +50,7 @@ export function Form({
   return (
     <Pressable
       onPress={(e) => e.stopPropagation()}
-      className="p-4 border item rounded-3xl overflow-hidden justify-between"
+      className="p-4 border item rounded-2xl overflow-hidden justify-between"
     >
       <View className="mb-4 justify-center">
         {Object.keys(value).map((key) => (
