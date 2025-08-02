@@ -21,10 +21,8 @@ export function IntroList() {
       data={data}
       renderItem={renderItem}
       keyExtractor={(item: DataI) => String(item.id + item.name)}
-      onDragEnd={({ data }) =>
-        new Promise(() => setTimeout(() => dispatch(setData(data))))
-      }
-      className="px-4"
+      onDragEnd={({ data }) => dispatch(setData(data))}
+      className="px-4 item"
     />
   );
 }
