@@ -1,4 +1,5 @@
-import { Text, View } from "@/shared";
+import { Text } from "@/components/shared/text";
+import { View } from "@/components/shared/view";
 import { TouchableOpacity } from "react-native";
 
 interface ContextMenuI {

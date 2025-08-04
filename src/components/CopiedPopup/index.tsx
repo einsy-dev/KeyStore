@@ -1,4 +1,4 @@
-import { View } from "@/components/shared";
+import { View } from "@/components/shared/view";
 import { ClipboardCheck } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 import { Text } from "react-native";

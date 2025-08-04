@@ -1,6 +1,5 @@
-import { Modal } from "@/components/widgets";
-import { Popup } from "@/components/widgets/Popup/Popup";
 import store from "@/lib/store";
+import { Modal, Popup } from "@/shared";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "nativewind";
@@ -20,7 +19,11 @@ export default function Layout() {
           <View className="flex-1 relative">
             <Stack>
               <Stack.Screen
-                name="(pages)/index"
+                name="(pages)/App"
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="(pages)/Form"
                 options={{ headerShown: false }}
               />
               <Stack.Screen
@@ -30,8 +33,8 @@ export default function Layout() {
             </Stack>
           </View>
         </SafeAreaView>
-        <Popup />
         <Modal />
+        <Popup />
       </Provider>
     </GestureHandlerRootView>
   );

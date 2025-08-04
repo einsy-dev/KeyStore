@@ -1,29 +1,17 @@
 import { capitalize } from "@/utils/capitalize";
+import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import {
-  Pressable,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View
+	Pressable,
+	Text,
+	TextInput,
+	TouchableOpacity,
+	View
 } from "react-native";
 
-interface ValueI {
-  [key: string]: string;
-}
-
-export function Form({
-  data,
-  onSubmit,
-  required,
-  clear = false
-}: {
-  data: ValueI;
-  onSubmit: (value: ValueI) => void;
-  required?: { [key: string]: boolean };
-  clear?: boolean;
-}) {
-  const [value, setValue] = useState<ValueI>({});
+export default function Form() {
+  const { data, required, clear } = useLocalSearchParams<any>();
+  const [value, setValue] = useState<any>({});
   const [err, setErr] = useState<string>("");
 
   useEffect(() => {
@@ -35,10 +23,9 @@ export function Form({
     if (!validate(value, required)) {
       return setErr("Please fill all fields");
     }
-    onSubmit(value);
     setErr("");
     if (clear) {
-      setValue((prev) =>
+      setValue((prev: any) =>
         Object.keys(prev).reduce((acc: any, el: any) => {
           acc[el] = "";
           return acc;

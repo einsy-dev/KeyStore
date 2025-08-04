@@ -1,14 +1,16 @@
-type KeyI = {
-  id?: number;
+interface KeyI {
+  id: string;
   name: string;
   value: string;
-};
+}
+type KeyListI = { [id: string]: KeyI };
 
 interface DataI {
-  id?: number;
+  id: string;
   name: string;
-  keys: KeyI[];
+  keys: KeyListI;
 }
+type DataListI = { [id: string]: DataI };
 
 interface ModalI {
   active: boolean;
