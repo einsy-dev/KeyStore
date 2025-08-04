@@ -5,7 +5,7 @@ import { setModal } from "@/lib/store/app";
 import { selectData, setData } from "@/lib/store/data";
 import { useRouter } from "expo-router";
 import React from "react";
-import { Pressable } from "react-native";
+import { Pressable, View } from "react-native";
 import DragableFlatList, {
   ScaleDecorator
 } from "react-native-draggable-flatlist";
@@ -19,9 +19,11 @@ export default function App() {
   const renderItem = ({ item, drag }: { item: DataI; drag: any }) => (
     <ScaleDecorator activeScale={1.05}>
       <KeyGroup drag={drag}>
-        {Object.keys(item.keys).map((id: string) => (
-          <Key key={id} data={item.keys[id]} />
-        ))}
+        <View className="">
+          {Object.keys(item.keys).map((id: string) => (
+            <Key key={id} data={item.keys[id]} />
+          ))}
+        </View>
       </KeyGroup>
     </ScaleDecorator>
   );
@@ -29,7 +31,6 @@ export default function App() {
   return (
     <Pressable
       onLongPress={() => {
-        console.log("press");
         dispatch(
           setModal({
             active: true,
@@ -38,14 +39,14 @@ export default function App() {
           })
         );
       }}
-      className="app flex-1"
+      className="app flex-1 p-2"
     >
       <DragableFlatList
         data={data}
         renderItem={renderItem}
         keyExtractor={(item: DataI) => String(item.id + item.name)}
         onDragEnd={({ data }) => dispatch(setData(data))}
-        className="px-4 item"
+        className="px-4 pt-1 pb-4 item rounded-xl"
       />
     </Pressable>
   );
@@ -55,7 +56,7 @@ function useMenu() {
   const router = useRouter();
   return [
     {
-      name: "New Intro",
+      name: "Add Group",
       callback: () => {
         router.navigate("/Form");
       }

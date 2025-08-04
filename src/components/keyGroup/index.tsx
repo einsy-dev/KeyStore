@@ -32,35 +32,34 @@ export function KeyGroup({
         )
       }
     >
-      <View className="my-1 flex-row items-center">
+      <View className="w-full flex-row ">
         <TouchableOpacity onPressIn={drag}>
-          <View className="px-2 py-4 items-center justify-center">
+          <View className="py-4 pe-4">
             <Globe color={colorScheme === "light" ? "black" : "white"} />
           </View>
         </TouchableOpacity>
-        <View className=" item pe-6 flex-row justify-between items-center  border-x-0 border-t-0 border">
-          <Text className="item text-3xl w-80 py-4" numberOfLines={1}>
-            {data.name}
-          </Text>
-          <Pressable
-            onPress={() =>
-              dispatch(
-                setModal({
-                  active: true,
-                  component: <ContextMenu name={data.name} menu={menu} />,
-                  position: "bottom"
-                })
-              )
-            }
-            className="p-2"
-          >
-            <Ellipsis color={colorScheme === "light" ? "black" : "white"} />
-          </Pressable>
+        <View className="border-x-0 border-t-0 border flex-1">
+          <View className="item flex-row items-center justify-between py-3">
+            <Text className="item text-3xl w-[80%]" numberOfLines={1}>
+              {data.name}
+            </Text>
+            <Pressable
+              onPress={() =>
+                dispatch(
+                  setModal({
+                    active: true,
+                    component: <ContextMenu name={data.name} menu={menu} />,
+                    position: "bottom"
+                  })
+                )
+              }
+            >
+              <Ellipsis color={colorScheme === "light" ? "black" : "white"} />
+            </Pressable>
+          </View>
+          {children && active ? children : null}
         </View>
       </View>
-      {children && active ? (
-        <View className="ms-5 mt-1">{children}</View>
-      ) : null}
     </Pressable>
   );
 }

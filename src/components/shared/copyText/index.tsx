@@ -1,8 +1,10 @@
+import { Text } from "@/shared/text";
+import { View } from "@/shared/view";
 import * as Clipboard from "expo-clipboard";
 import { ClipboardCheck, Copy } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 import { useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Pressable } from "react-native";
 
 export function CopyText({
   children,

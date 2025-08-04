@@ -25,12 +25,11 @@ export function Key({ data }: { data: KeyI }) {
         );
       }}
     >
-      <View className="item flex flex-row justify-between  items-center gap-4 px-4 py-3 mb-1 rounded-2xl">
+      <View className="item flex flex-row justify-between  items-center  mb-1 ">
         <Apple color={colorScheme === "light" ? "black" : "white"} />
         <View className="flex-1 flex-row border-x-0 border-t-0 border">
           <View className="flex-1">
             <CopyText>{data.name}</CopyText>
-            <CopyText>{data.value}</CopyText>
           </View>
           <Pressable
             onPress={() =>
@@ -42,7 +41,6 @@ export function Key({ data }: { data: KeyI }) {
                 })
               )
             }
-            className="p-2"
           >
             <Ellipsis color={colorScheme === "light" ? "black" : "white"} />
           </Pressable>
