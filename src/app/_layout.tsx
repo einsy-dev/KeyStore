@@ -23,7 +23,11 @@ export default function Layout() {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name="(pages)/Form"
+                name="(pages)/KeyGroupForm"
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="(pages)/KeyForm"
                 options={{ headerShown: false }}
               />
               <Stack.Screen

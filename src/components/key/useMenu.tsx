@@ -1,4 +1,4 @@
-import { Confirm } from "@/components/Confirm";
+import { Confirm } from "@/components/confirm";
 import { setModal } from "@/lib/store/app";
 import { useDispatch } from "react-redux";
 

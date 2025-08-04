@@ -1,4 +1,4 @@
-import { ContextMenu } from "@/components/ContextMenu";
+import { ContextMenu } from "@/components/contextMenu";
 import { setModal } from "@/lib/store/app";
 import { CopyText } from "@/shared";
 import { Apple, Ellipsis } from "lucide-react-native";
@@ -25,11 +25,11 @@ export function Key({ data }: { data: KeyI }) {
         );
       }}
     >
-      <View className="item flex flex-row justify-between  items-center  mb-1 ">
+      <View className="item flex flex-row justify-between gap-2 items-center  mb-1 ">
         <Apple color={colorScheme === "light" ? "black" : "white"} />
-        <View className="flex-1 flex-row border-x-0 border-t-0 border">
+        <View className="flex-1 flex-row">
           <View className="flex-1">
-            <CopyText>{data.name}</CopyText>
+            <CopyText className="text-2xl">{data.name}</CopyText>
           </View>
           <Pressable
             onPress={() =>

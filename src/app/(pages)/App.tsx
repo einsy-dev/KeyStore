@@ -1,4 +1,4 @@
-import { ContextMenu } from "@/components/ContextMenu";
+import { ContextMenu } from "@/components/contextMenu";
 import { Key } from "@/components/key";
 import { KeyGroup } from "@/components/keyGroup";
 import { setModal } from "@/lib/store/app";
@@ -54,11 +54,13 @@ export default function App() {
 
 function useMenu() {
   const router = useRouter();
+  const dispatch = useDispatch();
   return [
     {
       name: "Add Group",
       callback: () => {
-        router.navigate("/Form");
+        router.navigate("/KeyGroupForm");
+        dispatch(setModal({ active: false }));
       }
     }
   ];

@@ -5,7 +5,7 @@ import { useColorScheme } from "nativewind";
 import { ReactNode, useState } from "react";
 import { Pressable, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch } from "react-redux";
-import { ContextMenu } from "../ContextMenu";
+import { ContextMenu } from "../contextMenu";
 import { useMenu } from "./useMenu";
 
 export function KeyGroup({

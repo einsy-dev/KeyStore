@@ -1,16 +1,18 @@
-import { Text } from "@/shared/text";
-import { View } from "@/shared/view";
 import * as Clipboard from "expo-clipboard";
 import { ClipboardCheck, Copy } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 import { useState } from "react";
 import { Pressable } from "react-native";
+import { Text } from "../text";
+import { View } from "../view";
 
 export function CopyText({
   children,
+  className,
   onCopy = () => {}
 }: {
   children: string;
+  className?: string;
   onCopy?: () => void;
 }) {
   const [copyState, setCopyState] = useState(false);
@@ -18,21 +20,26 @@ export function CopyText({
   const { colorScheme } = useColorScheme();
 
   return (
-    <Pressable
-      onPress={() => {
-        copy(children);
-        onCopy();
-        setCopyState(true);
-        setTimeout(() => {
-          setCopyState(false);
-        }, 3500);
-      }}
-    >
-      <View className="flex flex-row gap-2 ">
-        <Text>{children}</Text>
-        <Icon color={colorScheme === "light" ? "black" : "white"} />
-      </View>
-    </Pressable>
+    <View className="flex-row items-center">
+      <Pressable
+        onPress={() => {
+          copy(children);
+          onCopy();
+          setCopyState(true);
+          setTimeout(() => {
+            setCopyState(false);
+          }, 3500);
+        }}
+      >
+        <View className="flex-row gap-2 items-center">
+          <Text className={className}>{children}</Text>
+          <Icon
+            height={20}
+            color={colorScheme === "light" ? "black" : "white"}
+          />
+        </View>
+      </Pressable>
+    </View>
   );
 }
 
