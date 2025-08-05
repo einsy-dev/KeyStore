@@ -10,7 +10,7 @@
 
 @layer components {
 	.app {
-		@apply bg-white dark:bg-black;
+		@apply bg-white dark:bg-v-black;
 	}
 
 	.border {

@@ -1,6 +1,5 @@
 import { selectModal, setModal } from "@/lib/store/app";
 import { KeyboardAvoidingView, Platform, Pressable } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 
 export function Modal() {
@@ -11,19 +10,15 @@ export function Modal() {
     return (
       <Pressable
         onPress={() => dispatch(setModal({ active: false }))}
-        className="absolute inset-0  bg-v-50"
+        className="absolute inset-0 bg-v-50"
       >
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "padding"}
-          style={{ flex: 1 }}
+          className={`flex-1 p-4 ${modal.position === "center" ? "justify-center" : modal.position === "top" ? "justify-start" : "justify-end"}`}
         >
-          <SafeAreaView
-            className={`flex-1 p-4 ${modal.position === "center" ? "justify-center" : modal.position === "top" ? "justify-start" : "justify-end"}`}
-          >
-            <Pressable onPress={(e) => e.stopPropagation()}>
-              {modal.component}
-            </Pressable>
-          </SafeAreaView>
+          <Pressable onPress={(e) => e.stopPropagation()}>
+            {modal.component}
+          </Pressable>
         </KeyboardAvoidingView>
       </Pressable>
     );

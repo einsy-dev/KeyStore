@@ -1,19 +1,12 @@
 import { Text } from "@/components/shared/text";
 import { View } from "@/components/shared/view";
+import { useColorScheme } from "nativewind";
 import { TouchableOpacity } from "react-native";
 
-interface ContextMenuI {
-  name: string;
-  menu: ContextMenuItemI[];
-}
-interface ContextMenuItemI {
-  name: string;
-  callback: (param?: any) => void;
-}
-
 export function ContextMenu({ menu }: ContextMenuI) {
+  const { colorScheme } = useColorScheme();
   return (
-    <View className="rounded-3xl mt-auto  overflow-hidden p-4 border item">
+    <View className="rounded-t-xl mt-auto gap-4 overflow-hidden p-4 pb-6 item">
       {menu?.map((el: any) => (
         <TouchableOpacity
           key={el.name}
@@ -21,7 +14,15 @@ export function ContextMenu({ menu }: ContextMenuI) {
             el.callback();
           }}
         >
-          <Text className="text-2xl px-4 py-1 item">{el.name}</Text>
+          <View className="flex-row items-center gap-6">
+            <View>
+              <el.icon
+                color={colorScheme === "dark" ? "white" : "black"}
+                height={20}
+              />
+            </View>
+            <Text className="text-xl item ">{el.name}</Text>
+          </View>
         </TouchableOpacity>
       ))}
     </View>

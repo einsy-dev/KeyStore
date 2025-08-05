@@ -20,26 +20,21 @@ export function CopyText({
   const { colorScheme } = useColorScheme();
 
   return (
-    <View className="flex-row items-center">
-      <Pressable
-        onPress={() => {
-          copy(children);
-          onCopy();
-          setCopyState(true);
-          setTimeout(() => {
-            setCopyState(false);
-          }, 3500);
-        }}
-      >
-        <View className="flex-row gap-2 items-center">
-          <Text className={className}>{children}</Text>
-          <Icon
-            height={20}
-            color={colorScheme === "light" ? "black" : "white"}
-          />
-        </View>
-      </Pressable>
-    </View>
+    <Pressable
+      onPress={() => {
+        copy(children);
+        onCopy();
+        setCopyState(true);
+        setTimeout(() => {
+          setCopyState(false);
+        }, 3500);
+      }}
+    >
+      <View className="flex-row gap-2 items-center">
+        <Icon height={20} color={colorScheme === "light" ? "black" : "white"} />
+        <Text className={className}>{children}</Text>
+      </View>
+    </Pressable>
   );
 }
 

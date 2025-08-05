@@ -1,5 +1,6 @@
 import { Confirm } from "@/components/confirm";
 import { setModal } from "@/lib/store/app";
+import { Edit, Trash } from "lucide-react-native";
 import { useDispatch } from "react-redux";
 
 export function useMenu() {
@@ -7,10 +8,12 @@ export function useMenu() {
   return [
     {
       name: "Edit",
+      icon: Edit,
       callback: () => {}
     },
     {
       name: "Delete",
+      icon: Trash,
       callback: () => {
         dispatch(
           setModal({

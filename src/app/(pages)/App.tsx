@@ -4,6 +4,7 @@ import { KeyGroup } from "@/components/keyGroup";
 import { setModal } from "@/lib/store/app";
 import { selectData, setData } from "@/lib/store/data";
 import { useRouter } from "expo-router";
+import { CirclePlus } from "lucide-react-native";
 import React from "react";
 import { Pressable, View } from "react-native";
 import DragableFlatList, {
@@ -20,7 +21,7 @@ export default function App() {
     <ScaleDecorator activeScale={1.05}>
       <KeyGroup data={data[item]} drag={drag}>
         <View className="">
-          {Object.keys(data[item].keys).map((id: string) => (
+          {Object.keys(data[item].keys || {}).map((id: string) => (
             <Key key={id} data={data[item].keys[id]} />
           ))}
         </View>
@@ -45,7 +46,7 @@ export default function App() {
         data={Object.keys(data)}
         renderItem={renderItem}
         keyExtractor={(item: string) => item}
-        onDragEnd={({ data: ids }) =>
+        onDragEnd={async ({ data: ids }) =>
           dispatch(
             setData(
               ids.reduce((acc, id, index) => {
@@ -70,6 +71,7 @@ function useMenu() {
   return [
     {
       name: "Add Group",
+      icon: CirclePlus,
       callback: () => {
         router.navigate("/KeyGroupForm");
         dispatch(setModal({ active: false }));

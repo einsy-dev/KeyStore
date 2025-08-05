@@ -5,7 +5,7 @@ import * as SecureStore from "expo-secure-store";
 
 const savedState: DataListI = JSON.parse(SecureStore.getItem("data") || "{}");
 const initialState: { data: DataListI } = {
-  data: (isPlainObject(savedState)
+  data: (isPlainObject(savedState) && Object.keys(savedState).length
     ? savedState
     : {
         [createId()]: {

@@ -2,16 +2,18 @@ import { useState } from "react";
 import { TextInput as TextInputRN } from "react-native";
 
 export function TextInput({
+  value = "",
   onChangeText
 }: {
+  value?: string;
   onChangeText: (text: string) => void;
 }) {
-  const [value, setValue] = useState("");
+  const [state, setState] = useState(value);
   return (
     <TextInputRN
-      value={value}
+      value={state}
       onChangeText={(text: string) => {
-        setValue(text);
+        setState(text);
         onChangeText(text);
       }}
       className="border px-4 py-2 rounded text-2xl  item"

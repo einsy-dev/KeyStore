@@ -1,50 +1,39 @@
+import { Icons } from "@/lib/icons";
 import { createId } from "@paralleldrive/cuid2";
-import { Gamepad2, Globe, SquareChevronRight } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
+import { useState } from "react";
+import { ScrollView, TouchableNativeFeedback } from "react-native";
+import { Icon } from "../Icon";
 import { View } from "../shared/view";
 
-export function SelectIcon({ onSelect }: { onSelect?: (id: number) => void }) {
-  const { colorScheme } = useColorScheme();
+export function SelectIcon({
+  onSelect,
+  className = ""
+}: {
+  onSelect: (id: string) => void;
+  className?: string;
+}) {
+  const [selected, setSelected] = useState<string | null>(null);
   return (
-    <View>
-      {IconsArr.map((el) => (
-        <View key={createId()}>
-          <el.icon color={colorScheme === "dark" ? "white" : "black"} />
-        </View>
+    <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      className={className}
+    >
+      {Object.keys(Icons).map((el: string) => (
+        <TouchableNativeFeedback
+          key={createId()}
+          onPress={() => {
+            setSelected(el);
+            onSelect(el);
+          }}
+        >
+          <View
+            className={`aspect-square items-center justify-center rounded-full p-2 ${selected === el && "bg-v-red"}`}
+          >
+            <Icon iconId={el} />
+          </View>
+        </TouchableNativeFeedback>
       ))}
-    </View>
+    </ScrollView>
   );
 }
-
-const IconsArr = [
-  {
-    id: 1,
-    title: "",
-    icon: Globe
-  },
-  {
-    id: 2,
-    title: "",
-    icon: SquareChevronRight
-  },
-  {
-    id: 3,
-    title: "",
-    icon: Gamepad2
-  },
-  {
-    id: 4,
-    title: "",
-    icon: Globe
-  },
-  {
-    id: 5,
-    title: "",
-    icon: Globe
-  },
-  {
-    id: 6,
-    title: "",
-    icon: Globe
-  }
-];
