@@ -16,10 +16,9 @@ export default function App() {
   const dispatch = useDispatch();
   const data = useSelector(selectData);
   const menu = useMenu();
-
   const renderItem = ({ item, drag }: { item: string; drag: any }) => (
     <ScaleDecorator activeScale={1.05}>
-      <KeyGroup data={data[item]} drag={drag}>
+      <KeyGroup id={item} data={data[item]} drag={drag}>
         <View className="">
           {Object.keys(data[item].keys || {}).map((id: string) => (
             <Key key={id} data={data[item].keys[id]} />

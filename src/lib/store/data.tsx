@@ -1,22 +1,10 @@
 import { isPlainObject } from "@/utils";
-import { createId } from "@paralleldrive/cuid2";
 import { createSlice } from "@reduxjs/toolkit";
 import * as SecureStore from "expo-secure-store";
 
 const savedState: DataListI = JSON.parse(SecureStore.getItem("data") || "{}");
 const initialState: { data: DataListI } = {
-  data: (isPlainObject(savedState) && Object.keys(savedState).length
-    ? savedState
-    : {
-        [createId()]: {
-          name: "hello",
-          keys: {
-            [createId()]: {
-              name: "key"
-            }
-          }
-        }
-      }) as DataListI
+  data: (isPlainObject(savedState) ? savedState : {}) as DataListI
 };
 
 export const dataSlice = createSlice({
@@ -30,8 +18,11 @@ export const dataSlice = createSlice({
       state.data = payload;
       SecureStore.setItem("data", JSON.stringify(state.data));
     },
-    setGroup: (state: { data: DataListI }, { payload }: { payload: DataI }) => {
-      state.data[payload.id] = payload;
+    setGroup: (
+      state: { data: DataListI },
+      { payload }: { payload: { id: string; data: DataI } }
+    ) => {
+      state.data[payload.id] = payload.data;
       SecureStore.setItem("data", JSON.stringify(state.data));
     },
     deleteGroup: (
@@ -43,9 +34,9 @@ export const dataSlice = createSlice({
     },
     setKey: (
       state: { data: DataListI },
-      { payload }: { payload: { groupId: string; key: KeyI } }
+      { payload }: { payload: { groupId: string; keyId: string; key: KeyI } }
     ) => {
-      state.data[payload.groupId].keys[payload.key.id] = payload.key;
+      state.data[payload.groupId].keys[payload.keyId] = payload.key;
       SecureStore.setItem("data", JSON.stringify(state.data));
     },
     deleteKey: (

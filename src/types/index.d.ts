@@ -1,5 +1,4 @@
 interface KeyI {
-  id: string;
   name: string;
   value: string;
   order: number;
@@ -8,7 +7,6 @@ interface KeyI {
 type KeyListI = { [id: string]: KeyI };
 
 interface DataI {
-  id: string;
   name: string;
   order: number;
   icon?: ReactNode;

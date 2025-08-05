@@ -6,13 +6,15 @@ import { Icon } from "../Icon";
 import { View } from "../shared/view";
 
 export function SelectIcon({
+  defaultValue = null,
   onSelect,
   className = ""
 }: {
+  defaultValue?: string | null;
   onSelect: (id: string) => void;
   className?: string;
 }) {
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>(defaultValue);
   return (
     <ScrollView
       horizontal

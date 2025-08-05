@@ -11,16 +11,21 @@ import { useDispatch } from "react-redux";
 export default function KeyGroupForm() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { name = "" } = useLocalSearchParams<any>();
+  const { id, name = "", icon } = useLocalSearchParams<any>();
   const [form, setForm] = useState<any>({ name });
-  const [icon, setIcon] = useState<string | null>(null);
+  const [iconState, setIconState] = useState<string | null>(icon);
   const [err, setErr] = useState<string>("");
 
   function handleSubmit() {
     if (!isObjectHas(form, { name: true })) {
       return setErr("Please fill all fields");
     }
-    dispatch(setGroup({ id: createId(), ...form, keys: {}, icon }));
+    dispatch(
+      setGroup({
+        id: id || createId(),
+        data: { ...form, keys: {}, icon: iconState }
+      })
+    );
     setErr("");
     setForm((prev: any) =>
       Object.keys(prev).reduce((acc: any, el: any) => {
@@ -36,13 +41,18 @@ export default function KeyGroupForm() {
       <View className="p-4 gap-4 rounded-2xl item overflow-hidden justify-between">
         <View className="border border-t-0 border-x-0">
           <Text className="text-2xl">Select Icon</Text>
-          <SelectIcon className="py-1" onSelect={(id) => setIcon(id)} />
+          <SelectIcon
+            className="py-1"
+            defaultValue={icon}
+            onSelect={(id) => setIconState(id)}
+          />
         </View>
         <View className=" justify-center">
           {Object.keys(form).map((key) => (
             <View key={key} className="gap-2">
               <Text className="text-2xl">{capitalize(key)}</Text>
               <TextInput
+                value={form[key]}
                 onChangeText={(text) =>
                   setForm((prev: any) => ({ ...prev, [key]: text }))
                 }

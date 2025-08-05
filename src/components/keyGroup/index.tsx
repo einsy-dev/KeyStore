@@ -9,10 +9,12 @@ import { Icon } from "../Icon";
 import { useMenu } from "./useMenu";
 
 export function KeyGroup({
+  id,
   data,
   children,
   drag
 }: {
+  id: string;
   data: DataI;
   children?: ReactNode;
   drag: () => void;
@@ -20,7 +22,7 @@ export function KeyGroup({
   const { colorScheme } = useColorScheme();
   const dispatch = useDispatch();
   const [active, setActive] = useState(false);
-  const menu = useMenu(data.id);
+  const menu = useMenu(id);
 
   return (
     <Pressable
