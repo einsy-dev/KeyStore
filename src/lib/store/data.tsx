@@ -1,89 +1,67 @@
+import { isPlainObject } from "@/utils";
+import { createId } from "@paralleldrive/cuid2";
 import { createSlice } from "@reduxjs/toolkit";
-import storage from "../storage";
+import * as SecureStore from "expo-secure-store";
+
+const savedState: DataListI = JSON.parse(SecureStore.getItem("data") || "{}");
+const initialState: { data: DataListI } = {
+  data: (isPlainObject(savedState)
+    ? savedState
+    : {
+        [createId()]: {
+          name: "hello",
+          keys: {
+            [createId()]: {
+              name: "key"
+            }
+          }
+        }
+      }) as DataListI
+};
 
 export const dataSlice = createSlice({
   name: "data",
-  initialState: { data: storage.get("data") || [] },
+  initialState,
   reducers: {
-    setData: (state: { data: DataI[] }, { payload }: { payload: DataI[] }) => {
+    setData: (
+      state: { data: DataListI },
+      { payload }: { payload: DataListI }
+    ) => {
       state.data = payload;
-      storage.set("data", payload);
+      SecureStore.setItem("data", JSON.stringify(state.data));
     },
-    createIntro: (
-      state: { data: DataI[] },
-      { payload }: { payload: DataI }
-    ) => {
-      state.data.push({ id: state.data.length, ...payload });
-      storage.set("data", state.data);
+    setGroup: (state: { data: DataListI }, { payload }: { payload: DataI }) => {
+      state.data[payload.id] = payload;
+      SecureStore.setItem("data", JSON.stringify(state.data));
     },
-    updateIntro: (
-      state: { data: DataI[] },
-      { payload }: { payload: { id: number; name: string } }
+    deleteGroup: (
+      state: { data: DataListI },
+      { payload }: { payload: { id: string } }
     ) => {
-      state.data.find((el) => el.id! === payload.id)!.name = payload.name;
-      storage.set("data", state.data);
+      delete state.data[payload.id];
+      SecureStore.setItem("data", JSON.stringify(state.data));
     },
-    deleteIntro: (
-      state: { data: DataI[] },
-      { payload }: { payload: { id: number } }
+    setKey: (
+      state: { data: DataListI },
+      { payload }: { payload: { groupId: string; key: KeyI } }
     ) => {
-      state.data.splice(
-        state.data.indexOf(state.data.find((el) => el.id! === payload.id)!),
-        1
-      );
-      storage.set("data", state.data);
-    },
-
-    createKey: (
-      state: { data: DataI[] },
-      { payload }: { payload: { introId: number; key: KeyI } }
-    ) => {
-      const intro = state.data.find((el) => el.id! === payload.introId);
-      if (!intro) return;
-      if (!Array.isArray(intro.keys)) intro.keys = [];
-      intro.keys.push({ id: intro.keys.length, ...payload.key });
-      storage.set("data", state.data);
-    },
-    updateKey: (
-      state: { data: DataI[] },
-      {
-        payload
-      }: { payload: { introId: number; keyId: number; keyData: KeyI } }
-    ) => {
-      const intro = state.data.find((el) => el.id! === payload.introId);
-      if (!intro) return;
-      const key = intro.keys.find((key) => key.id === payload.keyId);
-      if (!key) return;
-      key.name = payload.keyData.name;
-      key.value = payload.keyData.value;
-      storage.set("data", state.data);
+      state.data[payload.groupId].keys[payload.key.id] = payload.key;
+      SecureStore.setItem("data", JSON.stringify(state.data));
     },
     deleteKey: (
-      state: { data: DataI[] },
-      { payload }: { payload: { introId: number; keyId: number } }
+      state: { data: DataListI },
+      { payload }: { payload: { groupId: string; keyId: string } }
     ) => {
-      const intro = state.data.find((el) => el.id! === payload.introId);
-      if (!intro) return;
-      intro.keys.splice(
-        intro.keys.indexOf(intro.keys.find((key) => key.id === payload.keyId)!),
-        1
-      );
-      storage.set("data", state.data);
+      delete state.data[payload.groupId].keys[payload.keyId];
+      SecureStore.setItem("data", JSON.stringify(state.data));
     }
   }
 });
 
-export const {
-  setData,
-  createIntro,
-  updateIntro,
-  deleteIntro,
-  createKey,
-  updateKey,
-  deleteKey
-} = dataSlice.actions;
+export const { setData, setGroup, deleteGroup, setKey, deleteKey } =
+  dataSlice.actions;
 
-export const selectData = (state: any) => {
+export const selectData = (state: { data: { data: DataListI } }): DataListI => {
   return state.data.data;
 };
 

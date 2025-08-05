@@ -1,5 +1,4 @@
 import { setModal } from "@/lib/store/app";
-import data from "@/lib/store/data";
 import { Ellipsis, Globe } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 import { ReactNode, useState } from "react";
@@ -9,9 +8,11 @@ import { ContextMenu } from "../contextMenu";
 import { useMenu } from "./useMenu";
 
 export function KeyGroup({
+  data,
   children,
   drag
 }: {
+  data: DataI;
   children?: ReactNode;
   drag: () => void;
 }) {

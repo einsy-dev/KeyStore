@@ -1,13 +1,8 @@
+import { TextInput } from "@/components/shared";
 import { capitalize } from "@/utils/capitalize";
 import { useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-import {
-  Pressable,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View
-} from "react-native";
+import { Pressable, Text, TouchableOpacity, View } from "react-native";
 
 export default function KeyForm() {
   const { name } = useLocalSearchParams<any>();
@@ -38,11 +33,9 @@ export default function KeyForm() {
             <View key={key} className="gap-2 bg-p p-2">
               <Text className="text-2xl item">{capitalize(key)}</Text>
               <TextInput
-                value={value[key as keyof DataI].toString()}
                 onChangeText={(text) =>
                   setValue((prev: any) => ({ ...prev, [key]: text }))
                 }
-                className="border px-4 py-2 rounded-2xl text-2xl  item"
               />
             </View>
           ))}

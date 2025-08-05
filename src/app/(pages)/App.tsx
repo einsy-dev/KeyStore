@@ -16,12 +16,12 @@ export default function App() {
   const data = useSelector(selectData);
   const menu = useMenu();
 
-  const renderItem = ({ item, drag }: { item: DataI; drag: any }) => (
+  const renderItem = ({ item, drag }: { item: string; drag: any }) => (
     <ScaleDecorator activeScale={1.05}>
-      <KeyGroup drag={drag}>
+      <KeyGroup data={data[item]} drag={drag}>
         <View className="">
-          {Object.keys(item.keys).map((id: string) => (
-            <Key key={id} data={item.keys[id]} />
+          {Object.keys(data[item].keys).map((id: string) => (
+            <Key key={id} data={data[item].keys[id]} />
           ))}
         </View>
       </KeyGroup>
@@ -42,10 +42,22 @@ export default function App() {
       className="app flex-1 p-2"
     >
       <DragableFlatList
-        data={data}
+        data={Object.keys(data)}
         renderItem={renderItem}
-        keyExtractor={(item: DataI) => String(item.id + item.name)}
-        onDragEnd={({ data }) => dispatch(setData(data))}
+        keyExtractor={(item: string) => item}
+        onDragEnd={({ data: ids }) =>
+          dispatch(
+            setData(
+              ids.reduce((acc, id, index) => {
+                acc[id] = {
+                  ...data[id],
+                  order: index
+                };
+                return acc;
+              }, {} as DataListI)
+            )
+          )
+        }
         className="px-4 pt-1 pb-4 item rounded-xl"
       />
     </Pressable>

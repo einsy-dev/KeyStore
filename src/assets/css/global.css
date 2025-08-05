@@ -22,6 +22,6 @@
 	}
 
 	.btn {
-		@apply bg-blue-500 dark:bg-v-black text-white
+		@apply bg-blue-500 dark:bg-v-red text-white
 	}
 }
