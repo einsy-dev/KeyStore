@@ -1,9 +1,8 @@
-import { setModal } from "@/lib/store/app";
-import { deleteGroup, selectData } from "@/lib/store/data";
+// import { setModal } from "@/lib/store/app";
+import { selectData } from "@/lib/store/data";
 import { useRouter } from "expo-router";
 import { CirclePlus, Edit, Trash } from "lucide-react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { Confirm } from "../confirm";
 
 export function useMenu(groupId: string) {
   const data: DataListI = useSelector(selectData);
@@ -37,19 +36,18 @@ export function useMenu(groupId: string) {
       name: "Delete",
       icon: Trash,
       callback: () => {
-        dispatch(
-          setModal({
-            active: true,
-            component: (
-              <Confirm
-                title="Delete group?"
-                onSubmit={() => {
-                  dispatch(deleteGroup({ id: groupId }));
-                }}
-              />
-            )
-          })
-        );
+        // dispatch();
+        // setModal({
+        //   active: true,
+        //   component: (
+        //     <Confirm
+        //       title="Delete group?"
+        //       onSubmit={() => {
+        //         dispatch(deleteGroup({ id: groupId }));
+        //       }}
+        //     />
+        //   )
+        // })
       }
     }
   ];

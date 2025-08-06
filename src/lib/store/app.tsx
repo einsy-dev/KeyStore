@@ -1,5 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+const defaultMenu = {
+  active: false,
+  menu: []
+};
 const defaultModal: ModalI = {
   active: false,
   component: null,
@@ -9,12 +12,12 @@ const defaultModal: ModalI = {
 export const appSlice = createSlice({
   name: "modal",
   initialState: {
-    modal: { active: false, component: null },
+    menu: { active: false, menu: [] },
     popup: { active: false, component: null }
   },
   reducers: {
-    setModal: (state, { payload }: { payload: ModalI }) => {
-      state.modal = { ...defaultModal, ...payload } as any;
+    setMenu: (state, { payload }: { payload: MenuI }) => {
+      state.menu = { ...defaultMenu, ...payload } as any;
     },
     setPopup: (state, { payload }: { payload: ModalI }) => {
       state.popup = { ...defaultModal, ...payload } as any;
@@ -22,10 +25,10 @@ export const appSlice = createSlice({
   }
 });
 
-export const { setModal, setPopup } = appSlice.actions;
+export const { setMenu, setPopup } = appSlice.actions;
 
-export const selectModal = (state: any) => {
-  return state.modal.modal;
+export const selectMenu = (state: any) => {
+  return state.modal.menu;
 };
 export const selectPopup = (state: any) => {
   return state.modal.popup;

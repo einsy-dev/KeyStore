@@ -1,5 +1,4 @@
-import { ContextMenu } from "@/components/contextMenu";
-import { setModal } from "@/lib/store/app";
+import { setMenu } from "@/lib/store/app";
 import { CopyText } from "@/shared";
 import React from "react";
 import { TouchableOpacity } from "react-native";
@@ -14,10 +13,9 @@ export function Key({ data }: { data: KeyI }) {
       onLongPress={(e) => {
         e.stopPropagation();
         dispatch(
-          setModal({
+          setMenu({
             active: true,
-            component: <ContextMenu name="" menu={menu} />,
-            position: "bottom"
+            menu
           })
         );
       }}

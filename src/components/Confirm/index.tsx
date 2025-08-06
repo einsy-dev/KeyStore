@@ -1,4 +1,3 @@
-import { setModal } from "@/lib/store/app";
 import { Pressable, Text, View } from "react-native";
 import { useDispatch } from "react-redux";
 import { Button } from "../shared";
@@ -21,7 +20,7 @@ export function Confirm({ title, onSubmit, onReject = () => "" }: ConfirmI) {
         <Button
           onPress={() => {
             onReject();
-            dispatch(setModal({ active: false }));
+            // dispatch(setModal({ active: false }));
           }}
         >
           Reject
@@ -29,7 +28,7 @@ export function Confirm({ title, onSubmit, onReject = () => "" }: ConfirmI) {
         <Button
           onPress={() => {
             onSubmit();
-            dispatch(setModal({ active: false }));
+            // dispatch(setModal({ active: false }));
           }}
         >
           Submit

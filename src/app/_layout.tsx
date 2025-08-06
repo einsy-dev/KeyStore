@@ -1,5 +1,6 @@
+import { Menu } from "@/components/menu";
 import store from "@/lib/store";
-import { Modal, Popup } from "@/shared";
+import { Popup } from "@/shared";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "nativewind";
@@ -37,7 +38,7 @@ export default function Layout() {
             </Stack>
           </View>
         </SafeAreaView>
-        <Modal />
+        <Menu />
         <Popup />
       </Provider>
     </GestureHandlerRootView>

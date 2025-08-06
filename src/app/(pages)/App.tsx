@@ -1,7 +1,6 @@
-import { ContextMenu } from "@/components/contextMenu";
 import { Key } from "@/components/key";
 import { KeyGroup } from "@/components/keyGroup";
-import { setModal } from "@/lib/store/app";
+import { setMenu } from "@/lib/store/app";
 import { selectData, setData } from "@/lib/store/data";
 import { useRouter } from "expo-router";
 import { CirclePlus } from "lucide-react-native";
@@ -32,10 +31,9 @@ export default function App() {
     <Pressable
       onLongPress={() => {
         dispatch(
-          setModal({
+          setMenu({
             active: true,
-            component: <ContextMenu name="App" menu={menu} />,
-            position: "bottom"
+            menu
           })
         );
       }}
@@ -73,7 +71,7 @@ function useMenu() {
       icon: CirclePlus,
       callback: () => {
         router.navigate("/KeyGroupForm");
-        dispatch(setModal({ active: false }));
+        dispatch(setMenu({ active: false }));
       }
     }
   ];

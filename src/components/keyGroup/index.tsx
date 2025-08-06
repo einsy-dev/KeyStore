@@ -1,10 +1,9 @@
-import { setModal } from "@/lib/store/app";
+import { setMenu } from "@/lib/store/app";
 import { Ellipsis } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 import { ReactNode, useState } from "react";
 import { Pressable, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch } from "react-redux";
-import { ContextMenu } from "../contextMenu";
 import { Icon } from "../Icon";
 import { useMenu } from "./useMenu";
 
@@ -25,18 +24,7 @@ export function KeyGroup({
   const menu = useMenu(id);
 
   return (
-    <Pressable
-      onPress={() => setActive((prev) => !prev)}
-      onLongPress={() =>
-        dispatch(
-          setModal({
-            active: true,
-            component: <ContextMenu name={data.name} menu={menu} />,
-            position: "bottom"
-          })
-        )
-      }
-    >
+    <Pressable onPress={() => setActive((prev) => !prev)}>
       <View className="w-full flex-row ">
         <TouchableOpacity onPressIn={drag}>
           <View className="py-4 pe-4">
@@ -51,10 +39,9 @@ export function KeyGroup({
             <Pressable
               onPress={() =>
                 dispatch(
-                  setModal({
+                  setMenu({
                     active: true,
-                    component: <ContextMenu name={data.name} menu={menu} />,
-                    position: "bottom"
+                    menu
                   })
                 )
               }
