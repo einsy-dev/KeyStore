@@ -1,5 +1,5 @@
 // import { setModal } from "@/lib/store/app";
-import { selectData } from "@/lib/store/data";
+import { deleteGroup, selectData } from "@/lib/store/data";
 import { useRouter } from "expo-router";
 import { CirclePlus, Edit, Trash } from "lucide-react-native";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +14,8 @@ export function useMenu(groupId: string) {
       icon: CirclePlus,
       callback: () => {
         router.push({
-          pathname: "/(pages)/KeyForm"
+          pathname: "/(pages)/KeyForm",
+          params: { groupId }
         });
       }
     },
@@ -36,6 +37,7 @@ export function useMenu(groupId: string) {
       name: "Delete",
       icon: Trash,
       callback: () => {
+        dispatch(deleteGroup({ groupId }));
         // dispatch();
         // setModal({
         //   active: true,

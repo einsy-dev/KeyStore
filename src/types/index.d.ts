@@ -2,7 +2,6 @@ interface KeyI {
   name: string;
   value: string;
   order: number;
-  icon?: ReactNode;
 }
 type KeyListI = { [id: string]: KeyI };
 

@@ -1,5 +1,4 @@
 export { Button } from "./button";
-export { CopyText } from "./copyText";
 export { Divider } from "./divider";
 export { Popup } from "./popup";
 export { Text } from "./text";

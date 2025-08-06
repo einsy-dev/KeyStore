@@ -24,16 +24,16 @@ export function KeyGroup({
   const menu = useMenu(id);
 
   return (
-    <Pressable onPress={() => setActive((prev) => !prev)}>
-      <View className="w-full flex-row ">
+    <Pressable onPress={() => setActive((prev) => !prev)} className="mb-2 ">
+      <View className="w-full flex-row item rounded-xl px-4">
         <TouchableOpacity onPressIn={drag}>
           <View className="py-4 pe-4">
             <Icon iconId={data.icon || 0} />
           </View>
         </TouchableOpacity>
-        <View className="border-x-0 border-t-0 border flex-1">
+        <View className="flex-1">
           <View className="item flex-row items-center justify-between py-3">
-            <Text className="item text-3xl w-[80%]" numberOfLines={1}>
+            <Text className="item text-2xl w-[80%]" numberOfLines={1}>
               {data.name}
             </Text>
             <Pressable

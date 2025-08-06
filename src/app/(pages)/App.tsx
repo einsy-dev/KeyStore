@@ -18,9 +18,17 @@ export default function App() {
   const renderItem = ({ item, drag }: { item: string; drag: any }) => (
     <ScaleDecorator activeScale={1.05}>
       <KeyGroup id={item} data={data[item]} drag={drag}>
-        <View className="">
-          {Object.keys(data[item].keys || {}).map((id: string) => (
-            <Key key={id} data={data[item].keys[id]} />
+        <View className="gap-2 pb-2">
+          {Object.keys(data[item].keys)?.map((id: string) => (
+            <View key={id} className="flex-1 flex-row gap-2 ">
+              <Key value={data[item].keys[id].name} groupId={item} id={id} />
+              <Key
+                value={data[item].keys[id].value}
+                hide
+                groupId={item}
+                id={id}
+              />
+            </View>
           ))}
         </View>
       </KeyGroup>
@@ -56,7 +64,7 @@ export default function App() {
             )
           )
         }
-        className="px-4 pt-1 pb-4 item rounded-xl"
+        className="pt-1 pb-4"
       />
     </Pressable>
   );

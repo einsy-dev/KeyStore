@@ -27,9 +27,9 @@ export const dataSlice = createSlice({
     },
     deleteGroup: (
       state: { data: DataListI },
-      { payload }: { payload: { id: string } }
+      { payload }: { payload: { groupId: string } }
     ) => {
-      delete state.data[payload.id];
+      delete state.data[payload.groupId];
       SecureStore.setItem("data", JSON.stringify(state.data));
     },
     setKey: (
