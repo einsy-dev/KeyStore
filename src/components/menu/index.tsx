@@ -5,9 +5,12 @@ import { useColorScheme } from "nativewind";
 import { useEffect, useState } from "react";
 import { Pressable, TouchableOpacity } from "react-native";
 import Animated, {
+  interpolateColor,
   runOnJS,
+  useAnimatedStyle,
   useSharedValue,
-  withSpring
+  withSpring,
+  withTiming
 } from "react-native-reanimated";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -16,27 +19,42 @@ export function Menu() {
   const menu: MenuI = useSelector(selectMenu);
   const [active, setActive] = useState(false);
   const dispatch = useDispatch();
+
+  const opaque = useSharedValue(1);
   const translateY = useSharedValue(300);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      backgroundColor: interpolateColor(
+        opaque.value,
+        [0, 1],
+        ["rgba(0, 0, 0, 0.6)", "rgba(0, 0, 0, 0)"]
+      )
+    };
+  });
 
   useEffect(() => {
     if (menu.active) {
       setActive(true);
+      opaque.value = withTiming(0);
       translateY.value = withSpring(0, { dampingRatio: 1, duration: 500 });
     } else {
-      translateY.value = withSpring(300, { duration: 200 }, () => {
-        runOnJS(setActive)(false);
-      });
+      opaque.value = withTiming(1, {}, () => runOnJS(setActive)(false));
+      translateY.value = withSpring(300, { duration: 200 });
     }
-  }, [menu, translateY]);
+  }, [menu, translateY, opaque]);
 
   return (
-    <Pressable
-      onPress={() => {
-        dispatch(setMenu({ active: false }));
-      }}
-      className={active ? "absolute inset-0 bg-v-50" : "hidden"}
+    <Animated.View
+      className={active ? "absolute inset-0 bg-transparent" : "hidden"}
+      style={[animatedStyle]}
     >
-      <View className="flex-1 justify-end">
+      <Pressable
+        onPress={() => {
+          dispatch(setMenu({ active: false }));
+        }}
+        className="flex-1 justify-end"
+      >
         {/*  */}
         <Animated.View style={{ transform: [{ translateY: translateY }] }}>
           <Pressable onPress={(e) => e.stopPropagation()}>
@@ -64,7 +82,7 @@ export function Menu() {
           </Pressable>
         </Animated.View>
         {/*  */}
-      </View>
-    </Pressable>
+      </Pressable>
+    </Animated.View>
   );
 }
