@@ -1,22 +1,35 @@
 import { Button, Text, TextInput, View } from "@/components/shared";
-import { selectData, setKey } from "@/lib/store/data";
-import { isObjectHas } from "@/utils";
+import { setKey } from "@/lib/store/data";
 import { capitalize } from "@/utils/capitalize";
+import { createId } from "@paralleldrive/cuid2";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+
+interface StateI {
+  name: KeyElementI;
+  value: KeyElementI;
+  [key: string]: KeyElementI;
+}
 
 export default function KeyGroupForm() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { groupId, keyId, name = "", value = "" } = useLocalSearchParams<any>();
-  const data = useSelector(selectData);
-  const [state, setState] = useState<any>({ name, value });
+  const {
+    groupId,
+    keyId = createId(),
+    name = "",
+    value = ""
+  } = useLocalSearchParams<any>();
+  const [state, setState] = useState<StateI>({
+    name: { value: name },
+    value: { value: value }
+  });
   const [err, setErr] = useState<string>("");
 
   function handleSubmit() {
-    if (!isObjectHas(state, { name: true })) {
+    if (!state.name || !state.value) {
       return setErr("Please fill all fields");
     }
     dispatch(
@@ -45,9 +58,12 @@ export default function KeyGroupForm() {
               <View key={key} className="gap-2">
                 <Text className="text-2xl">{capitalize(key)}</Text>
                 <TextInput
-                  value={state[key]}
+                  value={state[key].value}
                   onChangeText={(text) =>
-                    setState((prev: any) => ({ ...prev, [key]: text }))
+                    setState((prev: StateI) => ({
+                      ...prev,
+                      [key]: { value: text }
+                    }))
                   }
                 />
               </View>

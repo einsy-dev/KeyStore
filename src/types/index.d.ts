@@ -1,7 +1,13 @@
-interface KeyI {
-  name: string;
+interface KeyElementI {
+  label?: string;
   value: string;
-  order: number;
+  hide?: boolean | "random";
+}
+
+interface KeyI {
+  name: KeyElementI;
+  value: KeyElementI;
+  order?: number;
 }
 type KeyListI = { [id: string]: KeyI };
 

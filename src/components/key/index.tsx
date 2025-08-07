@@ -11,19 +11,17 @@ import { useMenu } from "./useMenu";
 export function Key({
   groupId,
   id,
-  value,
-  hide = false
+  data
 }: {
   groupId: string;
   id: string;
-  value: string;
-  hide?: boolean;
+  data: KeyElementI;
 }) {
   const dispatch = useDispatch();
   const menu = useMenu(groupId, id);
   const { colorScheme } = useColorScheme();
   const [active, setActive] = useState(false);
-
+  console.log(data);
   return (
     <View className="flex-1 gap-1">
       <View className="flex-1 rounded overflow-hidden">
@@ -33,7 +31,7 @@ export function Key({
             setTimeout(() => {
               setActive(false);
             }, 950);
-            copy(value);
+            copy(data.value);
           }}
           onLongPress={() =>
             dispatch(
@@ -56,7 +54,7 @@ export function Key({
               )}
             </View>
             <Text className="text-xl">
-              {hide ? "*".repeat(value.length) : value}
+              {data.hide ? "*".repeat(data.value.length) : data.value}
             </Text>
           </View>
         </TouchableNativeFeedback>

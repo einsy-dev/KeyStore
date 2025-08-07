@@ -21,13 +21,8 @@ export default function App() {
         <View className="gap-2 pb-2">
           {Object.keys(data[item].keys)?.map((id: string) => (
             <View key={id} className="flex-1 flex-row gap-2 ">
-              <Key value={data[item].keys[id].name} groupId={item} id={id} />
-              <Key
-                value={data[item].keys[id].value}
-                hide
-                groupId={item}
-                id={id}
-              />
+              <Key groupId={item} id={id} data={data[item].keys[id].name} />
+              <Key groupId={item} id={id} data={data[item].keys[id].value} />
             </View>
           ))}
         </View>

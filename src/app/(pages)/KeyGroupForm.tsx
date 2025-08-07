@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 export default function KeyGroupForm() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { id, name = "", icon } = useLocalSearchParams<any>();
+  const { id = createId(), name = "", icon } = useLocalSearchParams<any>();
   const [form, setForm] = useState<any>({ name });
   const [iconState, setIconState] = useState<string | null>(icon);
   const [err, setErr] = useState<string>("");
@@ -22,7 +22,7 @@ export default function KeyGroupForm() {
     }
     dispatch(
       setGroup({
-        id: id || createId(),
+        id,
         data: { ...form, keys: {}, icon: iconState }
       })
     );

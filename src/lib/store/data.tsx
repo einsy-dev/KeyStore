@@ -6,6 +6,11 @@ const savedState: DataListI = JSON.parse(SecureStore.getItem("data") || "{}");
 const initialState: { data: DataListI } = {
   data: (isPlainObject(savedState) ? savedState : {}) as DataListI
 };
+const defaultKeyElement: KeyElementI = {
+  label: "",
+  value: "",
+  hide: false
+};
 
 export const dataSlice = createSlice({
   name: "data",
@@ -32,11 +37,16 @@ export const dataSlice = createSlice({
       delete state.data[payload.groupId];
       SecureStore.setItem("data", JSON.stringify(state.data));
     },
+    // keys
     setKey: (
       state: { data: DataListI },
       { payload }: { payload: { groupId: string; keyId: string; key: KeyI } }
     ) => {
-      state.data[payload.groupId].keys[payload.keyId] = payload.key;
+      state.data[payload.groupId].keys[payload.keyId] = {
+        ...payload.key,
+        name: { ...defaultKeyElement, ...payload.key.name },
+        value: { ...defaultKeyElement, ...payload.key.value }
+      };
       SecureStore.setItem("data", JSON.stringify(state.data));
     },
     deleteKey: (
