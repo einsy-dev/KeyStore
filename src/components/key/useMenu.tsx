@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 export function useMenu(groupId: string, keyId: string) {
   const dispatch = useDispatch();
   const router = useRouter();
-  const data = useSelector(selectData);
+  const data: DataListI = useSelector(selectData);
   return [
     {
       name: "Edit",
@@ -15,7 +15,11 @@ export function useMenu(groupId: string, keyId: string) {
         router.push({
           pathname: "/(pages)/KeyForm",
           params: {
-            ...data[groupId].keys[keyId]
+            groupId,
+            keyId,
+            name: data[groupId].keys[keyId].name.value,
+            value: data[groupId].keys[keyId].value.value,
+            order: data[groupId].keys[keyId].order
           }
         });
       }

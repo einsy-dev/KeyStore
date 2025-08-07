@@ -21,7 +21,6 @@ export function Key({
   const menu = useMenu(groupId, id);
   const { colorScheme } = useColorScheme();
   const [active, setActive] = useState(false);
-  console.log(data);
   return (
     <View className="flex-1 gap-1">
       <View className="flex-1 rounded overflow-hidden">
