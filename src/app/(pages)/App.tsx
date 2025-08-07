@@ -18,14 +18,15 @@ export default function App() {
   const renderItem = ({ item, drag }: { item: string; drag: any }) => (
     <ScaleDecorator activeScale={1.05}>
       <KeyGroup id={item} data={data[item]} drag={drag}>
-        <View className="gap-2 pb-2">
-          {Object.keys(data[item].keys)?.map((id: string) => (
-            <View key={id} className="flex-1 flex-row gap-2 ">
-              <Key groupId={item} id={id} data={data[item].keys[id].name} />
-              <Key groupId={item} id={id} data={data[item].keys[id].value} />
-            </View>
-          ))}
-        </View>
+        {Object.keys(data[item].keys)?.map((id: string, index: number) => (
+          <View
+            key={id}
+            className={`flex-1 flex-row gap-2 p-1 ${Object.keys(data[item].keys).length - 1 === index ? "mb-2" : ""}`}
+          >
+            <Key groupId={item} id={id} data={data[item].keys[id].name} />
+            <Key groupId={item} id={id} data={data[item].keys[id].value} />
+          </View>
+        ))}
       </KeyGroup>
     </ScaleDecorator>
   );

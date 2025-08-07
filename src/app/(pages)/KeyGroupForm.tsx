@@ -1,16 +1,17 @@
 import { SelectIcon } from "@/components/selectIcon";
 import { Button, Text, TextInput, View } from "@/components/shared";
-import { setGroup } from "@/lib/store/data";
+import { selectData, setGroup } from "@/lib/store/data";
 import { isObjectHas } from "@/utils";
 import { capitalize } from "@/utils/capitalize";
 import { createId } from "@paralleldrive/cuid2";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function KeyGroupForm() {
   const router = useRouter();
   const dispatch = useDispatch();
+  const data: DataListI = useSelector(selectData);
   const { id = createId(), name = "", icon } = useLocalSearchParams<any>();
   const [form, setForm] = useState<any>({ name });
   const [iconState, setIconState] = useState<string | null>(icon);
@@ -23,7 +24,11 @@ export default function KeyGroupForm() {
     dispatch(
       setGroup({
         id,
-        data: { ...form, keys: {}, icon: iconState }
+        data: {
+          ...form,
+          keys: (data[id] && data[id].keys) || {},
+          icon: iconState
+        }
       })
     );
     setErr("");

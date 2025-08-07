@@ -43,7 +43,7 @@ export function Key({
           delayPressOut={1000}
           background={TouchableNativeFeedback.Ripple("red", false, 100)}
         >
-          <View className="flex-1 flex-row gap-2 items-center  p-2 relative">
+          <View className="flex-1 flex-row gap-2 items-center  p-1 relative">
             <View className="absolute inset-0 items-end justify-center ">
               {active && (
                 <ClipboardCheck
