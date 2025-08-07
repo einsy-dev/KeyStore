@@ -2,20 +2,23 @@ import { setMenu } from "@/lib/store/app";
 import { Ellipsis } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 import { ReactNode, useState } from "react";
-import { Pressable, Text, TouchableOpacity, View } from "react-native";
+import { TouchableNativeFeedback, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 import { Icon } from "../Icon";
+import { Text, View } from "../shared";
 import { useMenu } from "./useMenu";
 
 export function KeyGroup({
   id,
   data,
   children,
+  className = "",
   drag
 }: {
   id: string;
   data: DataI;
   children?: ReactNode;
+  className?: string;
   drag: () => void;
 }) {
   const { colorScheme } = useColorScheme();
@@ -23,35 +26,52 @@ export function KeyGroup({
   const [active, setActive] = useState(false);
   const menu = useMenu(id);
 
+  function handleMenu() {
+    dispatch(
+      setMenu({
+        active: true,
+        menu
+      })
+    );
+  }
   return (
-    <Pressable onPress={() => setActive((prev) => !prev)} className="mb-2 ">
-      <View className="w-full flex-row item rounded-xl px-4">
-        <TouchableOpacity onPressIn={drag}>
-          <View className="py-4 pe-4">
-            <Icon iconId={data.icon || 0} />
-          </View>
-        </TouchableOpacity>
+    <View className={`item rounded-xl ${className}`}>
+      <View className="flex-row py-1">
+        <View className="items-center justify-center">
+          <TouchableOpacity onPressIn={drag}>
+            <View className="p-3">
+              <Icon iconId={data.icon || 0} />
+            </View>
+          </TouchableOpacity>
+        </View>
         <View className="flex-1">
-          <View className="item flex-row items-center justify-between py-3">
-            <Text className="item text-2xl w-[80%]" numberOfLines={1}>
-              {data.name}
-            </Text>
-            <Pressable
-              onPress={() =>
-                dispatch(
-                  setMenu({
-                    active: true,
-                    menu
-                  })
-                )
-              }
-            >
+          <TouchableOpacity
+            onPress={() => setActive((prev) => !prev)}
+            className="flex-1"
+          >
+            <View className="flex-1 px-4 items-center justify-center">
+              <Text className="text-2xl w-full" numberOfLines={1}>
+                {data.name}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <View className="items-center justify-center">
+          <TouchableNativeFeedback
+            onPress={handleMenu}
+            background={TouchableNativeFeedback.Ripple(
+              "hsl(0, 0%, 50%)",
+              true,
+              22
+            )}
+          >
+            <View className="p-3">
               <Ellipsis color={colorScheme === "light" ? "black" : "white"} />
-            </Pressable>
-          </View>
-          {children && active ? children : null}
+            </View>
+          </TouchableNativeFeedback>
         </View>
       </View>
-    </Pressable>
+      {children && active ? children : null}
+    </View>
   );
 }

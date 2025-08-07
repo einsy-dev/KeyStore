@@ -1,10 +1,10 @@
 import { setMenu } from "@/lib/store/app";
-import { Divider, Text, View } from "@/shared";
+import { Text, View } from "@/shared";
 import * as Clipboard from "expo-clipboard";
 import { ClipboardCheck } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 import React, { useState } from "react";
-import { TouchableNativeFeedback } from "react-native";
+import { GestureResponderEvent, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 import { useMenu } from "./useMenu";
 
@@ -21,44 +21,51 @@ export function Key({
   const menu = useMenu(groupId, id);
   const { colorScheme } = useColorScheme();
   const [active, setActive] = useState(false);
+
+  function handlePress(e: GestureResponderEvent) {
+    setActive(true);
+    setTimeout(() => {
+      setActive(false);
+    }, 1200);
+    copy(data.value);
+  }
+  function handleLongPress() {
+    dispatch(
+      setMenu({
+        active: true,
+        menu
+      })
+    );
+  }
+
+  if (!data.value) return null;
   return (
-    <View className="flex-1 gap-1">
-      <View className="flex-1 rounded overflow-hidden">
-        <TouchableNativeFeedback
-          onPress={(e) => {
-            setActive(true);
-            setTimeout(() => {
-              setActive(false);
-            }, 950);
-            copy(data.value);
-          }}
-          onLongPress={() =>
-            dispatch(
-              setMenu({
-                active: true,
-                menu
-              })
-            )
-          }
-          delayPressOut={1000}
-          background={TouchableNativeFeedback.Ripple("red", false, 100)}
-        >
-          <View className="flex-1 flex-row gap-2 items-center  p-1 relative">
-            <View className="absolute inset-0 items-end justify-center ">
-              {active && (
-                <ClipboardCheck
-                  height={20}
-                  color={colorScheme === "light" ? "black" : "white"}
-                />
-              )}
-            </View>
-            <Text className="text-xl">
-              {data.hide ? "*".repeat(data.value.length) : data.value}
-            </Text>
-          </View>
-        </TouchableNativeFeedback>
-      </View>
-      <Divider className="w-full" />
+    <View className="flex-1 rounded border px-2 relative">
+      {data.label ? (
+        <Text className="item absolute left-1 -top-[8px] px-1 text-xs">
+          {data.label}
+        </Text>
+      ) : null}
+      <TouchableOpacity
+        onPress={handlePress}
+        onLongPress={handleLongPress}
+        delayPressOut={200}
+      >
+        <View className="flex-1 flex-row gap-2 items-center relative py-1">
+          <Text className="text-xl flex-1" numberOfLines={1}>
+            {data.hide ? "*".repeat(data.value.length) : data.value}
+          </Text>
+          {active && (
+            <ClipboardCheck
+              height={18}
+              width={18}
+              viewBox="4 1 10 22"
+              fill="hsl(0, 0%, 20%)"
+              color={colorScheme === "light" ? "black" : "white"}
+            />
+          )}
+        </View>
+      </TouchableOpacity>
     </View>
   );
 }
