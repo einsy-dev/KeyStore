@@ -24,3 +24,9 @@ interface ModalI {
   component?: ReactNode;
   position?: "top" | "bottom" | "center";
 }
+
+interface IconsI {
+  [key: string]: {
+    icon: LucideIcon;
+  };
+}
