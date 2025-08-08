@@ -8,5 +8,15 @@
     ],
     "description": "",
     "scope": "javascriptreact"
+  },
+  "useEffect": {
+    "prefix": [
+      "ue"
+    ],
+    "body": [
+      "useEffect(() => {}, []);"
+    ],
+    "description": "",
+    "scope": "javascriptreact"
   }
 }

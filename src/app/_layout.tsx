@@ -18,10 +18,10 @@ export default function Layout() {
           <StatusBar style={colorScheme === "light" ? "dark" : "light"} />
           <GestureHandlerRootView className="flex-1 relative">
             <Stack>
-              {/* <Stack.Screen
+              <Stack.Screen
                 name="(pages)/Auth"
                 options={{ headerShown: false }}
-              /> */}
+              />
               <Stack.Screen
                 name="(pages)/App"
                 options={{ headerShown: false }}
@@ -32,6 +32,10 @@ export default function Layout() {
               />
               <Stack.Screen
                 name="(pages)/KeyForm"
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="(pages)/Backup"
                 options={{ headerShown: false }}
               />
               <Stack.Screen

@@ -1,23 +1,27 @@
-import { useState } from "react";
-import { TextInput as TextInputRN } from "react-native";
+import { Ref } from "react";
+import { KeyboardType, TextInput as TextInputRN } from "react-native";
 
 export function TextInput({
   value = "",
   className = "",
-  onChangeText
+  onChangeText,
+  ref = null,
+  keyboardType = "default"
 }: {
   value?: string;
   className?: string;
   onChangeText: (text: string) => void;
+  ref: Ref<any>;
+  keyboardType?: KeyboardType;
 }) {
-  const [state, setState] = useState(value);
   return (
     <TextInputRN
-      value={state}
+      ref={ref}
+      value={value}
       onChangeText={(text: string) => {
-        setState(text);
         onChangeText(text);
       }}
+      keyboardType={keyboardType}
       className={`border px-4 py-2 rounded text-2xl item ${className}`}
     />
   );
