@@ -5,6 +5,10 @@ export function Icon({ iconId }: { iconId: string }) {
   const { colorScheme } = useColorScheme();
   const IconNode = Icons[iconId].icon;
   return (
-    <IconNode height={22} color={colorScheme === "dark" ? "white" : "black"} />
+    <IconNode
+      height={22}
+      width={22}
+      color={colorScheme === "dark" ? "white" : "black"}
+    />
   );
 }

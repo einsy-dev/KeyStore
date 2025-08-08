@@ -3,9 +3,11 @@ import { TextInput as TextInputRN } from "react-native";
 
 export function TextInput({
   value = "",
+  className = "",
   onChangeText
 }: {
   value?: string;
+  className?: string;
   onChangeText: (text: string) => void;
 }) {
   const [state, setState] = useState(value);
@@ -16,7 +18,7 @@ export function TextInput({
         setState(text);
         onChangeText(text);
       }}
-      className="border px-4 py-2 rounded text-2xl  item"
+      className={`border px-4 py-2 rounded text-2xl item ${className}`}
     />
   );
 }

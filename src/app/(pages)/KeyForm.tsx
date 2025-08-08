@@ -1,10 +1,9 @@
-import { Button, Text, TextInput, View } from "@/components/shared";
+import { Button, CheckBox, Text, TextInput, View } from "@/components/shared";
 import { setKey } from "@/lib/store/data";
-import { capitalize } from "@/utils/capitalize";
+import { capitalize } from "@/utils";
 import { createId } from "@paralleldrive/cuid2";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useState } from "react";
-import { Pressable } from "react-native";
+import { SetStateAction, useState } from "react";
 import { useDispatch } from "react-redux";
 
 interface StateI {
@@ -13,23 +12,36 @@ interface StateI {
   [key: string]: KeyElementI;
 }
 
+type LocalSearchParamI = {
+  groupId: string;
+  keyId: string;
+  name: string;
+  nameLabel: string;
+  value: string;
+  valueLabel: string;
+};
+
 export default function KeyGroupForm() {
   const router = useRouter();
   const dispatch = useDispatch();
+
   const {
     groupId,
     keyId = createId(),
     name = "",
-    value = ""
-  } = useLocalSearchParams<any>();
+    nameLabel = "",
+    value = "",
+    valueLabel = ""
+  } = useLocalSearchParams<LocalSearchParamI>();
+
   const [state, setState] = useState<StateI>({
-    name: { value: name },
-    value: { value: value }
+    name: { value: name, label: nameLabel },
+    value: { value: value, label: valueLabel }
   });
   const [err, setErr] = useState<string>("");
 
   function handleSubmit() {
-    if (!state.name || !state.value) {
+    if (state.name.value === "Name" && state.value.value === "Value") {
       return setErr("Please fill all fields");
     }
     dispatch(
@@ -50,29 +62,60 @@ export default function KeyGroupForm() {
   }
 
   return (
-    <View className="app flex-1 p-2">
-      <Pressable onPress={(e) => e.stopPropagation()}>
-        <View className="p-4 rounded-2xl item overflow-hidden justify-between">
-          <View className="mb-4 gap-4 justify-center">
-            {Object.keys(state).map((key) => (
-              <View key={key} className="gap-2">
-                <Text className="text-2xl">{capitalize(key)}</Text>
-                <TextInput
-                  value={state[key].value}
-                  onChangeText={(text) =>
-                    setState((prev: StateI) => ({
-                      ...prev,
-                      [key]: { value: text }
-                    }))
-                  }
-                />
-              </View>
-            ))}
-            <Text className="text-v-red">{err}</Text>
+    <View className="app flex-1 p-4  justify-between">
+      <View className="gap-4">
+        {Object.keys(state).map((key) => (
+          <View key={key} className="gap-2 rounded-2xl item p-4">
+            <FormElement
+              state={state[key]}
+              setState={(val: any) =>
+                setState((prev) => ({ ...prev, [key]: val(prev[key]) }))
+              }
+              placeHolder={key}
+            />
           </View>
-          <Button onPress={handleSubmit}>Submit</Button>
-        </View>
-      </Pressable>
+        ))}
+        <Text className="text-v-red">{err}</Text>
+      </View>
+      <Button onPress={handleSubmit}>Submit</Button>
+    </View>
+  );
+}
+
+function FormElement({
+  state,
+  setState,
+  placeHolder = ""
+}: {
+  state: KeyElementI;
+  setState: SetStateAction<any>;
+  placeHolder?: string;
+}) {
+  return (
+    <View className="gap-2">
+      <View className="gap-1">
+        <TextInput
+          value={state.label || "Label"}
+          onChangeText={(text) =>
+            setState((prev: KeyElementI) => ({ ...prev, label: text }))
+          }
+          className="text-xs py-[2px] w-1/3"
+        />
+        <TextInput
+          value={state.value || capitalize(placeHolder)}
+          onChangeText={(text) =>
+            setState((prev: KeyElementI) => ({ ...prev, value: text }))
+          }
+          className="text-lg"
+        />
+      </View>
+      <CheckBox
+        onPress={(hide) => {
+          setState((prev: KeyElementI) => ({ ...prev, hide }));
+        }}
+      >
+        Hide
+      </CheckBox>
     </View>
   );
 }
