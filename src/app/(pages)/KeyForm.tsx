@@ -71,7 +71,7 @@ export default function KeyGroupForm() {
               setState={(val: any) =>
                 setState((prev) => ({ ...prev, [key]: val(prev[key]) }))
               }
-              placeHolder={key}
+              title={key}
             />
           </View>
         ))}
@@ -85,24 +85,27 @@ export default function KeyGroupForm() {
 function FormElement({
   state,
   setState,
-  placeHolder = ""
+  title = ""
 }: {
   state: KeyElementI;
   setState: SetStateAction<any>;
-  placeHolder?: string;
+  title: string;
 }) {
   return (
     <View className="gap-2">
       <View className="gap-1">
+        <Text>Label</Text>
         <TextInput
-          value={state.label || "Label"}
+          value={state.label}
           onChangeText={(text) =>
             setState((prev: KeyElementI) => ({ ...prev, label: text }))
           }
-          className="text-xs py-[2px] w-1/3"
+          className="text-lg"
         />
+
+        <Text>{capitalize(title)}</Text>
         <TextInput
-          value={state.value || capitalize(placeHolder)}
+          value={state.value}
           onChangeText={(text) =>
             setState((prev: KeyElementI) => ({ ...prev, value: text }))
           }

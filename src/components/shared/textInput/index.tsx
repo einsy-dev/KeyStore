@@ -6,13 +6,17 @@ export function TextInput({
   className = "",
   onChangeText,
   ref = null,
-  keyboardType = "default"
+  keyboardType = "default",
+  placeholder = "",
+  placeholderClassName = ""
 }: {
   value?: string;
   className?: string;
   onChangeText: (text: string) => void;
-  ref: Ref<any>;
+  ref?: Ref<any>;
   keyboardType?: KeyboardType;
+  placeholder?: string;
+  placeholderClassName?: string;
 }) {
   return (
     <TextInputRN
@@ -23,6 +27,8 @@ export function TextInput({
       }}
       keyboardType={keyboardType}
       className={`border px-4 py-2 rounded text-2xl item ${className}`}
+      placeholder={placeholder}
+      placeholderClassName={placeholderClassName}
     />
   );
 }
