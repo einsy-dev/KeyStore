@@ -1,7 +1,13 @@
 import { createId } from "@paralleldrive/cuid2";
 import { Delete } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
-import { Dispatch, ReactNode, SetStateAction, useState } from "react";
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useEffect,
+  useState
+} from "react";
 import { TouchableNativeFeedback } from "react-native";
 import { Text, View } from "../shared";
 
@@ -9,46 +15,54 @@ export function Numpad({
   value = "",
   onChangeText = () => ""
 }: {
-  value?: string;
-  onChangeText?: (text: string) => void;
+  value: string;
+  onChangeText: Dispatch<SetStateAction<string>>;
 }) {
+  const [state, setState] = useState(value);
   const { colorScheme } = useColorScheme();
-  const [, setState] = useState<string[]>(value.split(""));
   const color = colorScheme === "light" ? "black" : "white";
+
+  useEffect(() => {
+    setState((prev) => {
+      if (prev.length >= 4) return "";
+      return prev;
+    });
+  }, [value]);
+
+  function handlePress(item: string | number) {
+    setState((prev: string) => {
+      if (typeof item === "string") {
+        return (prev += item);
+      } else {
+        return prev.slice(0, prev.length - 1);
+      }
+    });
+  }
+
+  useEffect(() => {
+    onChangeText(state);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state]);
 
   return (
     <View className="w-3/4 mx-auto">
-      <NumpadLine
-        items={["1", "2", "3"]}
-        setState={setState}
-        onChangeText={onChangeText}
-      />
-      <NumpadLine
-        items={["4", "5", "6"]}
-        setState={setState}
-        onChangeText={onChangeText}
-      />
-      <NumpadLine
-        items={["7", "8", "9"]}
-        setState={setState}
-        onChangeText={onChangeText}
-      />
+      <NumpadLine items={["1", "2", "3"]} handlePress={handlePress} />
+      <NumpadLine items={["4", "5", "6"]} handlePress={handlePress} />
+      <NumpadLine items={["7", "8", "9"]} handlePress={handlePress} />
       <NumpadLine
         items={["", "0", <Delete key={"Delete"} color={color} />]}
-        setState={setState}
+        handlePress={handlePress}
       />
     </View>
   );
 }
 
 function NumpadLine({
-  items = [],
-  setState,
-  onChangeText = () => {}
+  items,
+  handlePress
 }: {
   items: string[] | ReactNode[];
-  setState: Dispatch<SetStateAction<string[]>>;
-  onChangeText?: (text: string) => void;
+  handlePress: (item: string | number) => void;
 }) {
   return (
     <View className=" flex-row justify-between">
@@ -57,25 +71,13 @@ function NumpadLine({
           <TextItem
             key={createId()}
             item={el}
-            onPress={() =>
-              setState((prev: string[]) => {
-                prev.push(el);
-                onChangeText(prev.join(""));
-                return prev;
-              })
-            }
+            onPress={() => handlePress(el)}
           />
         ) : (
           <IconItem
             key={createId()}
             item={el}
-            onPress={() => {
-              setState((prev: string[]) => {
-                prev = prev.slice(0, prev.length - 1);
-                onChangeText(prev.join(""));
-                return prev;
-              });
-            }}
+            onPress={() => handlePress(-1)}
           />
         )
       )}
