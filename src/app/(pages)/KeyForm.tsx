@@ -67,7 +67,7 @@ export default function KeyGroupForm() {
       <View className="gap-4">
         <KeyMode />
         {Object.keys(state).map((key) => (
-          <View key={key} className="gap-2 rounded-2xl item p-4">
+          <View key={key} className="gap-2 item p-4">
             <FormElement
               state={state[key]}
               setState={(val: any) =>

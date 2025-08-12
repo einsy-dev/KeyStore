@@ -18,6 +18,6 @@
 	}
 
 	.item {
-		@apply bg-v-light dark:bg-v-dark dark:text-v-light
+		@apply bg-v-light dark:bg-v-dark dark:text-v-light rounded
 	}
 }

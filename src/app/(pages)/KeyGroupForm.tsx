@@ -48,7 +48,7 @@ export default function KeyGroupForm() {
   return (
     <View className="app flex-1 p-4 gap-4 justify-between">
       <View className="gap-4">
-        <View className="rounded-2xl item p-4">
+        <View className=" item p-4">
           <Text className="text-2xl">Icon</Text>
           <View className="items-center p-2">
             <SelectIcon
@@ -58,7 +58,7 @@ export default function KeyGroupForm() {
             />
           </View>
         </View>
-        <View className="rounded-2xl item p-4">
+        <View className=" item p-4">
           <View className="gap-2">
             <Text className="text-2xl">Name</Text>
             <TextInput

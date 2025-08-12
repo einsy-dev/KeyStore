@@ -35,7 +35,7 @@ export function KeyGroup({
     );
   }
   return (
-    <View className={`item rounded-xl ${className}`}>
+    <View className={`item ${className}`}>
       <View className="flex-row py-1">
         <View className="items-center justify-center">
           <TouchableOpacity onPressIn={drag}>
