@@ -1,4 +1,5 @@
-import { TextInput, View } from "@/components/shared";
+import { Numpad } from "@/components/numpad";
+import { View } from "@/components/shared";
 import { useRouter } from "expo-router";
 import { Circle } from "lucide-react-native";
 import { useEffect, useRef, useState } from "react";
@@ -48,12 +49,10 @@ export default function Auth() {
           </View>
         </TouchableNativeFeedback>
       </KeyboardAvoidingView>
-      <TextInput
+
+      <Numpad
         value={state.join("")}
         onChangeText={(text: string) => setState(handletext(text))}
-        ref={ref}
-        keyboardType="numeric"
-        className="absolute -top-96"
       />
     </View>
   );

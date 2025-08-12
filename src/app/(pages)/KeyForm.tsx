@@ -1,3 +1,4 @@
+import { KeyMode } from "@/components/keyMode";
 import { Button, CheckBox, Text, TextInput, View } from "@/components/shared";
 import { setKey } from "@/lib/store/data";
 import { capitalize } from "@/utils";
@@ -62,8 +63,9 @@ export default function KeyGroupForm() {
   }
 
   return (
-    <View className="app flex-1 p-4  justify-between">
+    <View className="app flex-1 p-4 justify-between">
       <View className="gap-4">
+        <KeyMode />
         {Object.keys(state).map((key) => (
           <View key={key} className="gap-2 rounded-2xl item p-4">
             <FormElement
