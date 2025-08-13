@@ -9,14 +9,17 @@ export default function Auth() {
   const [state, setState] = useState("");
 
   useEffect(() => {
+    let timer = null;
     if (state.length >= 4) {
-      router.navigate("/(pages)/App");
-      setTimeout(() => {
-        // in future add a loading animation between
+      timer = setTimeout(async () => {
+        await router.navigate("/(pages)/App");
         setState("");
-      }, 1e3);
+      }, 0);
     }
-  }, [state, router]);
+    return () => {
+      timer && clearTimeout(timer);
+    };
+  }, [router, state]);
 
   return (
     <View className="app flex-1 p-4 justify-center">
