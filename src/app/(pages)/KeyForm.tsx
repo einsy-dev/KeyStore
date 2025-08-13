@@ -1,7 +1,6 @@
 import { KeyMode } from "@/components/keyMode";
 import { Button, CheckBox, Text, TextInput, View } from "@/components/shared";
 import { setKey } from "@/lib/store/data";
-import { capitalize } from "@/utils";
 import { createId } from "@paralleldrive/cuid2";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SetStateAction, useState } from "react";
@@ -40,6 +39,7 @@ export default function KeyGroupForm() {
     value: { value: value, label: valueLabel }
   });
   const [err, setErr] = useState<string>("");
+  const [type, setType] = useState<KeyModeT>("double");
 
   function handleSubmit() {
     if (state.name.value === "Name" && state.value.value === "Value") {
@@ -65,18 +65,22 @@ export default function KeyGroupForm() {
   return (
     <View className="app flex-1 p-4 justify-between">
       <View className="gap-4">
-        <KeyMode />
-        {Object.keys(state).map((key) => (
-          <View key={key} className="gap-2 item p-4">
-            <FormElement
-              state={state[key]}
-              setState={(val: any) =>
-                setState((prev) => ({ ...prev, [key]: val(prev[key]) }))
-              }
-              title={key}
-            />
-          </View>
-        ))}
+        <KeyMode state={type} setState={setType} />
+
+        <FormElement
+          state={state.name}
+          setState={(val: any) =>
+            setState((prev) => ({ ...prev, name: val(prev.name) }))
+          }
+        />
+        {type === "double" ? (
+          <FormElement
+            state={state.value}
+            setState={(val: any) =>
+              setState((prev) => ({ ...prev, value: val(prev.value) }))
+            }
+          />
+        ) : null}
         <Text className="text-v-red">{err}</Text>
       </View>
       <Button onPress={handleSubmit}>Submit</Button>
@@ -86,15 +90,13 @@ export default function KeyGroupForm() {
 
 function FormElement({
   state,
-  setState,
-  title = ""
+  setState
 }: {
   state: KeyElementI;
   setState: SetStateAction<any>;
-  title: string;
 }) {
   return (
-    <View className="gap-2">
+    <View className="gap-2 item p-4">
       <View className="gap-1">
         <Text>Label</Text>
         <TextInput
@@ -105,7 +107,7 @@ function FormElement({
           className="text-lg"
         />
 
-        <Text>{capitalize(title)}</Text>
+        <Text>Value</Text>
         <TextInput
           value={state.value}
           onChangeText={(text) =>

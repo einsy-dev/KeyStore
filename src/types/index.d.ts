@@ -30,3 +30,5 @@ interface IconsI {
     icon: LucideIcon;
   };
 }
+
+type KeyModeT = "single" | "double";
