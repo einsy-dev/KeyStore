@@ -12,8 +12,9 @@ export default function Auth() {
     if (state.length >= 4) {
       router.navigate("/(pages)/App");
       setTimeout(() => {
+        // in future add a loading animation between
         setState("");
-      }, 2e3);
+      }, 1e3);
     }
   }, [state, router]);
 
