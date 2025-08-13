@@ -11,8 +11,8 @@ export default function Auth() {
   useEffect(() => {
     let timer = null;
     if (state.length >= 4) {
-      timer = setTimeout(async () => {
-        await router.navigate("/(pages)/App");
+      timer = setTimeout(() => {
+        router.navigate("/(pages)/App");
         setState("");
       }, 0);
     }
