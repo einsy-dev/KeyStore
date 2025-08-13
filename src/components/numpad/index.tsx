@@ -12,8 +12,6 @@ export const Numpad = memo(function Numpad({
   const { colorScheme } = useColorScheme();
   const color = colorScheme === "light" ? "black" : "white";
 
-  console.log("render");
-
   function handlePress(item: string | number) {
     onChangeText((prev: string) => {
       if (typeof item === "string") {
