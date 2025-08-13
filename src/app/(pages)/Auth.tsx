@@ -11,9 +11,11 @@ export default function Auth() {
   useEffect(() => {
     if (state.length >= 4) {
       router.navigate("/(pages)/App");
+      setTimeout(() => {
+        setState("");
+      }, 2e3);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state]);
+  }, [state, router]);
 
   return (
     <View className="app flex-1 p-4 justify-center">
@@ -32,7 +34,7 @@ export default function Auth() {
           ))}
       </View>
 
-      <Numpad value={state} onChangeText={(state) => setState(state)} />
+      <Numpad onChangeText={setState} />
     </View>
   );
 }
