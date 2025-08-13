@@ -42,14 +42,17 @@ export default function KeyGroupForm() {
   const [type, setType] = useState<KeyModeT>("double");
 
   function handleSubmit() {
-    if (state.name.value === "Name" && state.value.value === "Value") {
-      return setErr("Please fill all fields");
+    if (!state.name.value || (type === "double" && !state.value.value)) {
+      return setErr("*Please fill all fields");
     }
     dispatch(
       setKey({
         groupId,
         keyId,
-        key: { ...state }
+        key:
+          type === "single"
+            ? { ...state, value: { value: "", label: "" } }
+            : state
       })
     );
     router.back();
@@ -81,7 +84,7 @@ export default function KeyGroupForm() {
             }
           />
         ) : null}
-        <Text className="text-v-red">{err}</Text>
+        <Text className="!text-v-red">{err}</Text>
       </View>
       <Button onPress={handleSubmit}>Submit</Button>
     </View>
