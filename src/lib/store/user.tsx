@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const defaultUser = {
   pin: "",
-  isActive: false
+  auth: false
 };
 
 export const userSlice = createSlice({
@@ -19,9 +19,6 @@ export const userSlice = createSlice({
 
 export const { setUser } = userSlice.actions;
 
-export const selectMenu = (state: any) => {
-  return state.modal.menu;
-};
-export const selectPopup = (state: any) => {
-  return state.modal.popup;
+export const selectUser = (state: any) => {
+  return state.user.user;
 };
