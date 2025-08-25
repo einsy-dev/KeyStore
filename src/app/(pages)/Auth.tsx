@@ -1,8 +1,7 @@
 import { Numpad } from "@/components/numpad";
 import { View } from "@/components/shared";
+import { hash } from "@/lib/crypto";
 import { selectUser } from "@/lib/store/user";
-import { HmacSHA256, SHA256 } from "crypto-js";
-import Base64 from "crypto-js/enc-base64";
 import { useRouter } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import { Circle } from "lucide-react-native";
@@ -34,14 +33,12 @@ export default function Auth() {
 
   function authUser(pin: string) {
     const storedPin = SecureStore.getItem("pin");
-    const hash = Base64.stringify(
-      HmacSHA256(SHA256(pin), process.env.EXPO_PUBLIC_SECRET!)
-    );
+
     if (!storedPin) {
-      SecureStore.setItem("pin", hash);
+      SecureStore.setItem("pin", hash(pin));
       return true;
     } else {
-      return storedPin === hash;
+      return storedPin === hash(pin);
     }
   }
 
