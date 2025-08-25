@@ -6,6 +6,7 @@ import Base64 from "crypto-js/enc-base64";
 import { useRouter } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import { Circle } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -13,6 +14,8 @@ export default function Auth() {
   const router = useRouter();
   const [state, setState] = useState("");
   const user = useSelector(selectUser);
+  const { colorScheme } = useColorScheme();
+  const color = colorScheme === "light" ? "black" : "white";
 
   useEffect(() => {
     let timer = null;
@@ -53,7 +56,7 @@ export default function Auth() {
               className="border rounded aspect-[4/5] h-[60px] items-center justify-center"
             >
               {state.length - 1 >= index && (
-                <Circle color={"white"} fill={"white"} />
+                <Circle color={color} fill={color} />
               )}
             </View>
           ))}

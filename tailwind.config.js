@@ -8,7 +8,7 @@ module.exports = {
       colors: {
         "v-black": "hsl(0, 0%, 10%)",
         "v-dark": "hsl(0, 0%, 20%)",
-        "v-light": "hsl(0, 0%, 100%)",
+        "v-light": "hsl(0, 0%, 94%)",
         "v-red": "hsl(358, 77%, 46%)",
         "v-50": "rgba(0, 0, 0, 0.5)",
       }
