@@ -2,10 +2,9 @@ import { Key } from "@/components/key";
 import { KeyGroup } from "@/components/keyGroup";
 import { setMenu } from "@/lib/store/app";
 import { selectData, setData } from "@/lib/store/data";
-import { readFile } from "@/utils";
 import { useRouter } from "expo-router";
-import { CirclePlus } from "lucide-react-native";
-import React, { useEffect } from "react";
+import { CirclePlus, DatabaseBackup, Settings } from "lucide-react-native";
+import React from "react";
 import { Pressable, View } from "react-native";
 import DragableFlatList, {
   ScaleDecorator
@@ -16,10 +15,6 @@ export default function App() {
   const dispatch = useDispatch();
   const data = useSelector(selectData);
   const menu = useMenu();
-
-  useEffect(() => {
-    readFile();
-  }, []);
 
   const renderItem = ({ item, drag }: { item: string; drag: any }) => (
     <ScaleDecorator activeScale={1.02}>
@@ -83,6 +78,22 @@ function useMenu() {
       icon: CirclePlus,
       callback: () => {
         router.navigate("/KeyGroupForm");
+        dispatch(setMenu({ active: false }));
+      }
+    },
+    {
+      name: "Backup",
+      icon: DatabaseBackup,
+      callback: () => {
+        router.navigate("/Backup");
+        dispatch(setMenu({ active: false }));
+      }
+    },
+    {
+      name: "Settings",
+      icon: Settings,
+      callback: () => {
+        router.navigate("/Settings");
         dispatch(setMenu({ active: false }));
       }
     }

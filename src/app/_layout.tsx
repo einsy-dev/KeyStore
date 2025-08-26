@@ -39,6 +39,10 @@ export default function Layout() {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
+                name="(pages)/Settings"
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
                 name="+not-found"
                 options={{ headerShown: false }}
               />
