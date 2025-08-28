@@ -14,7 +14,7 @@ export function useMenu(groupId: string) {
       icon: CirclePlus,
       callback: () => {
         router.push({
-          pathname: "/(pages)/KeyForm",
+          pathname: "/KeyForm",
           params: { groupId }
         });
       }
@@ -24,7 +24,7 @@ export function useMenu(groupId: string) {
       icon: Edit,
       callback: () => {
         router.push({
-          pathname: "/(pages)/KeyGroupForm",
+          pathname: "/KeyGroupForm",
           params: {
             id: groupId,
             name: data[groupId].name,

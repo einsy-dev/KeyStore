@@ -1,5 +1,4 @@
 import { Pressable, Text, View } from "react-native";
-import { useDispatch } from "react-redux";
 import { Button } from "../shared";
 
 interface ConfirmI {
@@ -9,7 +8,6 @@ interface ConfirmI {
 }
 
 export function Confirm({ title, onSubmit, onReject = () => "" }: ConfirmI) {
-  const dispatch = useDispatch();
   return (
     <Pressable
       onPress={(e) => e.stopPropagation()}

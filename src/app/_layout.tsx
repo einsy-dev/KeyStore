@@ -16,32 +16,17 @@ export default function Layout() {
       <SafeAreaProvider>
         <SafeAreaView className="flex-1 app">
           <StatusBar style={colorScheme === "light" ? "dark" : "light"} />
-          <GestureHandlerRootView className="flex-1 relative">
+          <GestureHandlerRootView className="flex-1 relative ">
             <Stack>
+              <Stack.Screen name="index" options={{ headerShown: false }} />
+              <Stack.Screen name="App" options={{ headerShown: false }} />
               <Stack.Screen
-                name="(pages)/Auth"
+                name="KeyGroupForm"
                 options={{ headerShown: false }}
               />
-              <Stack.Screen
-                name="(pages)/App"
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="(pages)/KeyGroupForm"
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="(pages)/KeyForm"
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="(pages)/Backup"
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="(pages)/Settings"
-                options={{ headerShown: false }}
-              />
+              <Stack.Screen name="KeyForm" options={{ headerShown: false }} />
+              <Stack.Screen name="Backup" options={{ headerShown: false }} />
+              <Stack.Screen name="Settings" options={{ headerShown: false }} />
               <Stack.Screen
                 name="+not-found"
                 options={{ headerShown: false }}

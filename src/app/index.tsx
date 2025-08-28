@@ -21,7 +21,7 @@ export default function Auth() {
     if (state.length >= 4) {
       timer = setTimeout(() => {
         if (authUser(state)) {
-          router.navigate("/(pages)/App");
+          router.navigate("/App");
         }
         setState("");
       }, 0);

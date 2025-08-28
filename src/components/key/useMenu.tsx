@@ -13,7 +13,7 @@ export function useMenu(groupId: string, keyId: string) {
       icon: Edit,
       callback: () => {
         router.push({
-          pathname: "/(pages)/KeyForm",
+          pathname: "/KeyForm",
           params: {
             groupId,
             keyId,
