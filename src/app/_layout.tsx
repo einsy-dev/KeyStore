@@ -1,6 +1,7 @@
-import { Menu } from "@/components/menu";
+import { Menu } from "@/components/Menu";
+import { Modal } from "@/components/Modal";
+import { Popup } from "@/components/Popup";
 import store from "@/lib/store";
-import { Popup } from "@/shared";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "nativewind";
@@ -25,7 +26,6 @@ export default function Layout() {
                 options={{ headerShown: false }}
               />
               <Stack.Screen name="KeyForm" options={{ headerShown: false }} />
-              <Stack.Screen name="Backup" options={{ headerShown: false }} />
               <Stack.Screen name="Settings" options={{ headerShown: false }} />
               <Stack.Screen
                 name="+not-found"
@@ -37,6 +37,7 @@ export default function Layout() {
       </SafeAreaProvider>
       <Menu />
       <Popup />
+      <Modal />
     </Provider>
   );
 }

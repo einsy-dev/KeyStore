@@ -19,12 +19,6 @@ interface DataI {
 }
 type DataListI = { [id: string]: DataI };
 
-interface ModalI {
-  active: boolean;
-  component?: ReactNode;
-  position?: "top" | "bottom" | "center";
-}
-
 interface IconsI {
   [key: string]: {
     icon: LucideIcon;

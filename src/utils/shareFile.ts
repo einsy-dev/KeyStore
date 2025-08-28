@@ -1,11 +1,16 @@
 import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing";
 
-export async function shareFile() {
-  const fileUri = FileSystem.documentDirectory + "myFile.txt";
-  const fileContent = "Hello, this is my file content!";
+export async function shareFile({
+  filename,
+  data
+}: {
+  filename: string;
+  data: string;
+}) {
+  const fileUri = FileSystem.documentDirectory + `${filename}.txt`;
   try {
-    await FileSystem.writeAsStringAsync(fileUri, fileContent);
+    await FileSystem.writeAsStringAsync(fileUri, data);
     if (await Sharing.isAvailableAsync()) {
       await Sharing.shareAsync(fileUri);
     } else {

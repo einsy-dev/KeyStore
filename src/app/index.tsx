@@ -1,4 +1,4 @@
-import { Numpad } from "@/components/numpad";
+import { Numpad } from "@/components/Numpad";
 import { View } from "@/components/shared";
 import { hash } from "@/lib/crypto";
 import { selectUser } from "@/lib/store/user";

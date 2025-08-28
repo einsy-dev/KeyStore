@@ -1,16 +1,16 @@
-import { Text } from "@/components/shared/text";
-import { View } from "@/components/shared/view";
+import { Text } from "@/components/shared/Text";
+import { View } from "@/components/shared/View";
 import { selectMenu, setMenu } from "@/lib/store/app";
 import { useColorScheme } from "nativewind";
 import { useEffect, useState } from "react";
 import { Pressable, TouchableOpacity } from "react-native";
 import Animated, {
-  interpolateColor,
-  runOnJS,
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-  withTiming
+    interpolateColor,
+    runOnJS,
+    useAnimatedStyle,
+    useSharedValue,
+    withSpring,
+    withTiming
 } from "react-native-reanimated";
 import { useDispatch, useSelector } from "react-redux";
 

@@ -1,9 +1,7 @@
-export { Button } from "./button";
-export { CheckBox } from "./checkBox";
-export { Divider } from "./divider";
-export { Popup } from "./popup";
-export { Radio } from "./radio";
-export { Text } from "./text";
-export { TextInput } from "./textInput";
-export { View } from "./view";
+export { Button } from "./Button";
+export { CheckBox } from "./CheckBox";
+export { Radio } from "./Radio";
+export { Text } from "./Text";
+export { TextInput } from "./TextInput";
+export { View } from "./View";
 

@@ -1,4 +1,4 @@
-import { SelectIcon } from "@/components/selectIcon";
+import { SelectIcon } from "@/components/SelectIcon";
 import { Button, Text, TextInput, View } from "@/components/shared";
 import { selectData, setGroup } from "@/lib/store/data";
 import { createId } from "@paralleldrive/cuid2";

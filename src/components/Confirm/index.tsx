@@ -18,7 +18,6 @@ export function Confirm({ title, onSubmit, onReject = () => "" }: ConfirmI) {
         <Button
           onPress={() => {
             onReject();
-            // dispatch(setModal({ active: false }));
           }}
         >
           Reject
@@ -26,7 +25,6 @@ export function Confirm({ title, onSubmit, onReject = () => "" }: ConfirmI) {
         <Button
           onPress={() => {
             onSubmit();
-            // dispatch(setModal({ active: false }));
           }}
         >
           Submit

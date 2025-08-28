@@ -1,9 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-const defaultMenu = {
+
+const defaultModal: ModalI = {
+  active: false,
+  component: null
+};
+
+const defaultMenu: MenuI = {
   active: false,
   menu: []
 };
-const defaultModal: ModalI = {
+
+const defaultPopup: PopupI = {
   active: false,
   component: null,
   position: "center"
@@ -12,24 +19,31 @@ const defaultModal: ModalI = {
 export const appSlice = createSlice({
   name: "modal",
   initialState: {
-    menu: { active: false, menu: [] },
-    popup: { active: false, component: null }
+    modal: defaultModal,
+    menu: defaultMenu,
+    popup: defaultPopup
   },
   reducers: {
+    setModal: (state, { payload }: { payload: ModalI }) => {
+      state.modal = { ...defaultModal, ...payload } as any;
+    },
     setMenu: (state, { payload }: { payload: MenuI }) => {
       state.menu = { ...defaultMenu, ...payload } as any;
     },
     setPopup: (state, { payload }: { payload: ModalI }) => {
-      state.popup = { ...defaultModal, ...payload } as any;
+      state.popup = { ...defaultPopup, ...payload } as any;
     }
   }
 });
 
-export const { setMenu, setPopup } = appSlice.actions;
+export const { setModal, setMenu, setPopup } = appSlice.actions;
 
-export const selectMenu = (state: any) => {
+export const selectModal = (state: { modal: { modal: ModalI } }) => {
+  return state.modal.modal;
+};
+export const selectMenu = (state: { modal: { menu: MenuI } }) => {
   return state.modal.menu;
 };
-export const selectPopup = (state: any) => {
+export const selectPopup = (state: { modal: { popup: PopupI } }) => {
   return state.modal.popup;
 };

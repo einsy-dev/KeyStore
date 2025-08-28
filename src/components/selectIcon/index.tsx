@@ -2,7 +2,7 @@ import { Icons } from "@/lib/icons";
 import { useEffect, useMemo, useState } from "react";
 import { TouchableNativeFeedback } from "react-native";
 import { Icon } from "../Icon";
-import { View } from "../shared/view";
+import { View } from "../shared/View";
 
 export function SelectIcon({
   defaultValue = null,

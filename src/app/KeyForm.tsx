@@ -1,4 +1,4 @@
-import { KeyMode } from "@/components/keyMode";
+import { KeyMode } from "@/components/KeyMode";
 import { Button, CheckBox, Text, TextInput, View } from "@/components/shared";
 import { setKey } from "@/lib/store/data";
 import { createId } from "@paralleldrive/cuid2";

@@ -1,6 +1,6 @@
 import { TouchableNativeFeedback } from "react-native";
-import { Text } from "../text";
-import { View } from "../view";
+import { Text } from "../Text";
+import { View } from "../View";
 export function Button({
   onPress,
   children
