@@ -26,6 +26,7 @@ export default function Layout() {
                 options={{ headerShown: false }}
               />
               <Stack.Screen name="KeyForm" options={{ headerShown: false }} />
+              <Stack.Screen name="Backup" options={{ headerShown: false }} />
               <Stack.Screen name="Settings" options={{ headerShown: false }} />
               <Stack.Screen
                 name="+not-found"

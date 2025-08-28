@@ -1,17 +1,8 @@
 import { Key } from "@/components/Key";
 import { KeyGroup } from "@/components/KeyGroup";
-import { encrypt } from "@/lib/crypto";
+import { useAppMenu } from "@/components/Menu/useAppMenu";
 import { setMenu } from "@/lib/store/app";
 import { selectData, setData } from "@/lib/store/data";
-import { readFile, saveFile, shareFile } from "@/utils";
-import { useRouter } from "expo-router";
-import {
-  CirclePlus,
-  Import,
-  Settings,
-  Share,
-  Upload
-} from "lucide-react-native";
 import React from "react";
 import { Pressable, View } from "react-native";
 import DragableFlatList, {
@@ -22,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 export default function App() {
   const dispatch = useDispatch();
   const data: DataListI = useSelector(selectData);
-  const menu = useMenu(data);
+  const menu = useAppMenu(data);
 
   const renderItem = ({ item, drag }: { item: string; drag: any }) => (
     <ScaleDecorator activeScale={1.02}>
@@ -75,55 +66,4 @@ export default function App() {
       </Pressable>
     </Pressable>
   );
-}
-
-function useMenu(data: DataListI) {
-  const router = useRouter();
-  const dispatch = useDispatch();
-  return [
-    {
-      name: "Add Group",
-      icon: CirclePlus,
-      callback: () => {
-        router.navigate("/KeyGroupForm");
-        dispatch(setMenu({ active: false }));
-      }
-    },
-    {
-      name: "Import",
-      icon: Import,
-      callback: async () => {
-        const data = await readFile();
-        console.log(data);
-      }
-    },
-    {
-      name: "Share",
-      icon: Share,
-      callback: async () => {
-        await shareFile({
-          filename: new Date().toISOString(),
-          data: encrypt(JSON.stringify(data), "root")
-        });
-      }
-    },
-    {
-      name: "Export",
-      icon: Upload,
-      callback: async () => {
-        await saveFile({
-          filename: new Date().toISOString(),
-          data: encrypt(JSON.stringify(data), "root")
-        });
-      }
-    },
-    {
-      name: "Settings",
-      icon: Settings,
-      callback: () => {
-        router.navigate("/Settings");
-        dispatch(setMenu({ active: false }));
-      }
-    }
-  ];
 }

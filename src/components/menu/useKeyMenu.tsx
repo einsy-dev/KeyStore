@@ -3,7 +3,7 @@ import { useRouter } from "expo-router";
 import { Edit, Trash } from "lucide-react-native";
 import { useDispatch, useSelector } from "react-redux";
 
-export function useMenu(groupId: string, keyId: string) {
+export function useKeyMenu(groupId: string, keyId: string) {
   const dispatch = useDispatch();
   const router = useRouter();
   const data: DataListI = useSelector(selectData);

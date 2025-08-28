@@ -4,7 +4,7 @@ import { useRouter } from "expo-router";
 import { CirclePlus, Edit, Trash } from "lucide-react-native";
 import { useDispatch, useSelector } from "react-redux";
 
-export function useMenu(groupId: string) {
+export function useGroupMenu(groupId: string) {
   const data: DataListI = useSelector(selectData);
   const router = useRouter();
   const dispatch = useDispatch();

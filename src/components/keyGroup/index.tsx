@@ -5,8 +5,8 @@ import { ReactNode, useState } from "react";
 import { TouchableNativeFeedback, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 import { Icon } from "../Icon";
+import { useGroupMenu } from "../Menu/useGroupMenu";
 import { Text, View } from "../shared";
-import { useMenu } from "./useMenu";
 
 export function KeyGroup({
   id,
@@ -24,7 +24,7 @@ export function KeyGroup({
   const { colorScheme } = useColorScheme();
   const dispatch = useDispatch();
   const [active, setActive] = useState(false);
-  const menu = useMenu(id);
+  const menu = useGroupMenu(id);
 
   function handleMenu() {
     dispatch(

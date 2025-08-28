@@ -6,7 +6,7 @@ import { useColorScheme } from "nativewind";
 import React, { useState } from "react";
 import { GestureResponderEvent, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
-import { useMenu } from "./useMenu";
+import { useKeyMenu } from "../Menu/useKeyMenu";
 
 export function Key({
   groupId,
@@ -18,7 +18,7 @@ export function Key({
   data: KeyElementI;
 }) {
   const dispatch = useDispatch();
-  const menu = useMenu(groupId, id);
+  const menu = useKeyMenu(groupId, id);
   const { colorScheme } = useColorScheme();
   const [active, setActive] = useState(false);
 
