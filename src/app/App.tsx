@@ -1,3 +1,4 @@
+import Tg from "@/assets/icons/telegram.svg";
 import { Key } from "@/components/Key";
 import { KeyGroup } from "@/components/KeyGroup";
 import { useAppMenu } from "@/components/Menu/useAppMenu";
@@ -17,6 +18,7 @@ export default function App() {
 
   const renderItem = ({ item, drag }: { item: string; drag: any }) => (
     <ScaleDecorator activeScale={1.02}>
+      <Tg />
       <KeyGroup id={item} data={data[item]} drag={drag} className="mb-2">
         {Object.keys(data[item].keys)?.map((id: string, index: number) => (
           <View
