@@ -1,9 +1,16 @@
 import { SelectIcon } from "@/components/SelectIcon";
-import { Button, Text, TextInput, View } from "@/components/shared";
+import {
+  Button,
+  KeyboardAvoidingView,
+  Text,
+  TextInput,
+  View
+} from "@/components/shared";
 import { selectData, setGroup } from "@/lib/store/data";
 import { createId } from "@paralleldrive/cuid2";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useState } from "react";
+import { SplinePointer } from "lucide-react-native";
+import { Suspense, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function KeyGroupForm() {
@@ -46,32 +53,40 @@ export default function KeyGroupForm() {
   }
 
   return (
-    <View className="app flex-1 p-4 gap-4 justify-between">
-      <View className="gap-4">
-        <View className=" item p-4">
-          <Text className="text-2xl">Icon</Text>
-          <View className="items-center p-2">
-            <SelectIcon
-              defaultValue={icon}
-              itemsPerLine={6}
-              onSelect={(id) => setState((prev) => ({ ...prev, icon: id }))}
-            />
+    <KeyboardAvoidingView className="app flex-1">
+      <View className="flex-1 p-4">
+        <View className="gap-4">
+          <View className=" item p-4">
+            <Text className="text-2xl text-center border-b border-v-light dark:border-v-red ">
+              Icon
+            </Text>
+            <View className="items-center p-2">
+              <Suspense fallback={<SplinePointer />}>
+                <SelectIcon
+                  defaultValue={icon}
+                  itemsPerLine={6}
+                  onSelect={(id) => setState((prev) => ({ ...prev, icon: id }))}
+                />
+              </Suspense>
+            </View>
+          </View>
+          <View className=" item p-4">
+            <View className="gap-2">
+              <Text className="text-2xl text-center">Name</Text>
+              <TextInput
+                value={state.name}
+                onChangeText={(text) =>
+                  setState((prev: any) => ({ ...prev, name: text }))
+                }
+              />
+            </View>
+            <Text className="text-v-red">{err}</Text>
           </View>
         </View>
-        <View className=" item p-4">
-          <View className="gap-2">
-            <Text className="text-2xl">Name</Text>
-            <TextInput
-              value={state.name}
-              onChangeText={(text) =>
-                setState((prev: any) => ({ ...prev, name: text }))
-              }
-            />
-          </View>
-          <Text className="text-v-red">{err}</Text>
-        </View>
+        <Button className="mt-auto" onPress={handleSubmit}>
+          Submit
+        </Button>
       </View>
-      <Button onPress={handleSubmit}>Submit</Button>
-    </View>
+    </KeyboardAvoidingView>
   );
 }

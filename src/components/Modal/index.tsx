@@ -1,4 +1,6 @@
 import { selectModal, setModal } from "@/lib/store/app";
+import { useSegments } from "expo-router";
+import { useEffect } from "react";
 import { TouchableWithoutFeedback } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { View } from "../shared";
@@ -6,6 +8,12 @@ import { View } from "../shared";
 export function Modal() {
   const modal: ModalI = useSelector(selectModal);
   const dispatch = useDispatch();
+  const segments = useSegments();
+
+  useEffect(() => {
+    dispatch(setModal({ active: false }));
+  }, [segments, dispatch]);
+
   if (modal.active) {
     return (
       <TouchableWithoutFeedback

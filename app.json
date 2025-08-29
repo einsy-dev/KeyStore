@@ -36,6 +36,20 @@
           "configureAndroidBackup": true,
           "faceIDPermission": "Allow $(PRODUCT_NAME) to access your Face ID biometric data."
         }
+      ],
+      [
+        "expo-router",
+        {
+          "asyncRoutes": {
+            "android": true
+          }
+        }
+      ],
+      [
+        "expo-asset",
+        {
+          "assets": ["/src/assets"]
+        }
       ]
     ],
     "experiments": {

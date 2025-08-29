@@ -4,7 +4,7 @@ import { CirclePlus, DatabaseBackup, Settings } from "lucide-react-native";
 import { useDispatch } from "react-redux";
 import { useBackupMenu } from "./useBackupMenu";
 
-export function useAppMenu(data: DataListI) {
+export function useAppMenu() {
   const router = useRouter();
   const dispatch = useDispatch();
   const backupMenu = useBackupMenu();
@@ -14,7 +14,6 @@ export function useAppMenu(data: DataListI) {
       icon: CirclePlus,
       callback: () => {
         router.navigate("/KeyGroupForm");
-        dispatch(setMenu({ active: false }));
       }
     },
     {
@@ -31,7 +30,6 @@ export function useAppMenu(data: DataListI) {
       icon: Settings,
       callback: () => {
         router.navigate("/Settings");
-        dispatch(setMenu({ active: false }));
       }
     }
   ];

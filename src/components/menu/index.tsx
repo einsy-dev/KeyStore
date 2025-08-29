@@ -1,6 +1,7 @@
 import { Text } from "@/components/shared/Text";
 import { View } from "@/components/shared/View";
 import { selectMenu, setMenu } from "@/lib/store/app";
+import { useSegments } from "expo-router";
 import { useColorScheme } from "nativewind";
 import { useEffect, useState } from "react";
 import { Pressable, TouchableOpacity } from "react-native";
@@ -19,6 +20,11 @@ export function Menu() {
   const menu: MenuI = useSelector(selectMenu);
   const [active, setActive] = useState(false);
   const dispatch = useDispatch();
+  const segments = useSegments();
+
+  useEffect(() => {
+    dispatch(setMenu({ active: false }));
+  }, [segments, dispatch]);
 
   const opaque = useSharedValue(1);
   const translateY = useSharedValue(300);
@@ -44,6 +50,19 @@ export function Menu() {
     }
   }, [menu, translateY, opaque]);
 
+  // useEffect(() => {
+  //   const unsubscribe = router.events.addListener("beforeRemove", (e) => {
+  //     // Prevent default action if needed, for example, to confirm before leaving a screen
+  //     // if (shouldPreventNavigation) {
+  //     //   e.preventDefault();
+  //     // }
+  //     console.log("Before removing route:", e.data.route.name);
+  //   });
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, [router]);
+
   return (
     <Animated.View
       className={active ? "absolute inset-0 bg-transparent" : "hidden"}
@@ -62,9 +81,11 @@ export function Menu() {
               {menu.menu?.map((el: any) => (
                 <TouchableOpacity
                   key={el.name}
-                  onPress={() => {
-                    el.callback();
+                  onPress={async () => {
                     dispatch(setMenu({ active: false }));
+                    setTimeout(() => {
+                      el.callback();
+                    }, 0);
                   }}
                 >
                   <View className="flex-row items-center gap-6">

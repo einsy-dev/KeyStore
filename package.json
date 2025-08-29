@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "start:nodev": "expo start --no-dev --minify",
-    "start": "expo start",
+    "start": "expo start --clear",
     "android:nodev": "expo start --android --no-dev --minify",
     "android": "expo start --android",
     "build:eas": "eas build -p android --profile preview",
@@ -53,7 +53,8 @@
     "react-native-svg": "15.11.2",
     "react-native-web": "~0.20.0",
     "react-native-webview": "13.13.5",
-    "react-redux": "^9.2.0"
+    "react-redux": "^9.2.0",
+    "expo-asset": "~11.1.7"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

@@ -16,34 +16,50 @@ const defaultPopup: PopupI = {
   position: "center"
 };
 
+interface ConfigI {
+  theme: "light" | "dark";
+}
+
+const defaultConfig: ConfigI = {
+  theme: "light"
+};
+
 export const appSlice = createSlice({
-  name: "modal",
+  name: "app",
   initialState: {
     modal: defaultModal,
     menu: defaultMenu,
-    popup: defaultPopup
+    popup: defaultPopup,
+    config: defaultConfig
   },
   reducers: {
     setModal: (state, { payload }: { payload: ModalI }) => {
-      state.modal = { ...defaultModal, ...payload } as any;
+      state.modal = { ...defaultModal, ...payload };
     },
     setMenu: (state, { payload }: { payload: MenuI }) => {
-      state.menu = { ...defaultMenu, ...payload } as any;
+      state.menu = { ...defaultMenu, ...payload };
     },
-    setPopup: (state, { payload }: { payload: ModalI }) => {
-      state.popup = { ...defaultPopup, ...payload } as any;
+    setPopup: (state, { payload }: { payload: PopupI }) => {
+      state.popup = { ...defaultPopup, ...payload };
+    },
+    setConfig: (state, { payload }: { payload: ConfigI }) => {
+      state.config = { ...defaultConfig, ...payload };
     }
   }
 });
 
-export const { setModal, setMenu, setPopup } = appSlice.actions;
+export const { setModal, setMenu, setPopup, setConfig } = appSlice.actions;
 
-export const selectModal = (state: { modal: { modal: ModalI } }) => {
-  return state.modal.modal;
+export const selectModal = (state: { app: { modal: ModalI } }) => {
+  return state.app.modal;
 };
-export const selectMenu = (state: { modal: { menu: MenuI } }) => {
-  return state.modal.menu;
+export const selectMenu = (state: { app: { menu: MenuI } }) => {
+  return state.app.menu;
 };
-export const selectPopup = (state: { modal: { popup: PopupI } }) => {
-  return state.modal.popup;
+export const selectPopup = (state: { app: { popup: PopupI } }) => {
+  return state.app.popup;
+};
+
+export const selectConfig = (state: { app: { config: ConfigI } }) => {
+  return state.app.config;
 };
