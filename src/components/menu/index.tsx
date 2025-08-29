@@ -5,12 +5,12 @@ import { useColorScheme } from "nativewind";
 import { useEffect, useState } from "react";
 import { Pressable, TouchableOpacity } from "react-native";
 import Animated, {
-    interpolateColor,
-    runOnJS,
-    useAnimatedStyle,
-    useSharedValue,
-    withSpring,
-    withTiming
+  interpolateColor,
+  runOnJS,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+  withTiming
 } from "react-native-reanimated";
 import { useDispatch, useSelector } from "react-redux";
 

@@ -15,7 +15,7 @@ export function Modal() {
       >
         <View className="absolute inset-0 w-full p-8 bg-v-50">
           <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
-            <View className=" mt-8">{modal.component}</View>
+            {modal.component}
           </TouchableWithoutFeedback>
         </View>
       </TouchableWithoutFeedback>

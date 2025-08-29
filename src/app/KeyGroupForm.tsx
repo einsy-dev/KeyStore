@@ -53,7 +53,7 @@ export default function KeyGroupForm() {
           <View className="items-center p-2">
             <SelectIcon
               defaultValue={icon}
-              itemsPerLine={7}
+              itemsPerLine={6}
               onSelect={(id) => setState((prev) => ({ ...prev, icon: id }))}
             />
           </View>

@@ -1,4 +1,16 @@
 import {
+  Discord,
+  Drive,
+  Github,
+  Gitlab,
+  Google,
+  Instagram,
+  Microsoft,
+  Spotify,
+  Telegram,
+  WhatsApp
+} from "@/assets/icons";
+import {
   AtSign,
   Coins,
   DollarSign,
@@ -23,7 +35,18 @@ const iconsArr = [
   Send,
   Smartphone,
   SquareChevronRight,
-  Zap
+  Zap,
+
+  Discord,
+  Drive,
+  Github,
+  Gitlab,
+  Google,
+  Instagram,
+  Microsoft,
+  Spotify,
+  Telegram,
+  WhatsApp
 ];
 
 export const Icons: IconsI = iconsArr.reduce((acc, icon, index) => {

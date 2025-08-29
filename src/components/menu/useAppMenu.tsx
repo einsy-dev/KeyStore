@@ -1,15 +1,13 @@
 import { setMenu } from "@/lib/store/app";
 import { useRouter } from "expo-router";
-import {
-  CirclePlus,
-  DatabaseBackup,
-  Settings
-} from "lucide-react-native";
+import { CirclePlus, DatabaseBackup, Settings } from "lucide-react-native";
 import { useDispatch } from "react-redux";
+import { useBackupMenu } from "./useBackupMenu";
 
 export function useAppMenu(data: DataListI) {
   const router = useRouter();
   const dispatch = useDispatch();
+  const backupMenu = useBackupMenu();
   return [
     {
       name: "Add Group",
@@ -22,8 +20,10 @@ export function useAppMenu(data: DataListI) {
     {
       name: "Backup",
       icon: DatabaseBackup,
-      callback: async () => {
-        router.navigate("/Backup");
+      callback: () => {
+        setTimeout(() => {
+          dispatch(setMenu({ active: true, menu: backupMenu }));
+        }, 450);
       }
     },
     {
