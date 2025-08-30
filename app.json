@@ -38,14 +38,6 @@
         }
       ],
       [
-        "expo-router",
-        {
-          "asyncRoutes": {
-            "android": true
-          }
-        }
-      ],
-      [
         "expo-asset",
         {
           "assets": ["/src/assets"]

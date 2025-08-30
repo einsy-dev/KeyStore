@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 export default function App() {
   const dispatch = useDispatch();
   const data: DataListI = useSelector(selectData);
-  const menu = useAppMenu(data);
+  const menu = useAppMenu();
 
   const renderItem = ({ item, drag }: { item: string; drag: any }) => (
     <ScaleDecorator activeScale={1.02}>
@@ -24,8 +24,8 @@ export default function App() {
               key={id}
               className={`flex-1 mx-2 flex-row gap-2 p-1 ${Object.keys(data[item].keys).length - 1 === index ? "mb-2" : ""}  `}
             >
-              <Key groupId={item} id={id} data={data[item].keys[id].name} />
-              <Key groupId={item} id={id} data={data[item].keys[id].value} />
+              <Key groupId={item} keyId={id} data={data[item].keys[id].name} />
+              <Key groupId={item} keyId={id} data={data[item].keys[id].value} />
             </View>
           ))}
         </KeyGroup>

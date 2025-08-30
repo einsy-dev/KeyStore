@@ -1,13 +1,20 @@
-import { deleteKey, selectData } from "@/lib/store/data";
+import { deleteKey } from "@/lib/store/data";
+import { shareText } from "@/utils";
 import { useRouter } from "expo-router";
-import { Edit, Trash } from "lucide-react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { Edit, Share, Trash } from "lucide-react-native";
+import { useDispatch } from "react-redux";
 
-export function useKeyMenu(groupId: string, keyId: string) {
+export function useKeyMenu(groupId: string, keyId: string, value: string) {
   const dispatch = useDispatch();
   const router = useRouter();
-  const data: DataListI = useSelector(selectData);
   return [
+    {
+      name: "Share",
+      icon: Share,
+      callback: () => {
+        shareText(value);
+      }
+    },
     {
       name: "Edit",
       icon: Edit,
@@ -16,10 +23,7 @@ export function useKeyMenu(groupId: string, keyId: string) {
           pathname: "/KeyForm",
           params: {
             groupId,
-            keyId,
-            name: data[groupId].keys[keyId].name.value,
-            value: data[groupId].keys[keyId].value.value,
-            order: data[groupId].keys[keyId].order
+            keyId
           }
         });
       }

@@ -1,34 +1,27 @@
 import { setMenu } from "@/lib/store/app";
 import { Text, View } from "@/shared";
-import * as Clipboard from "expo-clipboard";
-import { ClipboardCheck } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
-import React, { useState } from "react";
-import { GestureResponderEvent, TouchableOpacity } from "react-native";
+import { copyText } from "@/utils";
+import React from "react";
+import { TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 import { useKeyMenu } from "../Menu/useKeyMenu";
 
 export function Key({
   groupId,
-  id,
+  keyId,
   data
 }: {
   groupId: string;
-  id: string;
+  keyId: string;
   data: KeyElementI;
 }) {
   const dispatch = useDispatch();
-  const menu = useKeyMenu(groupId, id);
-  const { colorScheme } = useColorScheme();
-  const [active, setActive] = useState(false);
+  const menu = useKeyMenu(groupId, keyId, data.value);
 
-  function handlePress(e: GestureResponderEvent) {
-    setActive(true);
-    setTimeout(() => {
-      setActive(false);
-    }, 1200);
-    copy(data.value);
+  function handlePress() {
+    copyText(data.value);
   }
+
   function handleLongPress() {
     dispatch(
       setMenu({
@@ -48,28 +41,17 @@ export function Key({
       ) : null}
       <TouchableOpacity
         onPress={handlePress}
-        onLongPress={handleLongPress}
+        onLongPress={() => {
+          handleLongPress();
+        }}
         delayPressOut={200}
       >
         <View className="flex-1 flex-row gap-2 items-center relative py-1">
           <Text className="text-xl flex-1" numberOfLines={1}>
             {data.hide ? "*".repeat(data.value.length) : data.value}
           </Text>
-          {active && (
-            <ClipboardCheck
-              height={18}
-              width={18}
-              viewBox="4 1 10 22"
-              fill="hsl(0, 0%, 20%)"
-              color={colorScheme === "light" ? "black" : "white"}
-            />
-          )}
         </View>
       </TouchableOpacity>
     </View>
   );
-}
-
-async function copy(text: string) {
-  await Clipboard.setStringAsync(text);
 }

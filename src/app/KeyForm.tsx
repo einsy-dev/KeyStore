@@ -1,43 +1,26 @@
 import { KeyMode } from "@/components/KeyMode";
 import { Button, CheckBox, Text, TextInput, View } from "@/components/shared";
-import { setKey } from "@/lib/store/data";
+import { selectData, setKey } from "@/lib/store/data";
 import { createId } from "@paralleldrive/cuid2";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SetStateAction, useState } from "react";
-import { useDispatch } from "react-redux";
-
-interface StateI {
-  name: KeyElementI;
-  value: KeyElementI;
-  [key: string]: KeyElementI;
-}
+import { useDispatch, useSelector } from "react-redux";
 
 type LocalSearchParamI = {
   groupId: string;
   keyId: string;
-  name: string;
-  nameLabel: string;
-  value: string;
-  valueLabel: string;
 };
 
 export default function KeyGroupForm() {
   const router = useRouter();
   const dispatch = useDispatch();
+  const { groupId, keyId } = useLocalSearchParams<LocalSearchParamI>();
+  const data = useSelector(selectData);
 
-  const {
-    groupId,
-    keyId = createId(),
-    name = "",
-    nameLabel = "",
-    value = "",
-    valueLabel = ""
-  } = useLocalSearchParams<LocalSearchParamI>();
+  const [state, setState] = useState<KeyI>(
+    data[groupId].keys[keyId] || { name: "", value: "" }
+  );
 
-  const [state, setState] = useState<StateI>({
-    name: { value: name, label: nameLabel },
-    value: { value: value, label: valueLabel }
-  });
   const [err, setErr] = useState<string>("");
   const [type, setType] = useState<KeyModeT>("double");
 
@@ -48,7 +31,7 @@ export default function KeyGroupForm() {
     dispatch(
       setKey({
         groupId,
-        keyId,
+        keyId: keyId || createId(),
         key:
           type === "single"
             ? { ...state, value: { value: "", label: "" } }
