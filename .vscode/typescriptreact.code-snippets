@@ -1,0 +1,12 @@
+{
+  "useEffect": {
+    "prefix": [
+      "ue"
+    ],
+    "body": [
+      "useEffect(() => {}, [])"
+    ],
+    "description": "",
+    "scope": "typescriptreact"
+  }
+}

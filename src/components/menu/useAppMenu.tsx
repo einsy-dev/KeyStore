@@ -13,7 +13,7 @@ export function useAppMenu() {
       name: "Add Group",
       icon: CirclePlus,
       callback: () => {
-        router.navigate("/KeyGroupForm");
+        router.push("/KeyGroupForm");
       }
     },
     {
@@ -29,7 +29,7 @@ export function useAppMenu() {
       name: "Settings",
       icon: Settings,
       callback: () => {
-        router.navigate("/Settings");
+        router.push("/Settings");
       }
     }
   ];

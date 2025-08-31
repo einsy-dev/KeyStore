@@ -50,19 +50,6 @@ export function Menu() {
     }
   }, [menu, translateY, opaque]);
 
-  // useEffect(() => {
-  //   const unsubscribe = router.events.addListener("beforeRemove", (e) => {
-  //     // Prevent default action if needed, for example, to confirm before leaving a screen
-  //     // if (shouldPreventNavigation) {
-  //     //   e.preventDefault();
-  //     // }
-  //     console.log("Before removing route:", e.data.route.name);
-  //   });
-  //   return () => {
-  //     unsubscribe();
-  //   };
-  // }, [router]);
-
   return (
     <Animated.View
       className={active ? "absolute inset-0 bg-transparent" : "hidden"}

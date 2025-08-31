@@ -1,50 +1,41 @@
 import { Numpad } from "@/components/Numpad";
-import { View } from "@/components/shared";
+import { Text, View } from "@/components/shared";
 import { hash } from "@/lib/crypto";
-import { selectUser } from "@/lib/store/user";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import { Circle } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 
 export default function Auth() {
   const router = useRouter();
-  const [state, setState] = useState("");
-  const user = useSelector(selectUser);
+  const [input, setInput] = useState("");
+  const [pass, setPass] = useState("");
+  const [message, setMessage] = useState("");
+  const { newPin = false } = useLocalSearchParams();
   const { colorScheme } = useColorScheme();
   const color = colorScheme === "light" ? "black" : "white";
 
   useEffect(() => {
-    let timer = null;
-    if (state.length >= 4) {
-      timer = setTimeout(() => {
-        if (authUser(state)) {
-          router.navigate("/App");
+    if (input.length >= 4) {
+      setTimeout(() => {
+        if (newPin && !pass) {
+          setPass(input);
+          setMessage("New password again");
+        } else if (authUser(input, input === pass)) {
+          router.push("/App");
+          setMessage("");
+        } else {
+          setMessage("Incorect password");
         }
-        setState("");
+        setInput("");
       }, 0);
     }
-    return () => {
-      timer && clearTimeout(timer);
-    };
-  }, [router, state, user]);
-
-  function authUser(pin: string) {
-    const storedPin = SecureStore.getItem("pin");
-
-    if (!storedPin) {
-      SecureStore.setItem("pin", hash(pin));
-      return true;
-    } else {
-      return storedPin === hash(pin);
-    }
-  }
+  }, [input, newPin, pass, router]);
 
   return (
     <View className="app flex-1 p-4 justify-center">
-      <View className="flex-1 flex-row gap-8 justify-center items-center">
+      <View className="flex-1 flex-row gap-8 justify-center items-center relative">
         {Array(4)
           .fill("")
           .map((_, index) => (
@@ -52,14 +43,26 @@ export default function Auth() {
               key={index}
               className="border rounded aspect-[4/5] h-[60px] items-center justify-center"
             >
-              {state.length - 1 >= index && (
+              {input.length - 1 >= index && (
                 <Circle color={color} fill={color} />
               )}
             </View>
           ))}
+        {message && (
+          <Text className="absolute top-80 text-xl !text-v-red">{message}</Text>
+        )}
       </View>
-
-      <Numpad onChangeText={setState} />
+      <Numpad onChangeText={setInput} />
     </View>
   );
+}
+
+function authUser(pin: string, newPass: boolean = false) {
+  const storedPin = SecureStore.getItem("pin");
+  if (!storedPin || newPass) {
+    SecureStore.setItem("pin", hash(pin));
+    return true;
+  } else {
+    return storedPin === hash(pin);
+  }
 }

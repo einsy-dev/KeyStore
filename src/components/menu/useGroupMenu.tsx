@@ -1,4 +1,3 @@
-// import { setModal } from "@/lib/store/app";
 import { deleteGroup, selectData } from "@/lib/store/data";
 import { useRouter } from "expo-router";
 import { CirclePlus, Edit, Trash } from "lucide-react-native";
@@ -38,18 +37,6 @@ export function useGroupMenu(groupId: string) {
       icon: Trash,
       callback: () => {
         dispatch(deleteGroup({ groupId }));
-        // dispatch();
-        // setModal({
-        //   active: true,
-        //   component: (
-        //     <Confirm
-        //       title="Delete group?"
-        //       onSubmit={() => {
-        //         dispatch(deleteGroup({ id: groupId }));
-        //       }}
-        //     />
-        //   )
-        // })
       }
     }
   ];

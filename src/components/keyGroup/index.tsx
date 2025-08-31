@@ -1,8 +1,6 @@
 import { setMenu } from "@/lib/store/app";
-import { Ellipsis } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 import { ReactNode, useState } from "react";
-import { TouchableNativeFeedback, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 import { Icon } from "../Icon";
 import { useGroupMenu } from "../Menu/useGroupMenu";
@@ -21,7 +19,6 @@ export function KeyGroup({
   className?: string;
   drag: () => void;
 }) {
-  const { colorScheme } = useColorScheme();
   const dispatch = useDispatch();
   const [active, setActive] = useState(false);
   const menu = useGroupMenu(id);
@@ -47,6 +44,7 @@ export function KeyGroup({
         <View className="flex-1">
           <TouchableOpacity
             onPress={() => setActive((prev) => !prev)}
+            onLongPress={handleMenu}
             className="flex-1"
           >
             <View className="flex-1 px-4 items-center justify-center">
@@ -55,20 +53,6 @@ export function KeyGroup({
               </Text>
             </View>
           </TouchableOpacity>
-        </View>
-        <View className="items-center justify-center">
-          <TouchableNativeFeedback
-            onPress={handleMenu}
-            background={TouchableNativeFeedback.Ripple(
-              "hsl(0, 0%, 50%)",
-              true,
-              22
-            )}
-          >
-            <View className="p-3">
-              <Ellipsis color={colorScheme === "light" ? "black" : "white"} />
-            </View>
-          </TouchableNativeFeedback>
         </View>
       </View>
       {children && active ? children : null}
