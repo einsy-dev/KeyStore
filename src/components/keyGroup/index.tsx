@@ -1,5 +1,5 @@
 import { setMenu } from "@/lib/store/app";
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import { TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 import { Icon } from "../Icon";
@@ -7,21 +7,24 @@ import { useGroupMenu } from "../Menu/useGroupMenu";
 import { Text, View } from "../shared";
 
 export function KeyGroup({
-  id,
+  groupId,
   data,
   children,
   className = "",
-  drag
+  drag,
+  active,
+  setActive
 }: {
-  id: string;
+  groupId: string;
   data: DataI;
   children?: ReactNode;
   className?: string;
   drag: () => void;
+  active: boolean;
+  setActive: React.Dispatch<React.SetStateAction<string | null>>;
 }) {
   const dispatch = useDispatch();
-  const [active, setActive] = useState(false);
-  const menu = useGroupMenu(id);
+  const menu = useGroupMenu(groupId);
 
   function handleMenu() {
     dispatch(
@@ -35,7 +38,11 @@ export function KeyGroup({
     <View className={`item ${className}`}>
       <View className="flex-row py-1">
         <View className="items-center justify-center">
-          <TouchableOpacity onPressIn={drag}>
+          <TouchableOpacity
+            onPressIn={() => {
+              drag();
+            }}
+          >
             <View className="p-3">
               <Icon iconId={data.icon || 0} />
             </View>
@@ -43,7 +50,9 @@ export function KeyGroup({
         </View>
         <View className="flex-1">
           <TouchableOpacity
-            onPress={() => setActive((prev) => !prev)}
+            onPress={() =>
+              setActive((prev) => (prev === groupId ? null : groupId))
+            }
             onLongPress={handleMenu}
             className="flex-1"
           >

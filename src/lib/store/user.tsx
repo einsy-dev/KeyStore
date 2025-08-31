@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const defaultUser = {
-  pin: "",
-  auth: false
+  auth: null
 };
 
 export const userSlice = createSlice({
@@ -11,7 +10,7 @@ export const userSlice = createSlice({
     user: defaultUser
   },
   reducers: {
-    setUser: (state, { payload }: any) => {
+    setUser: (state, { payload }: { payload: { auth: null | string } }) => {
       state.user = { ...defaultUser, ...payload } as any;
     }
   }

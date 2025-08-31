@@ -55,7 +55,7 @@ export default function KeyGroupForm() {
   return (
     <KeyboardAvoidingView className="app flex-1">
       <View className="flex-1 p-4">
-        <View className="gap-4">
+        <View className="gap-2">
           <View className=" item p-4">
             <Text className="text-2xl text-center border-b border-v-light dark:border-v-red ">
               Icon

@@ -21,6 +21,7 @@ export default function Layout() {
             <Stack>
               <Stack.Screen name="index" options={{ headerShown: false }} />
               <Stack.Screen name="App" options={{ headerShown: false }} />
+              <Stack.Screen name="Auth" options={{ headerShown: false }} />
               <Stack.Screen
                 name="KeyGroupForm"
                 options={{ headerShown: false }}

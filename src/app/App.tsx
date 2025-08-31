@@ -3,7 +3,7 @@ import { KeyGroup } from "@/components/KeyGroup";
 import { useAppMenu } from "@/components/Menu/useAppMenu";
 import { setMenu } from "@/lib/store/app";
 import { selectData, setData } from "@/lib/store/data";
-import React from "react";
+import React, { useState } from "react";
 import { Pressable, View } from "react-native";
 import DragableFlatList, {
   ScaleDecorator
@@ -13,12 +13,19 @@ import { useDispatch, useSelector } from "react-redux";
 export default function App() {
   const dispatch = useDispatch();
   const data: DataListI = useSelector(selectData);
+  const [active, setActive] = useState<string | null>(null);
   const menu = useAppMenu();
 
   const renderItem = ({ item, drag }: { item: string; drag: any }) => (
     <ScaleDecorator activeScale={1.02}>
       <View className="mb-2">
-        <KeyGroup id={item} data={data[item]} drag={drag}>
+        <KeyGroup
+          groupId={item}
+          data={data[item]}
+          drag={drag}
+          active={active === item}
+          setActive={setActive}
+        >
           {Object.keys(data[item].keys)?.map((id: string, index: number) => (
             <View
               key={id}

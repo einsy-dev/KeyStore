@@ -1,9 +1,17 @@
 import { KeyMode } from "@/components/KeyMode";
-import { Button, CheckBox, Text, TextInput, View } from "@/components/shared";
+import {
+  Button,
+  CheckBox,
+  KeyboardAvoidingView,
+  Text,
+  TextInput,
+  View
+} from "@/components/shared";
 import { selectData, setKey } from "@/lib/store/data";
 import { createId } from "@paralleldrive/cuid2";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SetStateAction, useState } from "react";
+import { ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 type LocalSearchParamI = {
@@ -49,28 +57,31 @@ export default function KeyGroupForm() {
   }
 
   return (
-    <View className="app flex-1 p-4 justify-between">
-      <View className="gap-4">
-        <KeyMode state={type} setState={setType} />
-
-        <FormElement
-          state={state.name}
-          setState={(val: any) =>
-            setState((prev) => ({ ...prev, name: val(prev.name) }))
-          }
-        />
-        {type === "double" ? (
+    <KeyboardAvoidingView className="app flex-1">
+      <View className="flex-1 p-2 gap-2">
+        <ScrollView className="flex-1" contentContainerClassName="gap-2">
+          <KeyMode state={type} setState={setType} />
           <FormElement
-            state={state.value}
+            state={state.name}
             setState={(val: any) =>
-              setState((prev) => ({ ...prev, value: val(prev.value) }))
+              setState((prev) => ({ ...prev, name: val(prev.name) }))
             }
           />
-        ) : null}
-        <Text className="!text-v-red">{err}</Text>
+          {type === "double" ? (
+            <FormElement
+              state={state.value}
+              setState={(val: any) =>
+                setState((prev) => ({ ...prev, value: val(prev.value) }))
+              }
+            />
+          ) : null}
+          <Text className="!text-v-red">{err}</Text>
+        </ScrollView>
+        <Button className="mt-auto" onPress={handleSubmit}>
+          Submit
+        </Button>
       </View>
-      <Button onPress={handleSubmit}>Submit</Button>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
