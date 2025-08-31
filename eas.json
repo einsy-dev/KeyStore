@@ -15,6 +15,9 @@
     "production": {
       "autoIncrement": true,
       "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_SECRET": "EXPO_PUBLIC_SECRET"
+      },
       "android": {
         "buildType": "apk"
       },
