@@ -1,7 +1,6 @@
 import { Numpad } from "@/components/Numpad";
 import { Text, View } from "@/components/shared";
 import { hash } from "@/lib/crypto";
-import { setUser } from "@/lib/store/user";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import { Circle } from "lucide-react-native";
@@ -25,7 +24,6 @@ export default function Auth() {
           setPass(input);
           setMessage("New password again");
         } else if (authUser(input, input === pass)) {
-          dispatch(setUser({ auth: new Date().toISOString() }));
           router.replace("/App");
           setMessage("");
         } else {

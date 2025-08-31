@@ -1,6 +1,7 @@
 import { Menu } from "@/components/Menu";
 import { Modal } from "@/components/Modal";
 import { Popup } from "@/components/Popup";
+import { useAuth } from "@/hooks/useAuth";
 import store from "@/lib/store";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -12,6 +13,7 @@ import "../assets/css/global.css";
 
 export default function Layout() {
   const { colorScheme } = useColorScheme();
+  useAuth();
   return (
     <Provider store={store}>
       <SafeAreaProvider>

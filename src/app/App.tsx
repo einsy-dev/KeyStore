@@ -15,7 +15,6 @@ export default function App() {
   const data: DataListI = useSelector(selectData);
   const [active, setActive] = useState<string | null>(null);
   const menu = useAppMenu();
-
   const renderItem = ({ item, drag }: { item: string; drag: any }) => (
     <ScaleDecorator activeScale={1.02}>
       <View className="mb-2">

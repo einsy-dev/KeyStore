@@ -6,13 +6,15 @@ export default function Settings() {
 
   return (
     <View className="flex-1 app">
-      <Button
-        onPress={() => {
-          router.push({ pathname: "/", params: { newPin: true as any } });
-        }}
-      >
-        Change Pin
-      </Button>
+      <View className="flex-1 p-4">
+        <Button
+          onPress={() => {
+            router.push({ pathname: "/", params: { newPin: true as any } });
+          }}
+        >
+          Change Pin
+        </Button>
+      </View>
     </View>
   );
 }
