@@ -19,7 +19,6 @@ export default function Auth() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(newPin);
     if (input.length >= 4) {
       setTimeout(() => {
         if (newPin && !pass) {

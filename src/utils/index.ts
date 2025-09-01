@@ -1,5 +1,6 @@
 export { capitalize } from "./capitalize";
 export { copyText } from "./copyText";
+export { genPass } from "./genPass";
 export { isObjectHas } from "./isObjectHas";
 export { isPlainObject } from "./isPlainObject";
 export { readFile } from "./readFile";

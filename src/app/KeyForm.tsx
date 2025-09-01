@@ -8,6 +8,7 @@ import {
   View
 } from "@/components/shared";
 import { selectData, setKey } from "@/lib/store/data";
+import { genPass } from "@/utils";
 import { createId } from "@paralleldrive/cuid2";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SetStateAction, useState } from "react";
@@ -113,13 +114,32 @@ function FormElement({
           className="text-lg"
         />
       </View>
-      <CheckBox
-        onPress={(hide) => {
-          setState((prev: KeyElementI) => ({ ...prev, hide }));
-        }}
-      >
-        Hide
-      </CheckBox>
+      <View className="flex-row gap-4 flex-wrap">
+        <CheckBox
+          onPress={(hide) => {
+            setState((prev: KeyElementI) => ({ ...prev, hide }));
+          }}
+        >
+          Hide
+        </CheckBox>
+        <CheckBox
+          onPress={async (gen) => {
+            let value = "";
+            if (gen) {
+              value = await genPass({ length: 15 });
+            }
+            setState(
+              (prev: KeyElementI) =>
+                ({
+                  ...prev,
+                  value
+                }) as KeyElementI
+            );
+          }}
+        >
+          GenPass
+        </CheckBox>
+      </View>
     </View>
   );
 }
