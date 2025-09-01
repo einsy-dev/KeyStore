@@ -62,7 +62,7 @@ export function SelectIcon({
       keyExtractor={(item: string[]) => item.toString()}
       renderItem={renderItem}
       extraData={selected}
-      className={`h-[170px] w-full ${className}`}
+      className={`h-[220px] w-full ${className}`}
     />
   );
 }
