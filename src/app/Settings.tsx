@@ -1,3 +1,4 @@
+import store from "@/lib/store";
 import { setConfig } from "@/lib/store/config";
 import { Button, Text, View } from "@/shared";
 import { useRouter } from "expo-router";
@@ -28,9 +29,14 @@ export default function Settings() {
         >
           Change Theme
         </Button>
-      </View>
-      <View>
-        <Text>{process.env.EXPO_PUBLIC_SECRET || "no env"}</Text>
+        <View>
+          <Text className="text-center">
+            {process.env.EXPO_PUBLIC_SECRET || "no env"}
+          </Text>
+          <Text className="text-center">
+            {JSON.stringify(store.getState())}
+          </Text>
+        </View>
       </View>
     </View>
   );
