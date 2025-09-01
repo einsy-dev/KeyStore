@@ -31,7 +31,7 @@ export default function Settings() {
         </Button>
         <View>
           <Text className="text-center">
-            {process.env.CRYPTO_SECRET || "no env"}
+            {process.env.EXPO_PUBLIC_SECRET || "no env"}
           </Text>
           <Text className="text-center">
             {JSON.stringify(store.getState())}
