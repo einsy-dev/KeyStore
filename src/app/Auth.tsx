@@ -1,6 +1,7 @@
 import { Numpad } from "@/components/Numpad";
 import { Text, View } from "@/components/shared";
 import { hash } from "@/lib/crypto";
+import * as LocalAuthentication from "expo-local-authentication";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import { Circle } from "lucide-react-native";
@@ -19,6 +20,7 @@ export default function Auth() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    (async () => await authenticateWithBiometrics())();
     if (input.length >= 4) {
       setTimeout(() => {
         if (newPin && !pass) {
@@ -66,5 +68,28 @@ function authUser(pin: string, newPass: boolean = false) {
     return true;
   } else {
     return storedPin === hash(pin);
+  }
+}
+async function authenticateWithBiometrics() {
+  const hasHardware = await LocalAuthentication.hasHardwareAsync();
+  const isEnrolled = await LocalAuthentication.isEnrolledAsync();
+
+  if (!hasHardware || !isEnrolled) {
+    console.log("Biometric authentication not available or not set up.");
+    return;
+  }
+
+  const result = await LocalAuthentication.authenticateAsync({
+    promptMessage: "Authenticate to access the app",
+    fallbackLabel: "Use passcode", // Optional: for iOS fallback
+    disableDeviceFallback: false // Optional: for Android to allow device passcode fallback
+  });
+
+  if (result.success) {
+    console.log("Authentication successful!");
+    // Proceed with your app's logic
+  } else {
+    console.log("Authentication failed or cancelled:", result.error);
+    // Handle authentication failure
   }
 }

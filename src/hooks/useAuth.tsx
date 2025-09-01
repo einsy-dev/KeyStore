@@ -1,3 +1,4 @@
+import store from "@/lib/store";
 import { usePathname, useRouter } from "expo-router";
 import { useLayoutEffect } from "react";
 import { AppState } from "react-native";
@@ -7,7 +8,8 @@ export function useAuth() {
   const path = usePathname();
   useLayoutEffect(() => {
     const listener = AppState.addEventListener("change", (state) => {
-      if (state !== "active") {
+      const modal = store.getState().app.modal.active;
+      if (state !== "active" && !modal) {
         if (path !== "/Auth") router.replace("/Auth");
       }
     });
