@@ -54,25 +54,25 @@ export default function KeyGroupForm() {
 
   return (
     <KeyboardAvoidingView className="app flex-1">
-      <View className="flex-1 p-4">
+      <View className="flex-1 p-4 gap-2">
         <View className="gap-2">
           <View className=" item p-4">
-            <Text className="text-2xl text-center border-b border-v-light dark:border-v-red ">
-              Icon
-            </Text>
-            <View className="items-center p-2">
+            <Text className="text-2xl text-center mb-1">Select icon</Text>
+            <View className="items-center">
               <Suspense fallback={<SplinePointer />}>
                 <SelectIcon
                   defaultValue={icon}
                   itemsPerLine={6}
                   onSelect={(id) => setState((prev) => ({ ...prev, icon: id }))}
+                  className="border rounded-xl"
+                  contentContainerClassName="p-2"
                 />
               </Suspense>
             </View>
           </View>
           <View className=" item p-4">
             <View className="gap-2">
-              <Text className="text-2xl text-center">Name</Text>
+              <Text className="text-2xl text-center">Name group</Text>
               <TextInput
                 value={state.name}
                 onChangeText={(text) =>

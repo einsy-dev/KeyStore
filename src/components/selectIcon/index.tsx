@@ -7,12 +7,15 @@ import { View } from "../shared/View";
 export function SelectIcon({
   defaultValue = null,
   onSelect,
-  className = ""
+  className = "",
+  contentContainerClassName = "",
+  itemsPerLine
 }: {
   defaultValue?: string | null;
-  itemsPerLine?: number;
+  itemsPerLine: number;
   onSelect: (id: string | null) => void;
   className?: string;
+  contentContainerClassName?: string;
 }) {
   const [selected, setSelected] = useState<string | null>(defaultValue);
 
@@ -48,7 +51,7 @@ export function SelectIcon({
 
   const data = Object.keys(Icons).reduce(
     (acc, el: string, index) => {
-      const arrIndex = Math.floor(index / 7);
+      const arrIndex = Math.floor(index / itemsPerLine);
       if (!Array.isArray(acc[arrIndex])) acc[arrIndex] = [];
       acc[arrIndex].push(el);
       return acc;
@@ -62,7 +65,8 @@ export function SelectIcon({
       keyExtractor={(item: string[]) => item.toString()}
       renderItem={renderItem}
       extraData={selected}
-      className={`h-[220px] w-full ${className}`}
+      className={`h-[180px] w-full ${className}`}
+      contentContainerClassName={contentContainerClassName}
     />
   );
 }
