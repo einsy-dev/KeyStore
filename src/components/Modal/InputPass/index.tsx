@@ -1,11 +1,13 @@
 import {
-	Button,
-	KeyboardAvoidingView,
-	Text,
-	TextInput,
-	View
+  Button,
+  KeyboardAvoidingView,
+  Text,
+  TextInput,
+  View
 } from "@/components/shared";
+import { setModal } from "@/lib/store/app";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 interface InputPasswordI {
   onSubmit: (password: string) => void;
@@ -14,6 +16,7 @@ interface InputPasswordI {
 
 export function InputPassword({ onSubmit, title }: InputPasswordI) {
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
   return (
     <KeyboardAvoidingView className="flex-1">
@@ -22,9 +25,10 @@ export function InputPassword({ onSubmit, title }: InputPasswordI) {
           <Text className="text-center">Password</Text>
           <TextInput onChangeText={setPassword} value={password} />
           <Button
-            onPress={() => {
+            onPress={async () => {
               if (!password.trim()) return;
-              onSubmit(password.trim());
+              await onSubmit(password.trim());
+              dispatch(setModal({ active: false }));
             }}
             className="mt-auto"
           >

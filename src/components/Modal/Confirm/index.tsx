@@ -1,5 +1,7 @@
+import { setModal } from "@/lib/store/app";
 import { Button } from "@/shared";
 import { Text, View } from "react-native";
+import { useDispatch } from "react-redux";
 
 interface ConfirmI {
   title: string;
@@ -8,21 +10,24 @@ interface ConfirmI {
 }
 
 export function Confirm({ title, onSubmit, onReject = () => "" }: ConfirmI) {
+  const dispatch = useDispatch();
   return (
     <View className="flex-1 justify-center">
       <View className="item p-4 gap-2">
         <Text className="item text-2xl text-center mb-4">{title}</Text>
         <View className="flex-row justify-evenly">
           <Button
-            onPress={() => {
-              onReject();
+            onPress={async () => {
+              await onReject();
+              dispatch(setModal({ active: false }));
             }}
           >
             Cancel
           </Button>
           <Button
-            onPress={() => {
-              onSubmit();
+            onPress={async () => {
+              await onSubmit();
+              dispatch(setModal({ active: false }));
             }}
           >
             Confirm

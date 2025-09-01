@@ -1,5 +1,5 @@
 import { setConfig } from "@/lib/store/config";
-import { Button, View } from "@/shared";
+import { Button, Text, View } from "@/shared";
 import { useRouter } from "expo-router";
 import { useColorScheme } from "nativewind";
 import { useDispatch } from "react-redux";
@@ -28,6 +28,9 @@ export default function Settings() {
         >
           Change Theme
         </Button>
+      </View>
+      <View>
+        <Text>{process.env.EXPO_PUBLIC_SECRET || "no env"}</Text>
       </View>
     </View>
   );
