@@ -17,7 +17,9 @@ export default function Auth() {
   const { colorScheme } = useColorScheme();
   const color = colorScheme === "light" ? "black" : "white";
   const dispatch = useDispatch();
+
   useEffect(() => {
+    console.log(newPin);
     if (input.length >= 4) {
       setTimeout(() => {
         if (newPin && !pass) {

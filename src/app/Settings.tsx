@@ -14,7 +14,7 @@ export default function Settings() {
       <View className="flex-1 p-4 gap-4">
         <Button
           onPress={() => {
-            router.push({ pathname: "/", params: { newPin: true as any } });
+            router.push({ pathname: "/Auth", params: { newPin: true as any } });
           }}
         >
           Change Pin
