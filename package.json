@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "start:nodev": "expo start --android  --minify --clear",
-    "start": "expo start --clear",
+    "start": "expo start --android --clear",
     "build-development:eas": "eas build -p android --profile development",
     "build-production:eas": "eas build -p android --profile production",
     "update": "eas update",

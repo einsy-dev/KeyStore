@@ -25,10 +25,12 @@ export function InputPassword({ onSubmit, title }: InputPasswordI) {
           <Text className="text-center">Password</Text>
           <TextInput onChangeText={setPassword} value={password} />
           <Button
-            onPress={async () => {
+            onPress={() => {
               if (!password.trim()) return;
-              await onSubmit(password.trim());
-              dispatch(setModal({ active: false }));
+              onSubmit(password.trim());
+              setTimeout(() => {
+                dispatch(setModal({ active: false }));
+              }, 500);
             }}
             className="mt-auto"
           >

@@ -1,6 +1,6 @@
 import * as LocalAuthentication from "expo-local-authentication";
 
-export async function authenticateWithBiometrics() {
+export async function auth() {
   await LocalAuthentication.cancelAuthenticate();
 
   const hasHardware = await LocalAuthentication.hasHardwareAsync();
@@ -17,9 +17,5 @@ export async function authenticateWithBiometrics() {
     disableDeviceFallback: false // Optional: for Android to allow device passcode fallback
   });
 
-  if (result.success) {
-    return true;
-  } else {
-    return false;
-  }
+  return result.success ? true : false;
 }

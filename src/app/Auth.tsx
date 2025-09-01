@@ -1,8 +1,9 @@
 import { Numpad } from "@/components/Numpad";
 import { Text, View } from "@/components/shared";
+import { useAppStateEffect } from "@/hooks/useAppStateEffect";
 import { hash } from "@/lib/crypto";
-import { authenticateWithBiometrics } from "@/utils/authenticateWithBiometrics";
-import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
+import { auth } from "@/utils/auth";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import { Circle } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
@@ -19,8 +20,9 @@ export default function Auth() {
   const color = colorScheme === "light" ? "black" : "white";
   const dispatch = useDispatch();
 
-  useFocusEffect(() => {
-    (async () => await authenticateWithBiometrics())().then((res) => {
+  useAppStateEffect(async (state) => {
+    if (state !== "active") return;
+    await auth().then((res) => {
       if (res) router.replace("/App");
     });
   });
