@@ -16,21 +16,12 @@ const defaultPopup: PopupI = {
   position: "center"
 };
 
-interface ConfigI {
-  theme: "light" | "dark";
-}
-
-const defaultConfig: ConfigI = {
-  theme: "light"
-};
-
 export const appSlice = createSlice({
   name: "app",
   initialState: {
     modal: defaultModal,
     menu: defaultMenu,
-    popup: defaultPopup,
-    config: defaultConfig
+    popup: defaultPopup
   },
   reducers: {
     setModal: (state, { payload }: { payload: ModalI }) => {
@@ -41,14 +32,11 @@ export const appSlice = createSlice({
     },
     setPopup: (state, { payload }: { payload: PopupI }) => {
       state.popup = { ...defaultPopup, ...payload };
-    },
-    setConfig: (state, { payload }: { payload: ConfigI }) => {
-      state.config = { ...defaultConfig, ...payload };
     }
   }
 });
 
-export const { setModal, setMenu, setPopup, setConfig } = appSlice.actions;
+export const { setModal, setMenu, setPopup } = appSlice.actions;
 
 export const selectModal = (state: { app: { modal: ModalI } }) => {
   return state.app.modal;
@@ -58,8 +46,4 @@ export const selectMenu = (state: { app: { menu: MenuI } }) => {
 };
 export const selectPopup = (state: { app: { popup: PopupI } }) => {
   return state.app.popup;
-};
-
-export const selectConfig = (state: { app: { config: ConfigI } }) => {
-  return state.app.config;
 };

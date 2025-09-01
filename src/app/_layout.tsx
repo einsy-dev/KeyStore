@@ -2,6 +2,7 @@ import { Menu } from "@/components/Menu";
 import { Modal } from "@/components/Modal";
 import { Popup } from "@/components/Popup";
 import { useAuth } from "@/hooks/useAuth";
+import { useConfig } from "@/hooks/useConfig";
 import store from "@/lib/store";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -12,8 +13,9 @@ import { Provider } from "react-redux";
 import "../assets/css/global.css";
 
 export default function Layout() {
-  const { colorScheme } = useColorScheme();
+  useConfig();
   useAuth();
+  const { colorScheme } = useColorScheme();
   return (
     <Provider store={store}>
       <SafeAreaProvider>

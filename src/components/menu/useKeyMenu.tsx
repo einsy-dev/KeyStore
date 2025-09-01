@@ -1,8 +1,10 @@
+import { setModal } from "@/lib/store/app";
 import { deleteKey } from "@/lib/store/data";
 import { shareText } from "@/utils";
 import { useRouter } from "expo-router";
 import { Edit, Share, Trash } from "lucide-react-native";
 import { useDispatch } from "react-redux";
+import { Confirm } from "../Modal/Confirm";
 
 export function useKeyMenu(groupId: string, keyId: string, value: string) {
   const dispatch = useDispatch();
@@ -33,9 +35,21 @@ export function useKeyMenu(groupId: string, keyId: string, value: string) {
       icon: Trash,
       callback: () => {
         dispatch(
-          deleteKey({
-            groupId,
-            keyId
+          setModal({
+            component: (
+              <Confirm
+                onSubmit={() => {
+                  dispatch(
+                    deleteKey({
+                      groupId,
+                      keyId
+                    })
+                  );
+                }}
+                title="Delete key?"
+              />
+            ),
+            active: true
           })
         );
       }
