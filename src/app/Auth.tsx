@@ -20,7 +20,12 @@ export default function Auth() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async () => await authenticateWithBiometrics())();
+    (async () => await authenticateWithBiometrics())().then((res) => {
+      if (res) router.replace("/App");
+    });
+  }, [router]);
+
+  useEffect(() => {
     if (input.length >= 4) {
       setTimeout(() => {
         if (newPin && !pass) {
@@ -86,10 +91,9 @@ async function authenticateWithBiometrics() {
   });
 
   if (result.success) {
-    console.log("Authentication successful!");
+    return true;
     // Proceed with your app's logic
   } else {
-    console.log("Authentication failed or cancelled:", result.error);
-    // Handle authentication failure
+    return false; // Handle authentication failure
   }
 }
