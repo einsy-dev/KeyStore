@@ -2,7 +2,7 @@
   "expo": {
     "name": "Key Store",
     "slug": "key-store",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./src/assets/images/icon.png",
     "scheme": "reactnative",
@@ -54,7 +54,7 @@
       }
     },
     "runtimeVersion": {
-      "policy": "nativeVersion"
+      "policy": "appVersion"
     },
     "updates": {
       "url": "https://u.expo.dev/7e7d5119-a6b0-4865-879b-3e9c6d399ada"
