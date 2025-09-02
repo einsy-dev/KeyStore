@@ -8,5 +8,15 @@
     ],
     "description": "",
     "scope": "javascriptreact"
+  },
+  "setTimeout": {
+    "prefix": [
+      "setTimeout"
+    ],
+    "body": [
+      "setTimeout(() => {}, 0);"
+    ],
+    "description": "",
+    "scope": "javascriptreact"
   }
 }

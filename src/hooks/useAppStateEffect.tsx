@@ -1,20 +1,19 @@
-import { usePathname } from "expo-router";
 import { useEffect } from "react";
 import { AppState, AppStateEvent, AppStateStatus } from "react-native";
 
 export function useAppStateEffect(
   callback: (state: AppStateStatus) => void,
-  type: AppStateEvent = "change"
+  type: AppStateEvent = "change",
+  deps: any[] = []
 ) {
-  const path = usePathname();
   useEffect(() => {
-    if (path === "/Auth" && AppState.currentState === "active")
-      (async () => await callback("active"))();
+    (async () => await callback(AppState.currentState))();
     const listener = AppState.addEventListener(type, (state) => {
       (async () => await callback(state))();
     });
     return () => {
       listener.remove();
     };
-  }, [callback, path, type]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [callback, type, ...deps]);
 }

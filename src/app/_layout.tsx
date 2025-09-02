@@ -1,7 +1,7 @@
 import { Menu } from "@/components/Menu";
 import { Modal } from "@/components/Modal";
 import { Popup } from "@/components/Popup";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuthGuard } from "@/hooks/useAuthGuard";
 import { useConfig } from "@/hooks/useConfig";
 import store from "@/lib/store";
 import { Stack } from "expo-router";
@@ -14,7 +14,7 @@ import "../assets/css/global.css";
 
 export default function Layout() {
   useConfig();
-  useAuth();
+  useAuthGuard();
   const { colorScheme } = useColorScheme();
   return (
     <Provider store={store}>

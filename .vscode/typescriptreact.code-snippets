@@ -8,5 +8,15 @@
     ],
     "description": "",
     "scope": "typescriptreact"
+  },
+  "setTimeout": {
+    "prefix": [
+      "setTimeout"
+    ],
+    "body": [
+      "setTimeout(() => {}, 0)"
+    ],
+    "description": "",
+    "scope": "typescriptreact"
   }
 }
