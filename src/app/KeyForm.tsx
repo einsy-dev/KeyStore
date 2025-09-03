@@ -114,14 +114,14 @@ function FormElement({
       </View>
       <View className="flex-row gap-4 flex-wrap">
         <CheckBox
-          onPress={(hide) => {
+          onChange={(hide) => {
             setState((prev: KeyElementI) => ({ ...prev, hide }));
           }}
         >
           Hide
         </CheckBox>
         <CheckBox
-          onPress={async (gen) => {
+          onChange={async (gen) => {
             let value = "";
             if (gen) {
               value = await genPass({ length: 15 });

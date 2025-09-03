@@ -15,13 +15,13 @@ import "../assets/css/global.css";
 export default function Layout() {
   useConfig();
   useAuthGuard();
-  const color = useColor();
+  const { statusBarColor } = useColor();
 
   return (
     <Provider store={store}>
       <SafeAreaProvider>
         <SafeAreaView className="flex-1 app">
-          <StatusBar style={color === "white" ? "light" : "dark"} />
+          <StatusBar style={statusBarColor} />
           <GestureHandlerRootView className="flex-1 relative ">
             <Stack>
               <Stack.Screen name="index" options={{ headerShown: false }} />

@@ -33,9 +33,9 @@ export function Key({
 
   if (!data.value) return null;
   return (
-    <View className="flex-1 rounded border px-2 relative">
+    <View className="flex-1 rounded  px-2 relative">
       {data.label ? (
-        <Text className="item absolute left-1 -top-[8px] px-1 text-xs">
+        <Text className="border-b border-v-red absolute left-1 -top-[10px] px-1 text-xs">
           {data.label}
         </Text>
       ) : null}

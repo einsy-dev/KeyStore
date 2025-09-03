@@ -1,18 +1,19 @@
 import { hash } from "@/lib/crypto";
+import { selectAuth, setAuth } from "@/lib/store/auth";
 import * as LocalAuthentication from "expo-local-authentication";
 import * as SecureStore from "expo-secure-store";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export function useAuth(initialState: string = "", newPin: boolean = false) {
   const [value, setValue] = useState(initialState);
-  const [status, setStatus] = useState<AuthStatusI>({
-    success: false,
-    isBioAvailbale: true
-  });
+  const status = useSelector(selectAuth);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!newPin) auth(setStatus);
-  }, [newPin]);
+    dispatch(setAuth({ success: false }));
+    if (!newPin) auth().then((res) => dispatch(setAuth(res)));
+  }, [dispatch, newPin]);
 
   useEffect(() => {
     // handle auth and status
@@ -22,23 +23,19 @@ export function useAuth(initialState: string = "", newPin: boolean = false) {
 
       if (!storedPin || newPin) {
         SecureStore.setItem("pin", hashPin);
-        setStatus((prev) => ({ ...prev, success: true }));
+        dispatch(setAuth({ success: true }));
       } else {
         // eslint-disable-next-line no-unused-expressions
         storedPin === hashPin
-          ? setStatus((prev) => ({ ...prev, success: true, error: "" }))
-          : setStatus((prev) => ({
-              ...prev,
-              success: false,
-              error: "incorect_password"
-            }));
+          ? dispatch(setAuth({ success: true }))
+          : dispatch(setAuth({ success: false, error: "incorect_password" }));
       }
       setTimeout(() => {
-        setStatus((prev) => ({ ...prev, success: false, error: "" }));
+        dispatch(setAuth({ success: false }));
         setValue("");
       }, 300);
     }
-  }, [newPin, value]);
+  }, [dispatch, newPin, value]);
 
   function handleinput(callback: (prev: string) => string) {
     const res = callback(value);
@@ -50,16 +47,16 @@ export function useAuth(initialState: string = "", newPin: boolean = false) {
     value,
     setValue: handleinput,
     status,
-    authBio: () => auth(setStatus)
+    authBio: () => auth().then((res) => dispatch(setAuth(res)))
   };
 }
 
-async function auth(setStatus: React.Dispatch<SetStateAction<AuthStatusI>>) {
+async function auth() {
   const hasHardware = await LocalAuthentication.hasHardwareAsync();
   const isEnrolled = await LocalAuthentication.isEnrolledAsync();
 
   if (!hasHardware || !isEnrolled) {
-    return setStatus({ success: false, isBioAvailbale: false });
+    return { success: false, isBioAvailbale: false };
   }
 
   const result = await LocalAuthentication.authenticateAsync({
@@ -68,5 +65,5 @@ async function auth(setStatus: React.Dispatch<SetStateAction<AuthStatusI>>) {
     disableDeviceFallback: true // Optional: for Android to allow device passcode fallback,
   });
 
-  setStatus((prev) => ({ ...prev, success: result.success, error: "" }));
+  return { success: result.success };
 }

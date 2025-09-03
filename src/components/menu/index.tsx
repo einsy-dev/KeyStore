@@ -1,6 +1,7 @@
 import { Text } from "@/components/shared/Text";
 import { View } from "@/components/shared/View";
 import { useColor } from "@/hooks/useColor";
+import { useGoBack } from "@/hooks/useGoBack";
 import { selectMenu, setMenu } from "@/lib/store/app";
 import { useSegments } from "expo-router";
 import { useEffect, useState } from "react";
@@ -50,6 +51,14 @@ export function Menu() {
     }
   }, [menu, translateY, opaque]);
 
+  useGoBack(() => {
+    if (menu.active) {
+      dispatch(setMenu({ active: false }));
+      return true;
+    }
+    return false;
+  }, [menu]);
+
   return (
     <Animated.View
       className={active ? "absolute inset-0 bg-transparent" : "hidden"}
@@ -77,7 +86,7 @@ export function Menu() {
                 >
                   <View className="flex-row items-center gap-6">
                     <View>
-                      <el.icon color={color} height={20} />
+                      <el.icon color={color.iconColor} height={20} />
                     </View>
                     <Text className="text-xl item ">{el.name}</Text>
                   </View>

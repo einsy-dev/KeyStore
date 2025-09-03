@@ -1,5 +1,4 @@
 import { useColor } from "@/hooks/useColor";
-import store from "@/lib/store";
 import { setConfig } from "@/lib/store/config";
 import { Button, Text, View } from "@/shared";
 import { useRouter } from "expo-router";
@@ -21,9 +20,7 @@ export default function Settings() {
         </Button>
         <Button
           onPress={() => {
-            dispatch(
-              setConfig({ theme: color === "white" ? "light" : "dark" })
-            );
+            dispatch(setConfig({ theme: color.statusBarColor }));
           }}
         >
           Change Theme
@@ -31,9 +28,6 @@ export default function Settings() {
         <View>
           <Text className="text-center">
             {process.env.EXPO_PUBLIC_SECRET || "no env"}
-          </Text>
-          <Text className="text-center">
-            {JSON.stringify(store.getState())}
           </Text>
         </View>
       </View>

@@ -19,7 +19,7 @@ export const authSlice = createSlice({
   reducers: {
     setAuth: (state, { payload }: { payload: AuthStatusI }) => {
       state.auth = { ...state.auth, ...payload };
-      SecureStore.setItem("config", JSON.stringify(state.auth));
+      SecureStore.setItem("auth", JSON.stringify(state.auth));
     }
   }
 });

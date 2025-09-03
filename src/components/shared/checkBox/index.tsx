@@ -6,26 +6,32 @@ import { Text } from "../Text";
 import { View } from "../View";
 
 export function CheckBox({
-  children,
-  onPress
+  checked = false,
+  onChange,
+  children
 }: {
+  checked?: boolean;
+  onChange: (checked: boolean) => void;
   children: string;
-  onPress: (checked: boolean) => void;
 }) {
-  const [checked, setChecked] = useState(false);
+  const [state, setState] = useState(checked);
   const color = useColor();
 
   return (
     <TouchableOpacity
       onPress={() => {
-        setChecked((prev) => {
-          onPress(!prev);
+        setState((prev) => {
+          onChange(!prev);
           return !prev;
         });
       }}
     >
       <View className="flex-row gap-2 ">
-        {checked ? <SquareCheckBig color={color} /> : <Square color={color} />}
+        {state ? (
+          <SquareCheckBig color={color.iconColor} />
+        ) : (
+          <Square color={color.iconColor} />
+        )}
         <Text>{children}</Text>
       </View>
     </TouchableOpacity>

@@ -6,7 +6,6 @@ import { AppState } from "react-native";
 export function useAuthGuard() {
   const router = useRouter();
   const path = usePathname();
-
   useEffect(() => {
     const listener = AppState.addEventListener("change", (state) => {
       if (state !== "active" || path === "/Auth") return;

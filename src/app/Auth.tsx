@@ -29,18 +29,13 @@ export default function Auth() {
             <DotBox
               key={index}
               value={value[index] || status.success ? "S" : ""}
-              status={status}
             />
           ))}
         {message && (
           <Text className="absolute top-80 text-xl !text-v-red">{message}</Text>
         )}
       </View>
-      <Numpad
-        status={status}
-        onChangeText={setValue as any}
-        onFingerPrint={() => authBio()}
-      />
+      <Numpad onChangeText={setValue as any} onFingerPrint={() => authBio()} />
     </View>
   );
 }

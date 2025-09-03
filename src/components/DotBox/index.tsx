@@ -1,4 +1,5 @@
 import { useColor } from "@/hooks/useColor";
+import { selectAuth } from "@/lib/store/auth";
 import { Circle } from "lucide-react-native";
 import { useEffect } from "react";
 import Animated, {
@@ -7,18 +8,14 @@ import Animated, {
   withSequence,
   withTiming
 } from "react-native-reanimated";
+import { useSelector } from "react-redux";
 
-export function DotBox({
-  value,
-  status
-}: {
-  value: string;
-  status: AuthStatusI;
-}) {
+export function DotBox({ value }: { value: string }) {
   const color = useColor();
   const scaleValue = useSharedValue(0);
   const opacityValue = useSharedValue(0);
   const shakeValue = useSharedValue(0);
+  const status = useSelector(selectAuth);
 
   useEffect(() => {
     if (value) {
@@ -61,12 +58,12 @@ export function DotBox({
     <Animated.View
       className="border rounded aspect-[4/5] h-[60px] items-center justify-center"
       style={[
-        status && { borderColor: setColor(status) || color },
+        { borderColor: setColor(status) || color.textColor },
         dotBoxStyle
       ]}
     >
       <Animated.View style={[dotStyle]}>
-        <Circle color={color} fill={color} />
+        <Circle color={color.iconColor} fill={color.iconColor} />
       </Animated.View>
     </Animated.View>
   );

@@ -15,13 +15,20 @@ const defaultPopup: PopupI = {
   component: null,
   position: "center"
 };
+const defaultHeader: HeaderI = {
+  active: false,
+  backButton: false,
+  title: "",
+  component: null
+};
 
 export const appSlice = createSlice({
   name: "app",
   initialState: {
     modal: defaultModal,
     menu: defaultMenu,
-    popup: defaultPopup
+    popup: defaultPopup,
+    header: defaultHeader
   },
   reducers: {
     setModal: (state, { payload }: { payload: ModalI }) => {
@@ -32,11 +39,14 @@ export const appSlice = createSlice({
     },
     setPopup: (state, { payload }: { payload: PopupI }) => {
       state.popup = { ...defaultPopup, ...payload };
+    },
+    setHeader: (state, { payload }: { payload: HeaderI }) => {
+      state.header = { ...defaultHeader, ...payload };
     }
   }
 });
 
-export const { setModal, setMenu, setPopup } = appSlice.actions;
+export const { setModal, setMenu, setPopup, setHeader } = appSlice.actions;
 
 export const selectModal = (state: { app: { modal: ModalI } }) => {
   return state.app.modal;
@@ -46,4 +56,7 @@ export const selectMenu = (state: { app: { menu: MenuI } }) => {
 };
 export const selectPopup = (state: { app: { popup: PopupI } }) => {
   return state.app.popup;
+};
+export const selectHeader = (state: { app: { header: HeaderI } }) => {
+  return state.app.header;
 };

@@ -1,6 +1,31 @@
 import { useColorScheme } from "nativewind";
 
-export function useColor() {
+interface useColorI {
+  textColor: "white" | "black";
+  iconColor: "white" | "black";
+  backgroundColor: "white" | "black";
+  statusBarColor: "light" | "dark";
+  borderColor: "white" | "black";
+}
+
+export function useColor(): useColorI {
   const { colorScheme } = useColorScheme();
-  return colorScheme === "dark" ? "white" : "dark";
+
+  if (colorScheme === "dark") {
+    return {
+      textColor: "white",
+      iconColor: "white",
+      backgroundColor: "black",
+      statusBarColor: "light",
+      borderColor: "white"
+    };
+  } else {
+    return {
+      textColor: "black",
+      iconColor: "black",
+      backgroundColor: "white",
+      statusBarColor: "dark",
+      borderColor: "black"
+    };
+  }
 }

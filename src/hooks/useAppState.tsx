@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { AppState, AppStateEvent, AppStateStatus } from "react-native";
 
-export function useAppStateEffect(
+export function useAppState(
   callback: (state: AppStateStatus) => void,
   type: AppStateEvent = "change",
   deps: any[] = []

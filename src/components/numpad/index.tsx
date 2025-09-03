@@ -1,19 +1,20 @@
 import { useColor } from "@/hooks/useColor";
+import { selectAuth } from "@/lib/store/auth";
 import { Delete, Fingerprint } from "lucide-react-native";
 import { memo, ReactNode } from "react";
 import { TouchableNativeFeedback } from "react-native";
+import { useSelector } from "react-redux";
 import { Text, View } from "../shared";
 
 export const Numpad = memo(function Numpad({
   onChangeText = () => {},
-  onFingerPrint = () => {},
-  status
+  onFingerPrint = () => {}
 }: {
   onChangeText: React.Dispatch<React.SetStateAction<string>>;
   onFingerPrint: () => void;
-  status: AuthStatusI;
 }) {
   const color = useColor();
+  const status = useSelector(selectAuth);
 
   function handlePress(item: string | number) {
     onChangeText((prev: string) => {
@@ -34,7 +35,9 @@ export const Numpad = memo(function Numpad({
       <View className=" flex-row justify-between">
         {status.isBioAvailbale ? (
           <IconItem
-            item={<Fingerprint color={color} height={40} width={40} />}
+            item={
+              <Fingerprint color={color.iconColor} height={40} width={40} />
+            }
             onPress={onFingerPrint}
           />
         ) : (
@@ -42,7 +45,7 @@ export const Numpad = memo(function Numpad({
         )}
         <TextItem item={"0"} onPress={() => handlePress(0)} />
         <IconItem
-          item={<Delete color={color} />}
+          item={<Delete color={color.iconColor} />}
           onPress={() => handlePress(-1)}
         />
       </View>
