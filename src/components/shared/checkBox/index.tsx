@@ -18,8 +18,10 @@ export function CheckBox({
   return (
     <TouchableOpacity
       onPress={() => {
-        setChecked((prev) => !prev);
-        onPress(checked);
+        setChecked((prev) => {
+          onPress(!prev);
+          return !prev;
+        });
       }}
     >
       <View className="flex-row gap-2 ">
