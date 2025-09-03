@@ -1,15 +1,14 @@
+import { useColor } from "@/hooks/useColor";
 import store from "@/lib/store";
 import { setConfig } from "@/lib/store/config";
 import { Button, Text, View } from "@/shared";
 import { useRouter } from "expo-router";
-import { useColorScheme } from "nativewind";
 import { useDispatch } from "react-redux";
 
 export default function Settings() {
   const router = useRouter();
-  const { colorScheme } = useColorScheme();
   const dispatch = useDispatch();
-
+  const color = useColor();
   return (
     <View className="flex-1 app">
       <View className="flex-1 p-4 gap-4">
@@ -23,7 +22,7 @@ export default function Settings() {
         <Button
           onPress={() => {
             dispatch(
-              setConfig({ theme: colorScheme === "light" ? "dark" : "light" })
+              setConfig({ theme: color === "white" ? "light" : "dark" })
             );
           }}
         >

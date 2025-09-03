@@ -1,5 +1,5 @@
+import { useColor } from "@/hooks/useColor";
 import { Circle } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 import { useEffect } from "react";
 import Animated, {
   useAnimatedStyle,
@@ -15,8 +15,7 @@ export function DotBox({
   value: string;
   status: AuthStatusI;
 }) {
-  const { colorScheme } = useColorScheme();
-  const color = colorScheme === "light" ? "black" : "white";
+  const color = useColor();
   const scaleValue = useSharedValue(0);
   const opacityValue = useSharedValue(0);
   const shakeValue = useSharedValue(0);

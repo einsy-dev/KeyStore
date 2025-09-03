@@ -25,11 +25,9 @@ export default function KeyGroupForm() {
   const dispatch = useDispatch();
   const { groupId, keyId } = useLocalSearchParams<LocalSearchParamI>();
   const data = useSelector(selectData);
-
   const [state, setState] = useState<KeyI>(
     data[groupId].keys[keyId] || { name: "", value: "" }
   );
-
   const [err, setErr] = useState<string>("");
   const [type, setType] = useState<KeyModeT>("double");
 

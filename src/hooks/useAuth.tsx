@@ -2,6 +2,7 @@ import { hash } from "@/lib/crypto";
 import * as LocalAuthentication from "expo-local-authentication";
 import * as SecureStore from "expo-secure-store";
 import { SetStateAction, useEffect, useState } from "react";
+import { AppState } from "react-native";
 
 export function useAuth(initialState: string = "", newPin: boolean = false) {
   const [value, setValue] = useState(initialState);
@@ -11,7 +12,14 @@ export function useAuth(initialState: string = "", newPin: boolean = false) {
   });
 
   useEffect(() => {
-    if (!newPin) auth(setStatus);
+    if (!AppState.isAvailable) return;
+    const appListener = AppState.addEventListener("change", (state) => {
+      if (state !== "active" || newPin) return;
+      auth(setStatus);
+    });
+    return () => {
+      appListener.remove();
+    };
   }, [newPin]);
 
   useEffect(() => {

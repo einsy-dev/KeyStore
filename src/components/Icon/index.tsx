@@ -1,5 +1,5 @@
+import { useColor } from "@/hooks/useColor";
 import { Icons } from "@/lib/icons";
-import { useColorScheme } from "nativewind";
 
 export function Icon({
   iconId,
@@ -8,14 +8,9 @@ export function Icon({
   iconId: string;
   className?: string;
 }) {
-  const { colorScheme } = useColorScheme();
+  const color = useColor();
   const IconNode = Icons[iconId].icon;
   return (
-    <IconNode
-      height={32}
-      width={32}
-      color={colorScheme === "dark" ? "white" : "black"}
-      className={className}
-    />
+    <IconNode height={32} width={32} color={color} className={className} />
   );
 }

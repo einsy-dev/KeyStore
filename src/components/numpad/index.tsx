@@ -1,5 +1,5 @@
+import { useColor } from "@/hooks/useColor";
 import { Delete, Fingerprint } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 import { memo, ReactNode } from "react";
 import { TouchableNativeFeedback } from "react-native";
 import { Text, View } from "../shared";
@@ -13,8 +13,7 @@ export const Numpad = memo(function Numpad({
   onFingerPrint: () => void;
   status: AuthStatusI;
 }) {
-  const { colorScheme } = useColorScheme();
-  const color = colorScheme === "light" ? "black" : "white";
+  const color = useColor();
 
   function handlePress(item: string | number) {
     onChangeText((prev: string) => {

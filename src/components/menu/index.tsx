@@ -1,8 +1,8 @@
 import { Text } from "@/components/shared/Text";
 import { View } from "@/components/shared/View";
+import { useColor } from "@/hooks/useColor";
 import { selectMenu, setMenu } from "@/lib/store/app";
 import { useSegments } from "expo-router";
-import { useColorScheme } from "nativewind";
 import { useEffect, useState } from "react";
 import { Pressable, TouchableOpacity } from "react-native";
 import Animated, {
@@ -16,7 +16,7 @@ import Animated, {
 import { useDispatch, useSelector } from "react-redux";
 
 export function Menu() {
-  const { colorScheme } = useColorScheme();
+  const color = useColor();
   const menu: MenuI = useSelector(selectMenu);
   const [active, setActive] = useState(false);
   const dispatch = useDispatch();
@@ -77,10 +77,7 @@ export function Menu() {
                 >
                   <View className="flex-row items-center gap-6">
                     <View>
-                      <el.icon
-                        color={colorScheme === "dark" ? "white" : "black"}
-                        height={20}
-                      />
+                      <el.icon color={color} height={20} />
                     </View>
                     <Text className="text-xl item ">{el.name}</Text>
                   </View>
