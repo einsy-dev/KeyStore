@@ -1,13 +1,17 @@
-import { Delete } from "lucide-react-native";
+import { Delete, Fingerprint } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 import { memo, ReactNode } from "react";
 import { TouchableNativeFeedback } from "react-native";
 import { Text, View } from "../shared";
 
 export const Numpad = memo(function Numpad({
-  onChangeText = () => ""
+  onChangeText = () => {},
+  onFingerPrint = () => {},
+  status
 }: {
   onChangeText: React.Dispatch<React.SetStateAction<string>>;
+  onFingerPrint: () => void;
+  status: AuthStatusI;
 }) {
   const { colorScheme } = useColorScheme();
   const color = colorScheme === "light" ? "black" : "white";
@@ -27,10 +31,22 @@ export const Numpad = memo(function Numpad({
       <NumpadLine items={["1", "2", "3"]} handlePress={handlePress} />
       <NumpadLine items={["4", "5", "6"]} handlePress={handlePress} />
       <NumpadLine items={["7", "8", "9"]} handlePress={handlePress} />
-      <NumpadLine
-        items={["", "0", <Delete key={"Delete"} color={color} />]}
-        handlePress={handlePress}
-      />
+
+      <View className=" flex-row justify-between">
+        {status.isBioAvailbale ? (
+          <IconItem
+            item={<Fingerprint color={color} height={40} width={40} />}
+            onPress={onFingerPrint}
+          />
+        ) : (
+          <TextItem item={""} onPress={() => null} />
+        )}
+        <TextItem item={"0"} onPress={() => handlePress(0)} />
+        <IconItem
+          item={<Delete color={color} />}
+          onPress={() => handlePress(-1)}
+        />
+      </View>
     </View>
   );
 });
@@ -39,18 +55,14 @@ function NumpadLine({
   items,
   handlePress
 }: {
-  items: string[] | ReactNode[];
+  items: string[];
   handlePress: (item: string | number) => void;
 }) {
   return (
     <View className=" flex-row justify-between">
-      {items.map((el) =>
-        typeof el == "string" ? ( //only one "react Node"
-          <TextItem key={el} item={el} onPress={() => handlePress(el)} />
-        ) : (
-          <IconItem key={"delete"} item={el} onPress={() => handlePress(-1)} />
-        )
-      )}
+      {items.map((el: string) => (
+        <TextItem key={el} item={el} onPress={() => handlePress(el)} />
+      ))}
     </View>
   );
 }

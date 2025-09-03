@@ -2,7 +2,6 @@ import { DotBox } from "@/components/DotBox";
 import { Numpad } from "@/components/Numpad";
 import { Text, View } from "@/components/shared";
 import { useAuth } from "@/hooks/useAuth";
-import { useBioAuth } from "@/hooks/useAuthBio";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 
@@ -12,15 +11,14 @@ export default function Auth() {
   const [message, setMessage] = useState("");
   const { newPin = false } = useLocalSearchParams();
 
-  const bioStatus = useBioAuth();
-  const { value, setValue, status } = useAuth("", newPin as boolean);
+  const { value, setValue, status, authBio } = useAuth("", newPin as boolean);
 
   useEffect(() => {
-    if (bioStatus === "success" || status === "success")
+    if (status.success)
       setTimeout(() => {
         router.replace("/App");
       }, 0);
-  }, [status, router, bioStatus, setValue]);
+  }, [status, router, setValue]);
 
   return (
     <View className="app flex-1 p-4 justify-center">
@@ -30,15 +28,19 @@ export default function Auth() {
           .map((_, index) => (
             <DotBox
               key={index}
-              value={value[index] || bioStatus === "success" ? "S" : ""}
-              status={bioStatus === "success" ? bioStatus : status}
+              value={value[index] || status.success ? "S" : ""}
+              status={status}
             />
           ))}
         {message && (
           <Text className="absolute top-80 text-xl !text-v-red">{message}</Text>
         )}
       </View>
-      <Numpad onChangeText={setValue as any} />
+      <Numpad
+        status={status}
+        onChangeText={setValue as any}
+        onFingerPrint={() => authBio()}
+      />
     </View>
   );
 }

@@ -1,1 +1,5 @@
-type StatusT = "success" | "error" | null;
+interface AuthStatusI {
+  success: boolean;
+  isBioAvailbale?: boolean;
+  error?: string;
+}

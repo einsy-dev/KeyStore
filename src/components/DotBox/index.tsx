@@ -2,18 +2,19 @@ import { Circle } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 import { useEffect } from "react";
 import Animated, {
-	useAnimatedStyle,
-	useSharedValue,
-	withSequence,
-	withTiming
+  useAnimatedStyle,
+  useSharedValue,
+  withSequence,
+  withTiming
 } from "react-native-reanimated";
 
-const colors = {
-  success: "green",
-  error: "yellow"
-};
-
-export function DotBox({ value, status }: { value: string; status: StatusT }) {
+export function DotBox({
+  value,
+  status
+}: {
+  value: string;
+  status: AuthStatusI;
+}) {
   const { colorScheme } = useColorScheme();
   const color = colorScheme === "light" ? "black" : "white";
   const scaleValue = useSharedValue(0);
@@ -32,7 +33,7 @@ export function DotBox({ value, status }: { value: string; status: StatusT }) {
   }, [value]);
 
   useEffect(() => {
-    if (status !== "error") return;
+    if (!status.error) return;
     shakeValue.value = withSequence(
       withTiming(5, { duration: 100 / 3 }),
       withTiming(-5, { duration: 100 / 3 }),
@@ -60,11 +61,19 @@ export function DotBox({ value, status }: { value: string; status: StatusT }) {
   return (
     <Animated.View
       className="border rounded aspect-[4/5] h-[60px] items-center justify-center"
-      style={[status && { borderColor: colors[status] }, dotBoxStyle]}
+      style={[
+        status && { borderColor: setColor(status) || color },
+        dotBoxStyle
+      ]}
     >
       <Animated.View style={[dotStyle]}>
         <Circle color={color} fill={color} />
       </Animated.View>
     </Animated.View>
   );
+}
+
+function setColor(status: AuthStatusI) {
+  if (status.success) return "green";
+  if (status.error) return "red";
 }
