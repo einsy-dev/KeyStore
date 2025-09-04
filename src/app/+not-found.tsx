@@ -1,9 +1,5 @@
-import { Text, View } from "@/shared";
+import { Text } from "@/shared/ui";
 
-export default function NotFound() {
-  return (
-    <View className="flex-1 app">
-      <Text>Not found</Text>
-    </View>
-  );
+export default function Not_Found() {
+  return <Text>:p;</Text>;
 }

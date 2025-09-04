@@ -4,7 +4,7 @@
     "slug": "key-store",
     "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./src/assets/images/icon.png",
+    "icon": "./src/shared/assets/images/icon.png",
     "scheme": "reactnative",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -13,7 +13,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/images/adaptive-icon.png",
+        "foregroundImage": "./src/shared/assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
@@ -24,7 +24,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./src/assets/images/splash-icon.png",
+          "image": "./src/shared/assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
@@ -46,9 +46,7 @@
       [
         "expo-asset",
         {
-          "assets": [
-            "./src/assets"
-          ]
+          "assets": ["./src/assets"]
         }
       ],
       "expo-background-task"

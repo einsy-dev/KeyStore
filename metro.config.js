@@ -5,7 +5,7 @@ module.exports = (() => {
 	let config = getDefaultConfig(__dirname);
 
 	config = withSvg(config);
-	config = withNativeWind(config, { input: './src/assets/css/global.css' })
+	config = withNativeWind(config, { input: './src/shared/assets/css/global.css' })
 
 	return config;
 })();

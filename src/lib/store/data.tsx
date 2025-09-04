@@ -1,4 +1,4 @@
-import { isPlainObject } from "@/utils";
+import { isPlainObject } from "@/shared/utils";
 import { createSlice } from "@reduxjs/toolkit";
 import * as SecureStore from "expo-secure-store";
 

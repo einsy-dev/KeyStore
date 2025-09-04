@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer utilities {
+	.border {
+		border-width: 2px;
+	}
+}
+
+@layer components {
+	.app {
+		@apply bg-white dark:bg-v-black;
+	}
+
+	.text {
+		@apply dark:text-white text-v-black;
+	}
+
+	.icon {
+		@apply bg-white dark:bg-v-black;
+	}
+
+	.border {
+		@apply !border-blue-600 !dark:border-v-red;
+	}
+
+}
