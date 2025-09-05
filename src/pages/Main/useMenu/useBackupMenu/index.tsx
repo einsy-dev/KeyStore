@@ -4,7 +4,7 @@ import { selectData, setData } from "@/lib/store/data";
 import { readFile, saveFile, shareFile } from "@/utils";
 import { Download, File, Share } from "lucide-react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { InputPassword } from "../Modal/InputPass";
+import { InputPassword } from "../../../../widgets/Modal/InputPass";
 
 export function useBackupMenu() {
   const dispatch = useDispatch();

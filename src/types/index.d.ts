@@ -19,10 +19,11 @@ interface DataI {
 }
 type DataListI = { [id: string]: DataI };
 
-interface IconsI {
-  [key: string]: {
-    icon: LucideIcon;
-  };
+interface IconI {
+  name: string;
+  Icon: React.FC<SvgProps>;
 }
+
+type Icon = React.FC<SvgProps>;
 
 type KeyModeT = "single" | "double";

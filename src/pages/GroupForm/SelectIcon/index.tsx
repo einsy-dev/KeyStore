@@ -1,8 +1,7 @@
-import { Icons } from "@/shared/icons";
+import * as Icons from "@/assets/icons";
+import { View } from "@/shared/ui";
 import { useEffect, useState } from "react";
 import { FlatList, TouchableNativeFeedback } from "react-native";
-import { Icon } from "../Icon";
-import { View } from "../shared/View";
 
 export function SelectIcon({
   defaultValue = null,
@@ -24,24 +23,18 @@ export function SelectIcon({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected]);
 
-  const renderItem = ({ item }: { item: string[] }) => (
-    <View className="flex-row">
-      {item.map((el, index) => (
-        <View className="m-[4px]" key={index}>
+  const renderItem = ({ item }: { item: IconI[] }) => (
+    <View className="flex-row gap-2 items-center justify-center">
+      {item.map((el) => (
+        <View key={el.name}>
           <TouchableNativeFeedback
             onPress={() => {
-              setSelected(el);
+              setSelected(el.name);
             }}
-            background={TouchableNativeFeedback.Ripple(
-              "hsl(0,0, 50%)",
-              false,
-              22
-            )}
+            background={TouchableNativeFeedback.Ripple("hsl(0,0, 50%)", false, 22)}
           >
-            <View
-              className={`rounded-full aspect-square  p-[8px] ${selected === el && "border !p-[6px]"}`}
-            >
-              <Icon iconId={el} />
+            <View className={`aspect-square items-center justify-center rounded-full p-2`}>
+              <el.Icon width={35} height={35} />
             </View>
           </TouchableNativeFeedback>
         </View>
@@ -50,22 +43,22 @@ export function SelectIcon({
   );
 
   const data = Object.keys(Icons).reduce(
-    (acc, el: string, index) => {
+    (acc, key: string, index) => {
       const arrIndex = Math.floor(index / itemsPerLine);
       if (!Array.isArray(acc[arrIndex])) acc[arrIndex] = [];
-      acc[arrIndex].push(el);
+      acc[arrIndex].push({ name: key, Icon: (Icons as any)[key] });
       return acc;
     },
-    [[]] as string[][]
+    [[]] as IconI[][]
   );
 
   return (
     <FlatList
       data={data}
-      keyExtractor={(item: string[]) => item.toString()}
+      keyExtractor={(item: IconI[]) => item[0].name}
       renderItem={renderItem}
       extraData={selected}
-      className={`h-[180px] w-full ${className}`}
+      className={`h-[205px] w-full ${className}`}
       contentContainerClassName={contentContainerClassName}
     />
   );

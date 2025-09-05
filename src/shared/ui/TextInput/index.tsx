@@ -26,7 +26,7 @@ export function TextInput({
         onChangeText(text);
       }}
       keyboardType={keyboardType}
-      className={`border px-4 py-2 rounded text-2xl item ${className}`}
+      className={`border px-4 py-2 rounded text-2xl text ${className}`}
       placeholder={placeholder}
       placeholderClassName={placeholderClassName}
     />

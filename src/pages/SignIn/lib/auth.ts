@@ -23,12 +23,12 @@ export async function auth(pin: string, options: OptionsI = defaultOptions): Pro
   }
 }
 
-export async function authBio() {
+export async function authBio(): Promise<boolean | undefined> {
   const hasHardware = await LocalAuthentication.hasHardwareAsync();
   const isEnrolled = await LocalAuthentication.isEnrolledAsync();
 
   if (!hasHardware || !isEnrolled) {
-    return { success: false, isBioAvailbale: false };
+    return false;
   }
 
   const result = await LocalAuthentication.authenticateAsync({
@@ -37,5 +37,5 @@ export async function authBio() {
     disableDeviceFallback: true // Optional: for Android to allow device passcode fallback,
   });
 
-  return { success: result.success, error: result.success ? "" : result.error };
+  return result.success;
 }

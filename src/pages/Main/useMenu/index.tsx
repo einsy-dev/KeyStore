@@ -2,9 +2,9 @@ import { setMenu } from "@/lib/store/app";
 import { useRouter } from "expo-router";
 import { CirclePlus, DatabaseBackup, Settings } from "lucide-react-native";
 import { useDispatch } from "react-redux";
-import { useBackupMenu } from "../../widgets/Menu/useBackupMenu";
+import { useBackupMenu } from "./useBackupMenu";
 
-export function useAppMenu() {
+export function useMenu() {
   const router = useRouter();
   const dispatch = useDispatch();
   const backupMenu = useBackupMenu();
@@ -29,7 +29,7 @@ export function useAppMenu() {
       name: "Settings",
       icon: Settings,
       callback: () => {
-        router.push("/Settings");
+        router.push("/(pages)/settings");
       }
     }
   ];

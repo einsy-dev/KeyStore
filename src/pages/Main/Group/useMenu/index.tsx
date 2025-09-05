@@ -1,10 +1,11 @@
 import { setModal } from "@/lib/store/app";
 import { deleteGroup, selectData } from "@/lib/store/data";
+import { Confirm } from "@/widgets/Modal/Confirm";
 import { useRouter } from "expo-router";
 import { CirclePlus, Edit, Trash } from "lucide-react-native";
 import { useDispatch, useSelector } from "react-redux";
 
-export function useGroupMenu(groupId: string) {
+export function useMenu(groupId: string) {
   const data: DataListI = useSelector(selectData);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ export function useGroupMenu(groupId: string) {
       callback: () => {
         router.push({
           pathname: "/(pages)/[groupId]/[keyId]",
-          params: { groupId, keyId: "" }
+          params: { groupId, keyId: "111" }
         });
       }
     },
@@ -24,11 +25,9 @@ export function useGroupMenu(groupId: string) {
       icon: Edit,
       callback: () => {
         router.push({
-          pathname: "/KeyGroupForm",
+          pathname: "/(pages)/[groupId]",
           params: {
-            id: groupId,
-            name: data[groupId].name,
-            icon: data[groupId].icon
+            groupId
           }
         });
       }
