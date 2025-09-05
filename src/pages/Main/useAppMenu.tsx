@@ -2,7 +2,7 @@ import { setMenu } from "@/lib/store/app";
 import { useRouter } from "expo-router";
 import { CirclePlus, DatabaseBackup, Settings } from "lucide-react-native";
 import { useDispatch } from "react-redux";
-import { useBackupMenu } from "./useBackupMenu";
+import { useBackupMenu } from "../../widgets/Menu/useBackupMenu";
 
 export function useAppMenu() {
   const router = useRouter();

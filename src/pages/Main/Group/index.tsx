@@ -1,7 +1,7 @@
 import { Icon } from "@//widgets/Icon";
 import { setMenu } from "@/lib/store/app";
 import { Text, View } from "@/shared/ui";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 import { useGroupMenu } from "./lib/useGroupMenu";
@@ -11,21 +11,21 @@ export function Group({
   data,
   children,
   className = "",
-  drag,
-  active,
-  setActive
+  drag
+  // active,
+  // setActive
 }: {
   groupId: string;
   data: DataI;
   children?: ReactNode;
   className?: string;
   drag: () => void;
-  active: boolean;
-  setActive: React.Dispatch<React.SetStateAction<string | null>>;
+  // active: boolean;
+  // setActive: React.Dispatch<React.SetStateAction<string | null>>;
 }) {
   const dispatch = useDispatch();
   const menu = useGroupMenu(groupId);
-
+  const [active, setActive] = useState(false);
   function handleMenu() {
     dispatch(
       setMenu({
@@ -49,11 +49,7 @@ export function Group({
           </TouchableOpacity>
         </View>
         <View className="flex-1">
-          <TouchableOpacity
-            onPress={() => setActive((prev) => (prev === groupId ? null : groupId))}
-            onLongPress={handleMenu}
-            className="flex-1"
-          >
+          <TouchableOpacity onPress={() => setActive((prev) => !prev)} onLongPress={handleMenu} className="flex-1">
             <View className="flex-1 px-4 items-center justify-center">
               <Text className="text-2xl w-full" numberOfLines={1}>
                 {data.name}

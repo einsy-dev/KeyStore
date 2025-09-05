@@ -5,16 +5,13 @@
     "paths": {
       "@/": ["./src"],
       "@/*": ["./src/*"],
-
       "@/animations": ["./src/shared/animations"],
       "@/animations/*": ["./src/shared/animations/*"],
-
       "@/docarators": ["./src/shared/decorators"],
       "@/decorators/*": ["./src/shared/decorators/*"],
-
       "@/hooks": ["./src/shared/hooks"],
       "@/hooks/*": ["./src/shared/hooks/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts", "nativewind-env.d.ts", ".expo/types/**/*.ts", "expo-env.d.ts"]
 }
