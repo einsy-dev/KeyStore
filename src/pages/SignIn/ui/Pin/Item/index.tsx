@@ -1,5 +1,5 @@
+import { useColor } from "@/hooks";
 import { OpacityDecorator, ScaleDecorator } from "@/shared/decorators";
-import { useColor } from "@/shared/hooks";
 import { Circle } from "lucide-react-native";
 
 export function Item({ value, status }: { value: string; status: "success" | "error" | null }) {

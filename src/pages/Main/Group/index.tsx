@@ -1,6 +1,6 @@
+import { Icon } from "@//widgets/Icon";
 import { setMenu } from "@/lib/store/app";
 import { Text, View } from "@/shared/ui";
-import { Icon } from "@/widgets/Icon";
 import { ReactNode } from "react";
 import { TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";

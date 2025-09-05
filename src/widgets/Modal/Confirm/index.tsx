@@ -1,5 +1,5 @@
 import { setModal } from "@/lib/store/app";
-import { Button } from "@/shared";
+import { Button } from "@/shared/ui";
 import { Text, View } from "react-native";
 import { useDispatch } from "react-redux";
 

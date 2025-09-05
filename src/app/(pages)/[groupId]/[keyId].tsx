@@ -1,7 +1,7 @@
 import { selectData, setKey } from "@/lib/store/data";
 import { KeyMode } from "@/pages/KeyForm/KeyMode";
 import { Button, CheckBox, KeyboardAvoidingView, Text, TextInput, View } from "@/shared/ui";
-import { genPass } from "@/shared/utils";
+import { genPass } from "@/utils";
 import { createId } from "@paralleldrive/cuid2";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SetStateAction, useState } from "react";

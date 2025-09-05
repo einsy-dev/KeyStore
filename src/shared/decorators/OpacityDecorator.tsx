@@ -1,4 +1,4 @@
-import { useOpacity } from "@/shared/animate";
+import { useOpacity } from "@/animations";
 import { ReactNode, useEffect } from "react";
 import { ViewProps } from "react-native";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";

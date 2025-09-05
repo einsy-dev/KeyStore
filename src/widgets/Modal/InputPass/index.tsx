@@ -1,11 +1,5 @@
-import {
-  Button,
-  KeyboardAvoidingView,
-  Text,
-  TextInput,
-  View
-} from "@/components/shared";
 import { setModal } from "@/lib/store/app";
+import { Button, KeyboardAvoidingView, Text, TextInput, View } from "@/shared/ui";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 

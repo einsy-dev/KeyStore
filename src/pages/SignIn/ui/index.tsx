@@ -1,5 +1,5 @@
 import { View } from "@/shared/ui";
-import { delay } from "@/shared/utils";
+import { delay } from "@/utils";
 import { useEffect, useState } from "react";
 import { auth } from "../lib/auth";
 import { Numpad } from "./Numpad";

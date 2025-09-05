@@ -1,4 +1,4 @@
-import { useScale } from "@/shared/animate";
+import { useScale } from "@/animations";
 import { ReactNode, useEffect } from "react";
 import { ViewStyle } from "react-native";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";

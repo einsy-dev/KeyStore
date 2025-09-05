@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Group } from "./Group";
 import { Key } from "./Key";
 
-export default function Main() {
+export function Main() {
   const dispatch = useDispatch();
   const data: DataListI = useSelector(selectData);
   const [active, setActive] = useState<string | null>(null);

@@ -1,7 +1,7 @@
+import { useKeyMenu } from "@//widgets/Menu/useKeyMenu";
 import { setMenu } from "@/lib/store/app";
 import { Text, View } from "@/shared/ui";
-import { copyText } from "@/shared/utils";
-import { useKeyMenu } from "@/widgets/Menu/useKeyMenu";
+import { copyText } from "@/utils";
 import React from "react";
 import { TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";

@@ -1,4 +1,4 @@
-import { useShake } from "@/shared/animate";
+import { useShake } from "@/animations";
 import { ReactNode, useEffect } from "react";
 import { ViewStyle } from "react-native";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";

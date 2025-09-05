@@ -1,4 +1,4 @@
-import { useColor } from "@/shared/hooks/useColor";
+import { useColor } from "@/hooks/useColor";
 import { View } from "@/shared/ui";
 import { Delete, Fingerprint } from "lucide-react-native";
 import { memo } from "react";

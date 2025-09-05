@@ -1,8 +1,7 @@
-import { Text } from "@/components/shared/Text";
-import { View } from "@/components/shared/View";
+import { useColor } from "@/hooks/useColor";
+import { useGoBack } from "@/hooks/useGoBack";
 import { selectMenu, setMenu } from "@/lib/store/app";
-import { useColor } from "@/shared/hooks/useColor";
-import { useGoBack } from "@/shared/hooks/useGoBack";
+import { Text, View } from "@/shared/ui";
 import { useSegments } from "expo-router";
 import { useEffect, useState } from "react";
 import { Pressable, TouchableOpacity } from "react-native";
@@ -32,11 +31,7 @@ export function Menu() {
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
-      backgroundColor: interpolateColor(
-        opaque.value,
-        [0, 1],
-        ["rgba(0, 0, 0, 0.6)", "rgba(0, 0, 0, 0)"]
-      )
+      backgroundColor: interpolateColor(opaque.value, [0, 1], ["rgba(0, 0, 0, 0.6)", "rgba(0, 0, 0, 0)"])
     };
   });
 
@@ -60,10 +55,7 @@ export function Menu() {
   }, [menu]);
 
   return (
-    <Animated.View
-      className={active ? "absolute inset-0 bg-transparent" : "hidden"}
-      style={[animatedStyle]}
-    >
+    <Animated.View className={active ? "absolute inset-0 bg-transparent" : "hidden"} style={[animatedStyle]}>
       <Pressable
         onPress={() => {
           dispatch(setMenu({ active: false }));

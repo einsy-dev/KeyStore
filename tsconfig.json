@@ -6,18 +6,15 @@
       "@/": ["./src"],
       "@/*": ["./src/*"],
 
-      "@/pages": ["./src/pages"],
-      "@/pages/*": ["./src/pages/*"],
+      "@/animations": ["./src/shared/animations"],
+      "@/animations/*": ["./src/shared/animations/*"],
 
-      "@/widgets": ["./src/widgets"],
-      "@/widgets/*": ["./src/widgets/*"],
+      "@/docarators": ["./src/shared/decorators"],
+      "@/decorators/*": ["./src/shared/decorators/*"],
 
-      "@/shared": ["./src/shared"],
-      "@/shared/*": ["./src/shared/*"],
-
-      "@/assets": ["./src/shared/assets"],
-      "@/assets/*": ["./src/shared/assets/*"]
+      "@/hooks": ["./src/shared/hooks"],
+      "@/hooks/*": ["./src/shared/hooks/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "nativewind-env.d.ts", "**/*.d.ts"]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"]
 }

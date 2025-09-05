@@ -1,5 +1,5 @@
+import { useColor } from "@/hooks";
 import { selectData, setGroup } from "@/lib/store/data";
-import { useColor } from "@/shared/hooks/useColor";
 import { KeyboardAvoidingView, Text, TextInput, View } from "@/shared/ui";
 import { createId } from "@paralleldrive/cuid2";
 import { useLocalSearchParams, useRouter } from "expo-router";

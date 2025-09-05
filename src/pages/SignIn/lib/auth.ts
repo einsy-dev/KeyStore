@@ -1,4 +1,4 @@
-import { hash } from "@/shared/lib/crypto";
+import { hash } from "@/lib/crypto";
 import * as LocalAuthentication from "expo-local-authentication";
 import * as SecureStore from "expo-secure-store";
 

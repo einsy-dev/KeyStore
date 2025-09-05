@@ -1,4 +1,4 @@
-import { useColor } from "@/shared/hooks/useColor";
+import { useColor } from "@/hooks/useColor";
 import { Square, SquareCheckBig } from "lucide-react-native";
 import { useState } from "react";
 import { TouchableOpacity } from "react-native";

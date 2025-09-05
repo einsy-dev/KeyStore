@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+	.border {
+		border-width: 2px;
+	}
+}
+
+/* !!! Do not delete, using in the app, deleted class, couses build err,  !!! */
+@layer components {
+	.app {
+		@apply bg-white dark:bg-black;
+	}
+
+	.text {
+		@apply text-black dark:text-white
+	}
+
+	.border {
+		@apply border-blue-600 dark:border-v-red;
+	}
+
+	.item {
+		/* @apply bg-v-light dark:bg-v-dark dark:text-v-light rounded; */
+	}
+}

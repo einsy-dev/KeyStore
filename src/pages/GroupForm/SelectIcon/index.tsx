@@ -1,4 +1,4 @@
-import { Icons } from "@/shared/lib/icons";
+import { Icons } from "@/shared/icons";
 import { useEffect, useState } from "react";
 import { FlatList, TouchableNativeFeedback } from "react-native";
 import { Icon } from "../Icon";
