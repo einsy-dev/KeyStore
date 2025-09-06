@@ -1,6 +1,5 @@
-import { TouchableNativeFeedback } from "react-native";
-import { Text } from "../Text";
-import { View } from "../View";
+import { Text, TouchableNativeFeedback, View } from "react-native";
+
 export function Button({
   onPress,
   className = "",
@@ -13,7 +12,7 @@ export function Button({
   return (
     <TouchableNativeFeedback onPress={onPress}>
       <View className={`button ${className}`}>
-        <Text>{children}</Text>
+        <Text className="text">{children}</Text>
       </View>
     </TouchableNativeFeedback>
   );

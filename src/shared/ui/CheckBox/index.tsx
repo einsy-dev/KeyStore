@@ -1,9 +1,7 @@
 import { useColor } from "@/hooks/useColor";
 import { Square, SquareCheckBig } from "lucide-react-native";
 import { useState } from "react";
-import { TouchableOpacity } from "react-native";
-import { Text } from "../Text";
-import { View } from "../View";
+import { Text, TouchableOpacity, View } from "react-native";
 
 export function CheckBox({
   checked = false,
@@ -27,11 +25,7 @@ export function CheckBox({
       }}
     >
       <View className="flex-row gap-2 ">
-        {state ? (
-          <SquareCheckBig color={color.iconColor} />
-        ) : (
-          <Square color={color.iconColor} />
-        )}
+        {state ? <SquareCheckBig color={color.iconColor} /> : <Square color={color.iconColor} />}
         <Text>{children}</Text>
       </View>
     </TouchableOpacity>

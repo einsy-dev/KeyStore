@@ -1,8 +1,8 @@
 import { selectModal, setModal } from "@/lib/store/app";
-import { View } from "@/shared/ui";
+import { useGoBack } from "@/shared/hooks";
 import { useSegments } from "expo-router";
 import { useEffect } from "react";
-import { TouchableWithoutFeedback } from "react-native";
+import { TouchableWithoutFeedback, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 export function Modal() {
@@ -13,6 +13,15 @@ export function Modal() {
   useEffect(() => {
     dispatch(setModal({ active: false }));
   }, [segments, dispatch]);
+
+  useGoBack(() => {
+    if (modal.active) {
+      dispatch(setModal({ active: false }));
+      return true;
+    } else {
+      return false;
+    }
+  });
 
   if (modal.active) {
     return (

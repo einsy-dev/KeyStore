@@ -1,10 +1,10 @@
 import { useColor } from "@/hooks/useColor";
 import { useGoBack } from "@/hooks/useGoBack";
 import { selectMenu, setMenu } from "@/lib/store/app";
-import { Text, View } from "@/shared/ui";
 import { useSegments } from "expo-router";
 import { useEffect, useState } from "react";
-import { Pressable, TouchableOpacity } from "react-native";
+import { Pressable, Text, TouchableOpacity, View } from "react-native";
+
 import Animated, {
   interpolateColor,
   runOnJS,
@@ -65,7 +65,7 @@ export function Menu() {
         {/*  */}
         <Animated.View style={{ transform: [{ translateY: translateY }] }}>
           <Pressable onPress={(e) => e.stopPropagation()}>
-            <View className="rounded-t-xl gap-4 p-4 pb-6 item">
+            <View className="rounded-t-xl gap-4 p-4 pb-6">
               {menu.menu?.map((el: any) => (
                 <TouchableOpacity
                   key={el.name}
@@ -80,7 +80,7 @@ export function Menu() {
                     <View>
                       <el.icon color={color.iconColor} height={20} />
                     </View>
-                    <Text className="text-xl item ">{el.name}</Text>
+                    <Text className="text text-xl ">{el.name}</Text>
                   </View>
                 </TouchableOpacity>
               ))}

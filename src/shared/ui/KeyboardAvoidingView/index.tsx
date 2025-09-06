@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { Keyboard, ViewProps } from "react-native";
-import { View } from "../View";
+import { Keyboard, View, ViewProps } from "react-native";
 
 export function KeyboardAvoidingView({ children, ...props }: ViewProps) {
   const [keyboardStatus, setKeyboardStatus] = useState(0);

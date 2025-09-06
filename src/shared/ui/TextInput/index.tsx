@@ -1,34 +1,14 @@
-import { Ref } from "react";
-import { KeyboardType, TextInput as TextInputRN } from "react-native";
+import { Text, TextInputProps, TextInput as TextInputRN, View } from "react-native";
 
-export function TextInput({
-  value = "",
-  className = "",
-  onChangeText,
-  ref = null,
-  keyboardType = "default",
-  placeholder = "",
-  placeholderClassName = ""
-}: {
-  value?: string;
-  className?: string;
-  onChangeText: (text: string) => void;
-  ref?: Ref<any>;
-  keyboardType?: KeyboardType;
-  placeholder?: string;
-  placeholderClassName?: string;
-}) {
+export function TextInput({ label = "", className = "", ...props }: TextInputProps & { label?: string }) {
   return (
-    <TextInputRN
-      ref={ref}
-      value={value}
-      onChangeText={(text: string) => {
-        onChangeText(text);
-      }}
-      keyboardType={keyboardType}
-      className={`border px-4 py-2 rounded text-2xl text ${className}`}
-      placeholder={placeholder}
-      placeholderClassName={placeholderClassName}
-    />
+    <View className="relative flex-1 min-h-14 border rounded px-4">
+      <TextInputRN className={`text text-2xl flex-1`} {...props} />
+      {label && (
+        <View className="app absolute -top-4 left-1 px-4">
+          <Text className="text">{label}</Text>
+        </View>
+      )}
+    </View>
   );
 }

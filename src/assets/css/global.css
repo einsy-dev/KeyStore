@@ -22,10 +22,6 @@
 		@apply border-blue-600 dark:border-v-red;
 	}
 
-	.item {
-		/* @apply bg-v-light dark:bg-v-dark dark:text-v-light rounded; */
-	}
-
 	.button {
 		@apply items-center justify-center bg-blue-500 dark:bg-v-red px-4 py-2 rounded;
 	}

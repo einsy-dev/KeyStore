@@ -1,11 +1,11 @@
 import { selectData, setKey } from "@/lib/store/data";
-import { KeyMode } from "@/pages/KeyForm/KeyMode";
-import { Button, CheckBox, KeyboardAvoidingView, Text, TextInput, View } from "@/shared/ui";
+import { Button, CheckBox, KeyboardAvoidingView, TextInput } from "@/shared/ui";
 import { genPass } from "@/utils";
+import { KeyMode } from "@/widgets/form-key/ui/KeyMode";
 import { createId } from "@paralleldrive/cuid2";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SetStateAction, useState } from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 type LocalSearchParamI = {
@@ -70,7 +70,7 @@ export default function KeyGroupForm() {
 
 function FormElement({ state, setState }: { state: KeyElementI; setState: SetStateAction<any> }) {
   return (
-    <View className="gap-2 item p-4">
+    <View className="gap-2 p-4">
       <View className="gap-1">
         <Text>Label</Text>
         <TextInput
