@@ -13,8 +13,8 @@ export function useKeyMenu(groupId: string, keyId: string, value: string) {
     {
       name: "Share",
       icon: Share,
-      callback: () => {
-        shareText(value);
+      callback: async () => {
+        await shareText(value);
       }
     },
     {

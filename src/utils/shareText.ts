@@ -1,10 +1,13 @@
 import * as Sharing from "expo-sharing";
-import { Share } from "react-native";
+import { AppState, Share } from "react-native";
 
 export async function shareText(text: string) {
-  if (await Sharing.isAvailableAsync()) {
-    await Share.share({
-      message: text
+  if (!(await Sharing.isAvailableAsync())) return;
+  return new Promise((res, rej) => {
+    const listener = AppState.addEventListener("focus", () => {
+      res({ status: "success" });
+      listener.remove();
     });
-  }
+    Share.share({ message: text });
+  });
 }

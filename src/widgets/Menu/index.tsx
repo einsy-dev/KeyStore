@@ -1,50 +1,17 @@
 import { useColor } from "@/hooks/useColor";
 import { useGoBack } from "@/hooks/useGoBack";
 import { selectMenu, setMenu } from "@/lib/store/app";
-import { useSegments } from "expo-router";
-import { useEffect, useState } from "react";
+import { OpacityDecorator, SlideDecorator } from "@/shared/decorators";
+import { useSession } from "@/shared/hooks";
 import { Pressable, Text, TouchableOpacity, View } from "react-native";
 
-import Animated, {
-  interpolateColor,
-  runOnJS,
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-  withTiming
-} from "react-native-reanimated";
 import { useDispatch, useSelector } from "react-redux";
 
 export function Menu() {
   const color = useColor();
   const menu: MenuI = useSelector(selectMenu);
-  const [active, setActive] = useState(false);
   const dispatch = useDispatch();
-  const segments = useSegments();
-
-  useEffect(() => {
-    dispatch(setMenu({ active: false }));
-  }, [segments, dispatch]);
-
-  const opaque = useSharedValue(1);
-  const translateY = useSharedValue(300);
-
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      backgroundColor: interpolateColor(opaque.value, [0, 1], ["rgba(0, 0, 0, 0.6)", "rgba(0, 0, 0, 0)"])
-    };
-  });
-
-  useEffect(() => {
-    if (menu.active) {
-      setActive(true);
-      opaque.value = withTiming(0);
-      translateY.value = withSpring(0, { dampingRatio: 1, duration: 500 });
-    } else {
-      opaque.value = withTiming(1, {}, () => runOnJS(setActive)(false));
-      translateY.value = withSpring(300, { duration: 200 });
-    }
-  }, [menu, translateY, opaque]);
+  const { call } = useSession();
 
   useGoBack(() => {
     if (menu.active) {
@@ -55,15 +22,15 @@ export function Menu() {
   }, [menu]);
 
   return (
-    <Animated.View className={active ? "absolute inset-0 bg-transparent" : "hidden"} style={[animatedStyle]}>
-      <Pressable
-        onPress={() => {
-          dispatch(setMenu({ active: false }));
-        }}
-        className="flex-1 justify-end"
-      >
-        {/*  */}
-        <Animated.View style={{ transform: [{ translateY: translateY }] }}>
+    <>
+      <OpacityDecorator active={menu.active} className="absolute inset-0 flex-1 bg-v-50" />
+      <SlideDecorator active={menu.active} className="absolute inset-0 flex-1">
+        <Pressable
+          onPress={() => {
+            dispatch(setMenu({ active: false }));
+          }}
+          className="flex-1 justify-end"
+        >
           <Pressable onPress={(e) => e.stopPropagation()}>
             <View className="rounded-t-xl gap-4 p-4 pb-6">
               {menu.menu?.map((el: any) => (
@@ -72,7 +39,7 @@ export function Menu() {
                   onPress={async () => {
                     dispatch(setMenu({ active: false }));
                     setTimeout(() => {
-                      el.callback();
+                      call(el.callback());
                     }, 0);
                   }}
                 >
@@ -86,9 +53,8 @@ export function Menu() {
               ))}
             </View>
           </Pressable>
-        </Animated.View>
-        {/*  */}
-      </Pressable>
-    </Animated.View>
+        </Pressable>
+      </SlideDecorator>
+    </>
   );
 }

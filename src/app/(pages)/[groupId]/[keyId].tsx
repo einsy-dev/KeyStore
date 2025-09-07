@@ -23,7 +23,7 @@ export default function KeyGroupForm() {
     keyId !== "new" ? (data[groupId].keys[keyId] as any) : { name: "", value: "" }
   );
   const [err, setErr] = useState<string>("");
-  const [type, setType] = useState<KeyModeT>("double");
+  const [type, setType] = useState<KeyModeT>("single");
 
   function handleSubmit() {
     if (!state.name.value || (type === "double" && !state.value.value)) {

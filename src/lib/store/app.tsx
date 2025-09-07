@@ -33,7 +33,7 @@ export const appSlice = createSlice({
       state.modal = { ...defaultModal, ...payload };
     },
     setMenu: (state, { payload }: { payload: MenuI }) => {
-      state.menu = { ...defaultMenu, ...payload };
+      state.menu = { ...state.menu, ...payload };
     },
     setPopup: (state, { payload }: { payload: PopupI }) => {
       state.popup = { ...defaultPopup, ...payload };

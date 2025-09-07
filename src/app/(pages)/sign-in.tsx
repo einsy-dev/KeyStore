@@ -1,4 +1,4 @@
-import { useAppState, useSession } from "@/hooks";
+import { useSession } from "@/hooks";
 import { delay } from "@/utils";
 import { Numpad, Pin } from "@/widgets/sign-in";
 import { useEffect, useState } from "react";
@@ -6,16 +6,13 @@ import { View } from "react-native";
 
 export default function SignIn() {
   const [value, setValue] = useState("");
-  const { signIn, signInBio, status, isCanceled } = useSession();
+  const { isAuth, signIn, signInBio, status, isCanceled } = useSession();
 
-  useAppState((state) => {
-    if (state === "active") {
-      (async () => {
-        if (isCanceled) return;
-        await signInBio();
-      })();
-    }
-  });
+  useEffect(() => {
+    if (isCanceled || isAuth) return;
+    signInBio();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isCanceled, isAuth]);
 
   useEffect(() => {
     if (status !== "error") return;

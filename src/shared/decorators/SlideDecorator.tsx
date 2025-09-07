@@ -1,24 +1,16 @@
-import { useOpacity } from "@/animations";
 import { useEffect } from "react";
 import { ViewProps } from "react-native";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import { useSlide } from "../animations/useSlide";
 
-export function OpacityDecorator({ active = false, children, ...props }: { active?: boolean } & ViewProps) {
-  const { opacity, startOpacity } = useOpacity();
+export function SlideDecorator({ active = false, children, ...props }: { active?: boolean } & ViewProps) {
   const { translateY, startSlide } = useSlide();
 
   useEffect(() => {
-    if (active) {
-      startSlide(active, { duration: 0 });
-    } else {
-      startSlide(active, { duration: 0 });
-    }
-    startOpacity(active);
-  }, [active, startOpacity, startSlide]);
+    startSlide(active);
+  }, [active, startSlide]);
 
   const style = useAnimatedStyle(() => ({
-    opacity: opacity.value,
     transform: [{ translateY: translateY.value }]
   }));
 

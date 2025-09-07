@@ -43,6 +43,8 @@ function Router() {
         <Stack.Screen name="(pages)/[groupId]/[keyId]" />
 
         <Stack.Screen name="modal/select-icon" options={{ presentation: "modal" }} />
+        <Stack.Screen name="modal/share" options={{ presentation: "modal" }} />
+        <Stack.Screen name="modal/backup" options={{ presentation: "modal" }} />
       </Stack.Protected>
 
       <Stack.Protected guard={!isAuth}>
