@@ -25,12 +25,13 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       return setAuth({ isCanceled });
     }
     if (success) {
+      setAuth({ status: "success", isBioAvailable, isCanceled });
       delay(() => {
         setAuth({ isAuth: true });
       }, 300);
-      return setAuth({ status: "success", isBioAvailable, isCanceled });
+    } else {
+      setAuth({ status: null });
     }
-    setAuth({ status: null });
   }
 
   async function _signIn(pin: string, newPin?: boolean) {
