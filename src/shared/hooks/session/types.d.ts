@@ -7,7 +7,6 @@ interface SessionContextI {
   signIn: (pin: string, newPin?: boolean) => Promise<void>;
   signInBio: () => Promise<void>;
   signOut: () => Promise<void>;
-  setAutoLock: (autoLock: boolean) => Promise<void>;
   call: (cb: () => Promise<void>) => Promise<void>;
 }
 

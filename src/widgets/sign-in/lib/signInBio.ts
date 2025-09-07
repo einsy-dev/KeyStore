@@ -14,7 +14,7 @@ export async function signInBio() {
     fallbackLabel: "Use passcode", // Optional: for iOS fallback
     disableDeviceFallback: true // Optional: for Android to allow device passcode fallback,
   });
-  console.log(result);
+
   return {
     success: result.success,
     isBioAvailable: true,

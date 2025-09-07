@@ -3,12 +3,11 @@ import { signIn, signInBio } from "@/widgets/sign-in";
 import { ReactNode, useEffect, useState } from "react";
 import { AppState } from "react-native";
 import { SessionContext } from "./context";
-
 export function SessionProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<SessionStateI>({
     auth: { isBioAvailable: true, status: null, isAuth: false, isCanceled: false, autoLock: true }
   });
-  console.log(state);
+
   useEffect(() => {
     const listener = AppState.addEventListener("change", (appState) => {
       if (appState !== "active" || !state.auth.autoLock) return;
@@ -17,8 +16,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     return () => {
       if (listener) listener.remove();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.auth.autoLock]);
+  }, [state]);
 
   async function _signInBio() {
     if (state.auth.isAuth || !state.auth.isBioAvailable) return;
@@ -59,14 +57,15 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     if (!state.auth.isAuth) return;
     setAuth({ status: null, isAuth: false, isCanceled: false });
   }
-  async function _setAutoLock(autoLock: boolean) {
-    setAuth({ autoLock: false });
-  }
+  // possibly avoided by using background services but this works by now
   async function _call(cb: () => Promise<void>) {
     setAuth({ autoLock: false });
     await cb();
-    setAuth({ autoLock: true });
   }
+
+  useEffect(() => {
+    if (!state.auth.autoLock) delay(() => setAuth({ autoLock: true }), 0);
+  }, [state.auth.autoLock]);
 
   return (
     <SessionContext.Provider
@@ -79,7 +78,6 @@ export function SessionProvider({ children }: { children: ReactNode }) {
         signIn: _signIn,
         signInBio: _signInBio,
         signOut: _signOut,
-        setAutoLock: _setAutoLock,
         call: _call
       }}
     >
