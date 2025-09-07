@@ -26,7 +26,7 @@ export function CheckBox({
     >
       <View className="flex-row gap-2 ">
         {state ? <SquareCheckBig color={color.iconColor} /> : <Square color={color.iconColor} />}
-        <Text>{children}</Text>
+        <Text className="text">{children}</Text>
       </View>
     </TouchableOpacity>
   );

@@ -11,7 +11,7 @@ export function Item({ value, status }: { value: string; status: "success" | "er
       className="border rounded aspect-[4/5] h-[60px] items-center justify-center"
       style={{ borderColor: status === "success" ? success : status === "error" ? error : borderColor }}
     >
-      <OpacityDecorator active={value ? true : false}>
+      <OpacityDecorator active={value || status === "success" ? true : false}>
         <Circle color={iconColor} fill={iconColor} />
       </OpacityDecorator>
     </ScaleDecorator>

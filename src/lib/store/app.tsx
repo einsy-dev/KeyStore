@@ -16,10 +16,8 @@ const defaultPopup: PopupI = {
   position: "center"
 };
 const defaultHeader: HeaderI = {
-  active: false,
-  backButton: false,
   title: "",
-  component: null
+  onSubmit: null
 };
 
 export const appSlice = createSlice({

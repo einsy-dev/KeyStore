@@ -78,9 +78,9 @@ export function Menu() {
                 >
                   <View className="flex-row items-center gap-6">
                     <View>
-                      <el.icon color={color.iconColor} height={20} />
+                      <el.icon color={color.iconColor} height={30} />
                     </View>
-                    <Text className="text text-xl ">{el.name}</Text>
+                    <Text className="text text-xl">{el.name}</Text>
                   </View>
                 </TouchableOpacity>
               ))}

@@ -6,7 +6,7 @@ export function parseIcons(Icons: any, itemsPerLine: number) {
       acc[arrIndex].push({ name: key, Icon: (Icons as any)[key] });
       return acc;
     },
-    [[]] as IconI[][]
+    [[]] as { name: string; Icon: IconI }[][]
   );
 
   const lastArr = IconsArr[IconsArr.length - 1];

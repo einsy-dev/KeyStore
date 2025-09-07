@@ -15,5 +15,5 @@ export function useAppState(
       listener.remove();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [callback, type, ...deps]);
+  }, [...deps]);
 }

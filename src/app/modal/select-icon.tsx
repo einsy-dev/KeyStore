@@ -9,26 +9,24 @@ export default function Modal() {
   const [selected, setSelected] = useState("");
   const router = useRouter();
   return (
-    <View className="app flex-1">
-      <View className="flex-1">
-        <View className="app border rounded">
-          <FlatList
-            data={parseIcons(Icons, 5)}
-            keyExtractor={(item: IconI[]) => item[0].name}
-            renderItem={RenderItem(setSelected)}
-            className={`h-[500px] w-full`}
-          />
-        </View>
-        <View className="mt-auto gap-4">
-          <Button
-            onPress={() =>
-              router.navigate({ pathname: "/(pages)/[groupId]", params: { groupId: "new", icon: selected } })
-            }
-          >
-            Save
-          </Button>
-          <Button>Cancel</Button>
-        </View>
+    <View className="app flex-1 p-4 gap-4">
+      <View className="app flex-1 border rounded">
+        <FlatList
+          data={parseIcons(Icons, 5)}
+          keyExtractor={(item: { name: string; Icon: IconI }[]) => item[0].name}
+          renderItem={RenderItem(selected, setSelected, 45)}
+          extraData={selected}
+        />
+      </View>
+      <View className="mt-auto gap-4">
+        <Button
+          onPress={() => {
+            router.dismiss();
+            router.setParams({ icon: selected });
+          }}
+        >
+          Save
+        </Button>
       </View>
     </View>
   );

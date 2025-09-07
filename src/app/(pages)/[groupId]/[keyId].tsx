@@ -1,11 +1,12 @@
+import { setHeader } from "@/lib/store/app";
 import { selectData, setKey } from "@/lib/store/data";
-import { Button, CheckBox, KeyboardAvoidingView, TextInput } from "@/shared/ui";
+import { CheckBox, KeyboardAvoidingView, TextInput } from "@/shared/ui";
 import { genPass } from "@/utils";
 import { KeyMode } from "@/widgets/form-key/ui/KeyMode";
 import { createId } from "@paralleldrive/cuid2";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { SetStateAction, useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 type LocalSearchParamI = {
@@ -18,7 +19,9 @@ export default function KeyGroupForm() {
   const dispatch = useDispatch();
   const { groupId, keyId } = useLocalSearchParams<LocalSearchParamI>();
   const data = useSelector(selectData);
-  const [state, setState] = useState<KeyI>(data[groupId].keys[keyId] || { name: "", value: "" });
+  const [state, setState] = useState<KeyI>(
+    keyId !== "new" ? (data[groupId].keys[keyId] as any) : { name: "", value: "" }
+  );
   const [err, setErr] = useState<string>("");
   const [type, setType] = useState<KeyModeT>("double");
 
@@ -29,7 +32,7 @@ export default function KeyGroupForm() {
     dispatch(
       setKey({
         groupId,
-        keyId: keyId || createId(),
+        keyId: keyId !== "new" ? keyId : createId(),
         key: type === "single" ? { ...state, value: { value: "", label: "" } } : state
       })
     );
@@ -43,50 +46,47 @@ export default function KeyGroupForm() {
     );
   }
 
+  useFocusEffect(() => {
+    dispatch(setHeader({ title: "", onSubmit: handleSubmit }));
+  });
+
   return (
-    <KeyboardAvoidingView className="app flex-1">
-      <View className="flex-1 p-2 gap-2">
-        <ScrollView className="flex-1" contentContainerClassName="gap-2">
-          <KeyMode state={type} setState={setType} />
-          <FormElement
-            state={state.name}
-            setState={(val: any) => setState((prev) => ({ ...prev, name: val(prev.name) }))}
-          />
-          {type === "double" ? (
-            <FormElement
-              state={state.value}
-              setState={(val: any) => setState((prev) => ({ ...prev, value: val(prev.value) }))}
-            />
-          ) : null}
-          <Text className="!text-v-red">{err}</Text>
-        </ScrollView>
-        <Button className="mt-auto" onPress={handleSubmit}>
-          Submit
-        </Button>
-      </View>
+    <KeyboardAvoidingView className="app flex-1 p-4 gap-4">
+      <KeyMode state={type} setState={setType} />
+      <FormElement
+        state={state.name}
+        setState={(val: any) => setState((prev) => ({ ...prev, name: val(prev.name) }))}
+      />
+      {type === "double" ? (
+        <FormElement
+          state={state.value}
+          setState={(val: any) => setState((prev) => ({ ...prev, value: val(prev.value) }))}
+        />
+      ) : null}
+      {/* <Text className="!text-v-red">{err}</Text> */}
     </KeyboardAvoidingView>
   );
 }
 
 function FormElement({ state, setState }: { state: KeyElementI; setState: SetStateAction<any> }) {
   return (
-    <View className="gap-2 p-4">
-      <View className="gap-1">
-        <Text>Label</Text>
+    <View className="gap-2">
+      <View className="gap-4">
         <TextInput
+          label="Label"
           value={state.label}
           onChangeText={(text) => setState((prev: KeyElementI) => ({ ...prev, label: text }))}
-          className="text-lg"
+          className="text text-lg"
         />
 
-        <Text>Value</Text>
         <TextInput
+          label="Value"
           value={state.value}
           onChangeText={(text) => setState((prev: KeyElementI) => ({ ...prev, value: text }))}
           className="text-lg"
         />
       </View>
-      <View className="flex-row gap-4 flex-wrap">
+      <View className="flex-row gap-4">
         <CheckBox
           onChange={(hide) => {
             setState((prev: KeyElementI) => ({ ...prev, hide }));

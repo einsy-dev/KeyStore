@@ -34,7 +34,7 @@ export function Group({
     );
   }
 
-  const Icon: Icon = (Icons as any)[data.icon];
+  const Icon: IconI = (Icons as any)[data.icon];
 
   return (
     <View className={`${className}`}>

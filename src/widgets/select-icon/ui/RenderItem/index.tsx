@@ -1,7 +1,7 @@
 import { TouchableNativeFeedback, View } from "react-native";
 
-export function RenderItem(setSelected: any) {
-  return function renderItem({ item }: { item: IconI[] }) {
+export function RenderItem(selected: string, setSelected: any, size: number = 45) {
+  return function renderItem({ item }: { item: { name: string; Icon: IconI }[] }) {
     return (
       <View className="flex-row gap-2 items-center justify-center ">
         {item.map((el, index) => (
@@ -12,8 +12,10 @@ export function RenderItem(setSelected: any) {
               }}
               background={TouchableNativeFeedback.Ripple("hsl(0,0, 50%)", false, 22)}
             >
-              <View className="aspect-square items-center justify-center rounded-full p-2">
-                {el.Icon ? <el.Icon width={35} height={35} /> : <View style={{ height: 35, width: 35 }} />}
+              <View
+                className={`aspect-square items-center justify-center rounded-full ${selected && selected === el.name ? "border !p-[2px]" : "p-[4px]"}`}
+              >
+                {el.Icon ? <el.Icon width={size} height={size} /> : <View style={{ height: size, width: size }} />}
               </View>
             </TouchableNativeFeedback>
           </View>

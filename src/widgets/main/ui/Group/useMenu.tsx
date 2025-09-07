@@ -16,7 +16,7 @@ export function useMenu(groupId: string) {
       callback: () => {
         router.push({
           pathname: "/(pages)/[groupId]/[keyId]",
-          params: { groupId, keyId: "111" }
+          params: { groupId, keyId: "new" }
         });
       }
     },
