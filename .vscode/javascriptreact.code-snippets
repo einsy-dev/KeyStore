@@ -18,5 +18,19 @@
     ],
     "description": "",
     "scope": "javascriptreact"
+  },
+  "measure": {
+    "prefix": [
+      "measure"
+    ],
+    "body": [
+      "const ref = useRef(null);",
+      "",
+      "useEffect(() => {",
+      "  ref.current?.measure((...data) => console.log(data));",
+      "}, [ref]);"
+    ],
+    "description": "",
+    "scope": "javascriptreact"
   }
 }

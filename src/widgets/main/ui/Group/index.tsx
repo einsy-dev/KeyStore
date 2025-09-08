@@ -1,7 +1,8 @@
 import * as Icons from "@/assets/icons";
 import { setMenu } from "@/lib/store/app";
-import { ReactNode, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { ReactNode } from "react";
+import { Animated, Text, TouchableOpacity, View } from "react-native";
+
 import { useDispatch } from "react-redux";
 import { useMenu } from "./useMenu";
 
@@ -10,21 +11,18 @@ export function Group({
   data,
   children,
   className = "",
-  drag
-  // active,
-  // setActive
+  drag,
+  setActive
 }: {
   groupId: string;
   data: DataI;
   children?: ReactNode;
   className?: string;
   drag: () => void;
-  // active: boolean;
-  // setActive: React.Dispatch<React.SetStateAction<string | null>>;
+  setActive: React.Dispatch<React.SetStateAction<string | null>>;
 }) {
   const dispatch = useDispatch();
   const menu = useMenu(groupId);
-  const [active, setActive] = useState(false);
   function handleMenu() {
     dispatch(
       setMenu({
@@ -37,7 +35,7 @@ export function Group({
   const Icon: IconI = (Icons as any)[data.icon];
 
   return (
-    <View className={`${className}`}>
+    <Animated.View className={`${className}`}>
       <View className="flex-row">
         <View className="items-center justify-center">
           <TouchableOpacity
@@ -51,7 +49,11 @@ export function Group({
           </TouchableOpacity>
         </View>
         <View className="flex-1">
-          <TouchableOpacity onPress={() => setActive((prev) => !prev)} onLongPress={handleMenu} className="flex-1">
+          <TouchableOpacity
+            onPress={() => setActive((prev) => (prev === groupId ? "" : groupId))}
+            onLongPress={handleMenu}
+            className="flex-1"
+          >
             <View className="flex-1 px-4 items-center justify-center">
               <Text className="text text-2xl w-full" numberOfLines={1} ellipsizeMode="clip">
                 {data.name}
@@ -60,7 +62,7 @@ export function Group({
           </TouchableOpacity>
         </View>
       </View>
-      {children && active ? children : null}
-    </View>
+      {children && children}
+    </Animated.View>
   );
 }
