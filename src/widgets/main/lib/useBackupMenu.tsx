@@ -1,6 +1,7 @@
 import { decrypt, encrypt } from "@/lib/crypto";
 import { setModal } from "@/lib/store/app";
 import { selectData, setData } from "@/lib/store/data";
+import { useSession } from "@/shared/hooks";
 import { readFile, saveFile, shareFile } from "@/utils";
 import { InputPassword } from "@/widgets/Modal/InputPass";
 import { Download, File, Share } from "lucide-react-native";
@@ -9,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 export function useBackupMenu() {
   const dispatch = useDispatch();
   const data = useSelector(selectData);
-
+  const { call } = useSession();
   return [
     {
       name: "Share",
@@ -21,11 +22,13 @@ export function useBackupMenu() {
             component: (
               <InputPassword
                 title="Share"
-                onSubmit={async (password) => {
-                  await shareFile({
-                    filename: new Date().toISOString(),
-                    data: encrypt(JSON.stringify(data), password)
-                  });
+                onSubmit={(password) => {
+                  call(() =>
+                    shareFile({
+                      filename: new Date().toISOString(),
+                      data: encrypt(JSON.stringify(data), password)
+                    })
+                  );
                 }}
               />
             )
@@ -43,11 +46,13 @@ export function useBackupMenu() {
             component: (
               <InputPassword
                 title="Download"
-                onSubmit={async (password) => {
-                  await saveFile({
-                    filename: new Date().toISOString(),
-                    data: encrypt(JSON.stringify(data), password)
-                  });
+                onSubmit={(password) => {
+                  call(() =>
+                    saveFile({
+                      filename: new Date().toISOString(),
+                      data: encrypt(JSON.stringify(data), password)
+                    })
+                  );
                 }}
               />
             )
@@ -65,9 +70,11 @@ export function useBackupMenu() {
             component: (
               <InputPassword
                 title="Import"
-                onSubmit={async (password) => {
-                  const file = await readFile();
-                  dispatch(setData(JSON.parse(decrypt(file, password))));
+                onSubmit={(password) => {
+                  call(async () => {
+                    const file = await readFile();
+                    dispatch(setData(JSON.parse(decrypt(file, password))));
+                  });
                 }}
               />
             )

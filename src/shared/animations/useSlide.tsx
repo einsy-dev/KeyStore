@@ -1,16 +1,43 @@
 import { Dimensions } from "react-native";
 import { useSharedValue, withTiming } from "react-native-reanimated";
 
-export function useSlide() {
-  const translateY = useSharedValue<number>(0);
+const defaultConfig: SlideConfigI = {
+  startX: 0,
+  startY: 0,
+  endX: Dimensions.get("screen").width,
+  endY: Dimensions.get("screen").height,
+  duration: 300,
+  durationOnX: undefined,
+  durationOffX: undefined,
+  durationOnY: undefined,
+  durationOffY: undefined,
+  translate: "y"
+};
 
-  function startSlide(active: boolean, config = { duration: 500 }) {
+export function useSlide(config: Partial<SlideConfigI> = {}) {
+  const { startX, startY, endX, endY, translate, duration, durationOnX, durationOnY, durationOffX, durationOffY } = {
+    ...defaultConfig,
+    ...config
+  };
+  const translateX = useSharedValue(0);
+  const translateY = useSharedValue(0);
+
+  function startSlide(active: boolean) {
     if (active) {
-      translateY.value = withTiming(0, config);
+      if (translate?.includes("x")) {
+        translateX.value = withTiming(startX, { duration: durationOnX !== undefined ? durationOnX : duration });
+      }
+      if (translate?.includes("y")) {
+        translateY.value = withTiming(startY, { duration: durationOnY !== undefined ? durationOnY : duration });
+      }
     } else {
-      translateY.value = withTiming(Dimensions.get("screen").height, config);
+      if (translate?.includes("x")) {
+        translateX.value = withTiming(endX, { duration: durationOffX !== undefined ? durationOffX : duration });
+      }
+      if (translate?.includes("y")) {
+        translateY.value = withTiming(endY, { duration: durationOffY !== undefined ? durationOffY : duration });
+      }
     }
   }
-
-  return { translateY, startSlide };
+  return { translateY, translateX, startSlide };
 }

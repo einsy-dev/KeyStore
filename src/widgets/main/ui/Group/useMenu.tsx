@@ -1,12 +1,11 @@
 import { setModal } from "@/lib/store/app";
-import { deleteGroup, selectData } from "@/lib/store/data";
+import { deleteGroup } from "@/lib/store/data";
 import { Confirm } from "@/widgets/Modal/Confirm";
 import { useRouter } from "expo-router";
 import { CirclePlus, Edit, Trash } from "lucide-react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export function useMenu(groupId: string) {
-  const data: DataListI = useSelector(selectData);
   const router = useRouter();
   const dispatch = useDispatch();
   return [

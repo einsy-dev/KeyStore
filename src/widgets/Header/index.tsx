@@ -7,7 +7,7 @@ import { Pressable, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 export function Header() {
-  const color = useColor();
+  const { color } = useColor();
   const router = useRouter();
   const header = useSelector(selectHeader);
   const pathName = usePathname();
@@ -23,14 +23,14 @@ export function Header() {
     <View className="bg-v-dark flex-row justify-between items-center px-4">
       <Pressable onPress={() => router.back()}>
         <View className="p-2">
-          <ChevronLeft color={color.iconColor} size={30} />
+          <ChevronLeft color={color} size={30} />
         </View>
       </Pressable>
       <Pressable>
         <View className="p-2">
           {header.onSubmit ? (
             <Pressable onPress={header.onSubmit}>
-              <Check color={color.iconColor} size={30} />
+              <Check color={color} size={30} />
             </Pressable>
           ) : null}
         </View>

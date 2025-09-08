@@ -2,16 +2,14 @@ import { useColor } from "@/hooks/useColor";
 import { useGoBack } from "@/hooks/useGoBack";
 import { selectMenu, setMenu } from "@/lib/store/app";
 import { OpacityDecorator, SlideDecorator } from "@/shared/decorators";
-import { useSession } from "@/shared/hooks";
 import { Pressable, Text, TouchableOpacity, View } from "react-native";
 
 import { useDispatch, useSelector } from "react-redux";
 
 export function Menu() {
-  const color = useColor();
+  const { color } = useColor();
   const menu: MenuI = useSelector(selectMenu);
   const dispatch = useDispatch();
-  const { call } = useSession();
 
   useGoBack(() => {
     if (menu.active) {
@@ -23,7 +21,11 @@ export function Menu() {
 
   return (
     <>
-      <OpacityDecorator active={menu.active} className="absolute inset-0 flex-1 bg-v-50" />
+      <OpacityDecorator
+        active={menu.active}
+        slideConfig={{ duration: 0 }}
+        className="absolute inset-0 flex-1 bg-v-50"
+      />
       <SlideDecorator active={menu.active} className="absolute inset-0 flex-1">
         <Pressable
           onPress={() => {
@@ -39,13 +41,13 @@ export function Menu() {
                   onPress={async () => {
                     dispatch(setMenu({ active: false }));
                     setTimeout(() => {
-                      call(el.callback());
+                      el.callback();
                     }, 0);
                   }}
                 >
                   <View className="flex-row items-center gap-6">
                     <View>
-                      <el.icon color={color.iconColor} height={30} />
+                      <el.icon color={color} height={30} />
                     </View>
                     <Text className="text text-xl">{el.name}</Text>
                   </View>

@@ -23,23 +23,20 @@ export function Key({ groupId, keyId, data }: { groupId: string; keyId: string; 
 
   if (!data.value) return null;
   return (
-    <View className="flex-1 rounded px-2 relative">
-      {data.label ? (
-        <Text className="text border-b border-v-red absolute left-1 -top-[14px] px-1">{data.label}</Text>
-      ) : null}
-      <TouchableOpacity
-        onPress={handlePress}
-        onLongPress={() => {
-          handleLongPress();
-        }}
-        delayPressOut={200}
-      >
-        <View className="flex-1 flex-row gap-2 items-center relative py-1">
-          <Text className="text text-xl flex-1" numberOfLines={1}>
-            {data.hide ? "*".repeat(data.value.length) : data.value}
-          </Text>
-        </View>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity
+      onPress={handlePress}
+      onLongPress={() => {
+        handleLongPress();
+      }}
+      delayPressOut={200}
+      className="flex-1"
+    >
+      <View className="app rounded relative px-4 py-2">
+        <Text className={`text text-xl ${data.hide ? "top-1" : ""}`} numberOfLines={1} lineBreakMode="clip">
+          {data.hide ? "*".repeat(data.value.length) : data.value}
+        </Text>
+        {data.label ? <Text className="text absolute left-1 -top-[10px] px-1">{data.label}</Text> : null}
+      </View>
+    </TouchableOpacity>
   );
 }

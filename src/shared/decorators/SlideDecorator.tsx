@@ -3,15 +3,20 @@ import { ViewProps } from "react-native";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import { useSlide } from "../animations/useSlide";
 
-export function SlideDecorator({ active = false, children, ...props }: { active?: boolean } & ViewProps) {
-  const { translateY, startSlide } = useSlide();
+export function SlideDecorator({
+  active = false,
+  config,
+  children,
+  ...props
+}: { active?: boolean; config?: Partial<SlideConfigI> } & ViewProps) {
+  const { translateY, translateX, startSlide } = useSlide(config);
 
   useEffect(() => {
     startSlide(active);
   }, [active, startSlide]);
 
   const style = useAnimatedStyle(() => ({
-    transform: [{ translateY: translateY.value }]
+    transform: [{ translateY: translateY.value }, { translateX: translateX.value }]
   }));
 
   return (

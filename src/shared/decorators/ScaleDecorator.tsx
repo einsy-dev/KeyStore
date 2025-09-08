@@ -6,15 +6,17 @@ import Animated, { useAnimatedStyle } from "react-native-reanimated";
 export function ScaleDecorator({
   active = false,
   children,
+  config,
   className = "",
   style
 }: {
   active?: boolean;
   children?: ReactNode;
+  config?: Partial<ScaleConfigI>;
   className?: string;
   style?: ViewStyle;
 }) {
-  const { scale, startScale } = useScale();
+  const { scale, startScale } = useScale(config);
 
   useEffect(() => {
     startScale(active);

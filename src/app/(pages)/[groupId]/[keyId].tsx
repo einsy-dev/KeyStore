@@ -6,7 +6,7 @@ import { KeyMode } from "@/widgets/form-key/ui/KeyMode";
 import { createId } from "@paralleldrive/cuid2";
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { SetStateAction, useState } from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 type LocalSearchParamI = {
@@ -23,7 +23,7 @@ export default function KeyGroupForm() {
     keyId !== "new" ? (data[groupId].keys[keyId] as any) : { name: "", value: "" }
   );
   const [err, setErr] = useState<string>("");
-  const [type, setType] = useState<KeyModeT>("single");
+  const [type, setType] = useState<KeyModeT>("double");
 
   function handleSubmit() {
     if (!state.name.value || (type === "double" && !state.value.value)) {
@@ -63,7 +63,7 @@ export default function KeyGroupForm() {
           setState={(val: any) => setState((prev) => ({ ...prev, value: val(prev.value) }))}
         />
       ) : null}
-      {/* <Text className="!text-v-red">{err}</Text> */}
+      <Text className="!text-v-red">{err}</Text>
     </KeyboardAvoidingView>
   );
 }

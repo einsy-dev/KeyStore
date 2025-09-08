@@ -16,7 +16,7 @@ export const Numpad = memo(function Numpad({
   onFingerPrint: () => void;
   disabled?: boolean;
 }) {
-  const color = useColor();
+  const { color } = useColor();
 
   function handlePress(item: string | number) {
     if (disabled) return;
@@ -36,9 +36,9 @@ export const Numpad = memo(function Numpad({
       <NumpadLine items={["7", "8", "9"]} handlePress={handlePress} />
 
       <View className=" flex-row justify-between">
-        <IconItem item={<Fingerprint color={color.iconColor} height={40} width={40} />} onPress={onFingerPrint} />
+        <IconItem item={<Fingerprint color={color} height={40} width={40} />} onPress={onFingerPrint} />
         <TextItem item={"0"} onPress={() => handlePress(0)} />
-        <IconItem item={<Delete color={color.iconColor} />} onPress={() => handlePress(-1)} />
+        <IconItem item={<Delete color={color} />} onPress={() => handlePress(-1)} />
       </View>
     </View>
   );

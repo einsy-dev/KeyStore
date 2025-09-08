@@ -13,7 +13,7 @@ export function CheckBox({
   children: string;
 }) {
   const [state, setState] = useState(checked);
-  const color = useColor();
+  const { color } = useColor();
 
   return (
     <TouchableOpacity
@@ -25,7 +25,7 @@ export function CheckBox({
       }}
     >
       <View className="flex-row gap-2 ">
-        {state ? <SquareCheckBig color={color.iconColor} /> : <Square color={color.iconColor} />}
+        {state ? <SquareCheckBig color={color} /> : <Square color={color} />}
         <Text className="text">{children}</Text>
       </View>
     </TouchableOpacity>

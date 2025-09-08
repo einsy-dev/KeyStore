@@ -1,36 +1,32 @@
-import { useColor } from "@/hooks";
-import { Button } from "@/shared/ui";
+import { Button, Toggle } from "@/shared/ui";
 import { useRouter } from "expo-router";
-import { Text, View } from "react-native";
-import { useDispatch } from "react-redux";
+import { Pressable, Text, View } from "react-native";
 
 export default function Settings() {
   const router = useRouter();
-  const dispatch = useDispatch();
-  const color = useColor();
+
   return (
-    <View className="flex-1 app">
-      <View className="flex-1 p-4 gap-4">
-        <Button
-          onPress={() => {
-            router.push({
-              pathname: "/sign-in",
-              params: { newPin: true as any }
-            });
-          }}
-        >
-          Change Pin
-        </Button>
-        <Button
-          onPress={() => {
-            // dispatch(setConfig({ theme: color.statusBarColor }));
-          }}
-        >
-          Change Theme
-        </Button>
-        <View>
-          <Text className="text text-center">{process.env.EXPO_PUBLIC_SECRET || "no env"}</Text>
-        </View>
+    <View className="flex-1 app p-4 gap-4">
+      <Pressable
+        onPress={() => {
+          router.push({
+            pathname: "/sign-in",
+            params: { newPin: true as any }
+          });
+        }}
+      >
+        <Text className="text text-xl py-2">Change Pin</Text>
+      </Pressable>
+      <Button
+        onPress={() => {
+          // dispatch(setConfig({ theme: color.statusBarColor }));
+        }}
+      >
+        Change Theme
+      </Button>
+      <Toggle />
+      <View>
+        <Text className="text text-center">{process.env.EXPO_PUBLIC_SECRET || "no env"}</Text>
       </View>
     </View>
   );

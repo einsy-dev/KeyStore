@@ -13,7 +13,7 @@ export function useRouter() {
 }
 
 export function RouterProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState({});
+  const [state, _setState] = useState({});
 
   function navigate() {}
   function replace() {}

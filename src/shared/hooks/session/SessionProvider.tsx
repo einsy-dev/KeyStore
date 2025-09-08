@@ -3,6 +3,7 @@ import { signIn, signInBio } from "@/widgets/sign-in";
 import { ReactNode, useEffect, useState } from "react";
 import { AppState } from "react-native";
 import { SessionContext } from "./context";
+
 export function SessionProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<SessionStateI>({
     auth: { isBioAvailable: true, status: null, isAuth: false, isCanceled: false, autoLock: true }
@@ -16,6 +17,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     return () => {
       if (listener) listener.remove();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
   async function _signInBio() {
@@ -49,7 +51,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       setAuth({ status: "error" });
       delay(() => {
         setAuth({ isAuth: false, status: null });
-      }, 300);
+      }, 600);
     }
   }
 
@@ -64,7 +66,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   }
 
   useEffect(() => {
-    if (!state.auth.autoLock) delay(() => setAuth({ autoLock: true }), 0);
+    if (!state.auth.autoLock) delay(() => setAuth({ autoLock: true }), 5000);
   }, [state.auth.autoLock]);
 
   return (
@@ -74,7 +76,6 @@ export function SessionProvider({ children }: { children: ReactNode }) {
         isAuth: state.auth.isAuth,
         isBioAvailable: state.auth.isBioAvailable,
         isCanceled: state.auth.isCanceled,
-        autoLock: state.auth.autoLock,
         signIn: _signIn,
         signInBio: _signInBio,
         signOut: _signOut,

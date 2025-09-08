@@ -1,14 +1,20 @@
 import { useSharedValue, withTiming } from "react-native-reanimated";
-
-export function useScale() {
-  const scale = useSharedValue(0);
+const defaultConfig: ScaleConfigI = {
+  scale: 1.2,
+  duration: 300,
+  durationOn: undefined,
+  durationOff: undefined
+};
+export function useScale(config: Partial<ScaleConfigI> = {}) {
+  const { duration, scale, durationOn, durationOff } = { ...defaultConfig, ...config };
+  const sharedScale = useSharedValue(0);
 
   function startScale(active: boolean) {
     if (active) {
-      scale.value = withTiming(1.2, { duration: 100 });
+      sharedScale.value = withTiming(scale, { duration: durationOn !== undefined ? durationOn : duration });
     } else {
-      scale.value = withTiming(1, { duration: 100 });
+      sharedScale.value = withTiming(1, { duration: durationOff !== undefined ? durationOff : duration });
     }
   }
-  return { scale, startScale };
+  return { scale: sharedScale, startScale };
 }

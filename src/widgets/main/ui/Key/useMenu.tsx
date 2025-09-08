@@ -1,5 +1,6 @@
 import { setModal } from "@/lib/store/app";
 import { deleteKey } from "@/lib/store/data";
+import { useSession } from "@/shared/hooks";
 import { shareText } from "@/utils";
 import { Confirm } from "@/widgets/Modal/Confirm";
 import { useRouter } from "expo-router";
@@ -9,12 +10,13 @@ import { useDispatch } from "react-redux";
 export function useKeyMenu(groupId: string, keyId: string, value: string) {
   const dispatch = useDispatch();
   const router = useRouter();
+  const { call } = useSession();
   return [
     {
       name: "Share",
       icon: Share,
-      callback: async () => {
-        await shareText(value);
+      callback: () => {
+        call(() => shareText(value) as Promise<void>);
       }
     },
     {
