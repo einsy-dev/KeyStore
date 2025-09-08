@@ -13,7 +13,8 @@ export function SlideDecorator({
 
   useEffect(() => {
     startSlide(active);
-  }, [active, startSlide]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active]);
 
   const style = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }, { translateX: translateX.value }]

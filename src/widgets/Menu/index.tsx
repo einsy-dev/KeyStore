@@ -2,7 +2,7 @@ import { useColor } from "@/hooks/useColor";
 import { useGoBack } from "@/hooks/useGoBack";
 import { selectMenu, setMenu } from "@/lib/store/app";
 import { OpacityDecorator, SlideDecorator } from "@/shared/decorators";
-import { Pressable, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, Pressable, Text, TouchableOpacity, View } from "react-native";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -23,10 +23,14 @@ export function Menu() {
     <>
       <OpacityDecorator
         active={menu.active}
-        slideConfig={{ duration: 0 }}
+        slideConfig={{ duration: 0, startY: Dimensions.get("screen").height }}
         className="absolute inset-0 flex-1 bg-v-50"
       />
-      <SlideDecorator active={menu.active} className="absolute inset-0 flex-1">
+      <SlideDecorator
+        active={menu.active}
+        config={{ startY: Dimensions.get("screen").height }}
+        className="absolute inset-0 flex-1"
+      >
         <Pressable
           onPress={() => {
             dispatch(setMenu({ active: false }));
@@ -42,7 +46,7 @@ export function Menu() {
                     dispatch(setMenu({ active: false }));
                     setTimeout(() => {
                       el.callback();
-                    }, 0);
+                    }, 100);
                   }}
                 >
                   <View className="flex-row items-center gap-6">

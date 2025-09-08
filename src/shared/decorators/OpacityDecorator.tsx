@@ -1,8 +1,7 @@
-import { useOpacity } from "@/animations";
 import { useEffect } from "react";
 import { ViewProps } from "react-native";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
-import { useSlide } from "../animations/useSlide";
+import { useOpacity, useSlide } from "../animations";
 
 export function OpacityDecorator({
   active = false,
@@ -21,7 +20,8 @@ export function OpacityDecorator({
       startSlide(active);
     }
     startOpacity(active);
-  }, [active, startOpacity, startSlide]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active]);
 
   const style = useAnimatedStyle(() => ({
     opacity: opacity.value,

@@ -15,7 +15,7 @@ export function Toggle() {
           config={{ duration: 400 }}
           decorate="backgroundColor"
         >
-          <SlideDecorator active={active} config={{ translate: "x", endX: 45, duration: 300 }}>
+          <SlideDecorator active={active} config={{ translate: "x", startX: 0, endX: 45, duration: 300 }}>
             <View className="bg-v-light w-10 h-10 rounded-full z-10"></View>
           </SlideDecorator>
         </ColorDecorator>

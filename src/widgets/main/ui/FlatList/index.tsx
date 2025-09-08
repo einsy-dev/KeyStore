@@ -1,31 +1,33 @@
-import { setData } from "@/lib/store/data";
+import { selectListData, setData } from "@/lib/store/data";
+import { delay } from "@/utils";
 import { View } from "react-native";
 import DragableFlatList, { ScaleDecorator } from "react-native-draggable-flatlist";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Group } from "../Group";
 import { Key } from "../Key";
 
-export function FlatList({ data }: { data: DataListI }) {
+export function FlatList() {
   const dispatch = useDispatch();
-  const dataId: (DataI & { id: string })[] = Object.keys(data).map((id) => ({ id, ...data[id] }));
+  const data = useSelector(selectListData);
 
   return (
     <DragableFlatList
-      data={dataId}
+      data={data}
       renderItem={RenderItem}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item, index) => item.id + "-" + index}
       onDragEnd={({ data: dataArr }) =>
-        dispatch(
-          setData(
-            dataArr.reduce((acc, dataId, index) => {
-              acc[dataId.id] = {
-                ...dataId,
-                order: index
-              };
-              return acc;
-            }, {} as DataListI)
-          )
-        )
+        delay(() => {
+          dispatch(
+            setData(
+              dataArr.reduce((acc, dataId) => {
+                acc[dataId.id] = {
+                  ...dataId
+                };
+                return acc;
+              }, {} as DataListI)
+            )
+          );
+        }, 100)
       }
     />
   );

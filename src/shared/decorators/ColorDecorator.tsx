@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { ViewComponent, ViewProps } from "react-native";
-import Animated, { AnimatedRef, interpolateColor, useAnimatedStyle } from "react-native-reanimated";
+import { ViewProps } from "react-native";
+import Animated, { interpolateColor, useAnimatedStyle } from "react-native-reanimated";
 import { useColor } from "../animations";
 
 export function ColorDecorator({
@@ -17,7 +17,6 @@ export function ColorDecorator({
   colorStart?: string;
   colorEnd?: string;
   decorate?: "backgroundColor" | "borderColor";
-  ref?: AnimatedRef<ViewComponent>;
 } & ViewProps) {
   const { color, startColor } = useColor(config);
 

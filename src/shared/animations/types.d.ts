@@ -8,7 +8,6 @@ interface SlideConfigI {
   durationOnY: number | undefined;
   durationOffX: number | undefined;
   durationOffY: number | undefined;
-  translate: "x" | "y" | "xy";
 }
 
 interface ColorConfigI {
@@ -27,6 +26,18 @@ interface ScaleConfigI {
   duration: number;
   durationOn: number | undefined;
   durationOff: number | undefined;
+}
+
+interface SizeConfigI {
+  startWidth: number;
+  startHeight: number;
+  endWidth: number;
+  endHeight: number;
+  duration: number;
+  durationOnWidth: number | undefined;
+  durationOnHeight: number | undefined;
+  durationOffWidth: number | undefined;
+  durationOffHeight: number | undefined;
 }
 
 interface ShakeConfigI {

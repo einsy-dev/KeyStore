@@ -1,8 +1,10 @@
 import { Button, Toggle } from "@/shared/ui";
 import { useRouter } from "expo-router";
+import { useColorScheme } from "nativewind";
 import { Pressable, Text, View } from "react-native";
 
 export default function Settings() {
+  const { colorScheme, setColorScheme } = useColorScheme();
   const router = useRouter();
 
   return (
@@ -19,7 +21,7 @@ export default function Settings() {
       </Pressable>
       <Button
         onPress={() => {
-          // dispatch(setConfig({ theme: color.statusBarColor }));
+          setColorScheme(colorScheme === "dark" ? "light" : "dark");
         }}
       >
         Change Theme

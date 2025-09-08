@@ -1,12 +1,10 @@
 import { setMenu } from "@/lib/store/app";
-import { selectData } from "@/lib/store/data";
 import { FlatList, useMenu } from "@/widgets/main";
 import React from "react";
 import { Pressable } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export default function Main() {
-  const data = useSelector(selectData);
   const dispatch = useDispatch();
   const menu = useMenu();
 
@@ -22,7 +20,7 @@ export default function Main() {
       }}
       className="app flex-1 p-4"
     >
-      <FlatList data={data} />
+      <FlatList />
     </Pressable>
   );
 }
