@@ -1,5 +1,5 @@
 import { useSize } from "@/animations";
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { View } from "react-native";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import { ViewProps } from "react-native-svg/lib/typescript/fabric/utils";
@@ -19,13 +19,11 @@ export function SizeDecorator({
   const { width, height, startSize } = useSize(sizeConfig);
 
   const ref = useRef<View>(null);
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!ref.current) return;
     ref.current.measure((...data) => {
-      if (sizeConfig?.endWidth) return;
       setSizeConfig((prev) => ({ ...prev, endHeight: data[3] }));
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ref]);
 
   useEffect(() => {
@@ -48,8 +46,8 @@ export function SizeDecorator({
   });
 
   return (
-    <Animated.View style={[sizeStyle, style]} {...props} ref={ref}>
-      {children}
+    <Animated.View style={[sizeStyle, style]} {...props}>
+      <View ref={ref}>{children}</View>
     </Animated.View>
   );
 }

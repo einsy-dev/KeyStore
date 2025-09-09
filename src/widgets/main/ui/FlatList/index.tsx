@@ -1,5 +1,4 @@
 import { selectListData, setData } from "@/lib/store/data";
-import { SizeDecorator } from "@/shared/decorators";
 import { useCallback, useState } from "react";
 import { View } from "react-native";
 import DragableFlatList, { RenderItemParams, ScaleDecorator } from "react-native-draggable-flatlist";
@@ -24,17 +23,17 @@ export function FlatList() {
               setActive={setActive}
               className="bg-v-dark rounded overflow-hidden"
             >
-              <SizeDecorator active={active === item.id}>
-                {Object.keys(item.keys)?.map((id: string, index: number) => (
-                  <View
-                    key={id}
-                    className={`flex-1 mx-2 flex-row gap-2 p-1 ${Object.keys(item.keys).length - 1 === index ? "mb-2" : ""} ${index === 0 ? "mt-1" : ""} `}
-                  >
-                    <Key groupId={item.id} keyId={id} data={item.keys[id].name} />
-                    <Key groupId={item.id} keyId={id} data={item.keys[id].value} />
-                  </View>
-                ))}
-              </SizeDecorator>
+              {active === item.id
+                ? Object.keys(item.keys)?.map((id: string, index: number) => (
+                    <View
+                      key={id}
+                      className={`flex-1 mx-2 flex-row gap-2 p-1 ${Object.keys(item.keys).length - 1 === index ? "mb-2" : ""} ${index === 0 ? "mt-1" : ""} `}
+                    >
+                      <Key groupId={item.id} keyId={id} data={item.keys[id].name} />
+                      <Key groupId={item.id} keyId={id} data={item.keys[id].value} />
+                    </View>
+                  ))
+                : null}
             </Group>
           </View>
         </ScaleDecorator>

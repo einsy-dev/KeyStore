@@ -9,7 +9,7 @@ export default function SignIn() {
   const { isAuth, signIn, signInBio, status, isCanceled } = useSession();
 
   useEffect(() => {
-    if (isCanceled || isAuth) return;
+    if (status || isCanceled) return;
     signInBio();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCanceled, isAuth]);
