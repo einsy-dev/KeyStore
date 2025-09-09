@@ -1,53 +1,57 @@
-import { useSize } from "@/animations";
-import { ReactNode, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { View } from "react-native";
-import Animated, { useAnimatedStyle } from "react-native-reanimated";
+import { ReactNode } from "react";
+import { StyleSheet, View } from "react-native";
+import Animated, {
+  SharedValue,
+  useAnimatedStyle,
+  useDerivedValue,
+  useSharedValue,
+  withTiming
+} from "react-native-reanimated";
 import { ViewProps } from "react-native-svg/lib/typescript/fabric/utils";
 
 export function SizeDecorator({
-  active = false,
+  active,
   children,
   config,
   style,
+  keyView = "",
   ...props
 }: {
-  active?: boolean;
+  active: SharedValue<boolean>;
   children?: ReactNode;
   config?: Partial<SizeConfigI>;
+  keyView?: string;
 } & ViewProps) {
-  const [sizeConfig, setSizeConfig] = useState(config);
-  const { width, height, startSize } = useSize(sizeConfig);
-
-  const ref = useRef<View>(null);
-  useLayoutEffect(() => {
-    if (!ref.current) return;
-    ref.current.measure((...data) => {
-      setSizeConfig((prev) => ({ ...prev, endHeight: data[3] }));
-    });
-  }, [ref]);
-
-  useEffect(() => {
-    startSize(active);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [active]);
+  const h = useSharedValue(0);
+  const h2 = useDerivedValue(() => {
+    return withTiming(h.value * Number(active.value), { duration: 250 });
+  });
 
   const sizeStyle = useAnimatedStyle(() => {
-    if (!sizeConfig) return {};
-    const { startHeight, startWidth, endHeight, endWidth } = sizeConfig;
-    const res: { height?: number; width?: number } = {};
-
-    if ((startHeight !== undefined || endHeight !== undefined) && startHeight !== endHeight) {
-      res.height = height.value;
-    }
-    if ((startWidth !== undefined || endWidth !== undefined) && startWidth !== endWidth) {
-      res.width = width.value;
-    }
-    return res;
+    return { height: h2.value };
   });
 
   return (
-    <Animated.View style={[sizeStyle, style]} {...props}>
-      <View ref={ref}>{children}</View>
+    <Animated.View key={`accordionItem_${keyView}`} style={[styles.animatedView, sizeStyle, style]} {...props}>
+      <View
+        onLayout={(e) => {
+          h.value = e.nativeEvent.layout.height;
+        }}
+        style={[styles.container]}
+      >
+        {children}
+      </View>
     </Animated.View>
   );
 }
+
+const styles = StyleSheet.create({
+  animatedView: {
+    overflow: "hidden"
+  },
+  container: {
+    position: "absolute",
+    width: "100%",
+    alignItems: "center"
+  }
+});

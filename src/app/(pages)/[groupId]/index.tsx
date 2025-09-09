@@ -2,10 +2,11 @@ import * as Icons from "@/assets/icons";
 import { setHeader } from "@/lib/store/app";
 import { selectData, setGroup } from "@/lib/store/data";
 import { KeyboardAvoidingView, TextInput } from "@/shared/ui";
+import { parseIcons, RenderItem } from "@/widgets/select-icon";
 import { createId } from "@paralleldrive/cuid2";
 import { useFocusEffect, useGlobalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Pressable, View } from "react-native";
+import { FlatList, Pressable, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Form_Group() {
@@ -44,8 +45,17 @@ export default function Form_Group() {
 
   const Icon = (Icons as { [key: string]: any })[state.icon || "Airbnb"];
   return (
-    <KeyboardAvoidingView className="app flex-1 p-4 gap-2">
-      <View className="p-4 gap-2 flex-row items-center justify-center">
+    <KeyboardAvoidingView className="app flex-1 p-8 gap-4">
+      <View className="h-[270px] bg-v-dark rounded-xl p-2">
+        <FlatList
+          data={parseIcons(Icons, 6)}
+          keyExtractor={(item: { name: string; Icon: IconI }[]) => item[0].name}
+          renderItem={RenderItem(state.icon, (newIcon: string) => setState((prev) => ({ ...prev, icon: newIcon })), 40)}
+          extraData={state.icon}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
+      <View className=" gap-2 flex-row items-center justify-center">
         <Pressable onPress={() => router.push({ pathname: "/modal/select-icon" })}>
           <View className="">
             <Icon width={45} height={45} />
