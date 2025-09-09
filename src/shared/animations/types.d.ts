@@ -29,10 +29,6 @@ interface ScaleConfigI {
 }
 
 interface SizeConfigI {
-  startWidth: number;
-  startHeight: number;
-  endWidth: number;
-  endHeight: number;
   duration: number;
   durationOnWidth: number | undefined;
   durationOnHeight: number | undefined;

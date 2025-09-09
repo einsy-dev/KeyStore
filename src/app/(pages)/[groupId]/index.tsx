@@ -6,7 +6,7 @@ import { parseIcons, RenderItem } from "@/widgets/select-icon";
 import { createId } from "@paralleldrive/cuid2";
 import { useFocusEffect, useGlobalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { FlatList, Pressable, View } from "react-native";
+import { FlatList, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Form_Group() {
@@ -56,11 +56,9 @@ export default function Form_Group() {
         />
       </View>
       <View className=" gap-2 flex-row items-center justify-center">
-        <Pressable onPress={() => router.push({ pathname: "/modal/select-icon" })}>
-          <View className="">
-            <Icon width={45} height={45} />
-          </View>
-        </Pressable>
+        <View className="">
+          <Icon width={45} height={45} />
+        </View>
         <TextInput
           label="Group Name"
           value={state.name || ""}

@@ -32,7 +32,7 @@ export function SizeDecorator({
   });
 
   return (
-    <Animated.View key={`accordionItem_${keyView}`} style={[styles.animatedView, sizeStyle, style]} {...props}>
+    <Animated.View key={keyView} style={[styles.animatedView, sizeStyle, style]} {...props}>
       <View
         onLayout={(e) => {
           h.value = e.nativeEvent.layout.height;
