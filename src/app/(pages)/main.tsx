@@ -3,6 +3,7 @@ import { FlatList, useMenu } from "@/widgets/main";
 import React from "react";
 import { Pressable } from "react-native";
 import { useDispatch } from "react-redux";
+
 export default function Main() {
   const dispatch = useDispatch();
   const menu = useMenu();

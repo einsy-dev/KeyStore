@@ -1,35 +1,39 @@
 import "@/assets/css/global.css";
 import store from "@/lib/store";
-import { SessionProvider, useSession } from "@/shared/hooks";
+import { SessionProvider, useColor, useSession } from "@/shared/hooks";
 import { Header } from "@/widgets/header";
 import { Menu } from "@/widgets/Menu";
 import { Modal } from "@/widgets/Modal";
 import { Popup } from "@/widgets/Popup";
 import { Stack } from "expo-router";
-import { SafeAreaView, StatusBar } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
 
 export default function Layout() {
+  const { colorScheme } = useColor();
   return (
-    <GestureHandlerRootView>
-      <Provider store={store}>
-        <SessionProvider>
-          <SafeAreaView className="flex-1">
-            <Router />
-            <Modal />
-            <Popup />
-            <Menu />
-          </SafeAreaView>
-        </SessionProvider>
-      </Provider>
-    </GestureHandlerRootView>
+    <SafeAreaProvider>
+      <SafeAreaView className="app flex-1">
+        <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
+        <GestureHandlerRootView>
+          <Provider store={store}>
+            <SessionProvider>
+              <Router />
+              <Modal />
+              <Popup />
+              <Menu />
+            </SessionProvider>
+          </Provider>
+        </GestureHandlerRootView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
 function Router() {
   const { isAuth } = useSession();
-  StatusBar.setHidden(true);
   return (
     <Stack screenOptions={{ header: () => <Header /> }}>
       <Stack.Protected guard={isAuth}>
