@@ -2,7 +2,7 @@ import { delay } from "@/utils";
 import { signIn, signInBio } from "@/widgets/sign-in";
 import { useRouter } from "expo-router";
 import { ReactNode, useEffect, useState } from "react";
-import { AppState, StatusBar } from "react-native";
+import { AppState } from "react-native";
 import { SessionContext } from "./context";
 
 export function SessionProvider({ children }: { children: ReactNode }) {
@@ -12,9 +12,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   });
 
   useEffect(() => {
-    StatusBar.setHidden(true);
     const listener = AppState.addEventListener("change", (appState) => {
-      if (appState === "active") StatusBar.setHidden(true);
       if (appState !== "active" || !state.auth.autoLock) return;
       _signOut();
     });

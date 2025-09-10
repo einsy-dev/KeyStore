@@ -6,6 +6,7 @@ import { Menu } from "@/widgets/Menu";
 import { Modal } from "@/widgets/Modal";
 import { Popup } from "@/widgets/Popup";
 import { Stack } from "expo-router";
+import { SafeAreaView, StatusBar } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Provider } from "react-redux";
 
@@ -14,10 +15,12 @@ export default function Layout() {
     <GestureHandlerRootView>
       <Provider store={store}>
         <SessionProvider>
-          <Router />
-          <Modal />
-          <Popup />
-          <Menu />
+          <SafeAreaView className="flex-1">
+            <Router />
+            <Modal />
+            <Popup />
+            <Menu />
+          </SafeAreaView>
         </SessionProvider>
       </Provider>
     </GestureHandlerRootView>
@@ -26,7 +29,7 @@ export default function Layout() {
 
 function Router() {
   const { isAuth } = useSession();
-
+  StatusBar.setHidden(true);
   return (
     <Stack screenOptions={{ header: () => <Header /> }}>
       <Stack.Protected guard={isAuth}>
@@ -34,7 +37,6 @@ function Router() {
         <Stack.Screen name="(pages)/settings" />
         <Stack.Screen name="(pages)/[groupId]/index" />
         <Stack.Screen name="(pages)/[groupId]/[keyId]" />
-        {/* <Stack.Screen name="(pages)/sign-in" initialParams={{ newPin: true }} /> */}
       </Stack.Protected>
 
       <Stack.Protected guard={!isAuth}>

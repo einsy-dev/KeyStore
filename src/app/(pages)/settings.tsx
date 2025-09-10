@@ -1,20 +1,19 @@
+import { useSession } from "@/shared/hooks";
 import { Toggle } from "@/shared/ui";
-import { useRouter } from "expo-router";
+import * as SecureStore from "expo-secure-store";
 import { useColorScheme } from "nativewind";
 import { Pressable, Text, View } from "react-native";
 
 export default function Settings() {
   const { colorScheme, setColorScheme } = useColorScheme();
-  const router = useRouter();
+  const { signOut } = useSession();
 
   return (
     <View className="flex-1 app p-4 gap-4">
       <Pressable
         onPress={() => {
-          router.push({
-            pathname: "/sign-in",
-            params: { newPin: true as any }
-          });
+          SecureStore.setItem("pin", "");
+          signOut();
         }}
       >
         <Text className="text text-xl py-2">Change Pin</Text>

@@ -1,15 +1,19 @@
 import { useSession } from "@/hooks";
 import { delay } from "@/utils";
 import { Numpad, Pin } from "@/widgets/sign-in";
+import * as SecureStore from "expo-secure-store";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 
 export default function SignIn() {
   const [value, setValue] = useState("");
   const { signIn, signInBio, status, isCanceled } = useSession();
+  const [newPin, setNewPin] = useState(false);
 
   useEffect(() => {
-    if (!status && !isCanceled) signInBio();
+    const pin = SecureStore.getItem("pin");
+    if (!pin) setNewPin(true);
+    if (!status && !isCanceled && pin) signInBio();
     if (status !== "error") return;
     delay(() => {
       setValue("");
@@ -29,7 +33,7 @@ export default function SignIn() {
       <Pin value={value} status={status} />
       <Numpad
         onChangeText={setValue}
-        onFingerPrint={() => signInBio()}
+        onFingerPrint={!newPin && (() => signInBio())}
         disabled={status === "success" || status === "error"}
       />
     </View>

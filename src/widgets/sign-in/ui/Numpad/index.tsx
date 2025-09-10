@@ -9,11 +9,11 @@ import { TextItem } from "./TextItem";
 
 export const Numpad = memo(function Numpad({
   onChangeText = () => {},
-  onFingerPrint = () => {},
+  onFingerPrint,
   disabled = false
 }: {
   onChangeText: React.Dispatch<React.SetStateAction<string>>;
-  onFingerPrint: () => void;
+  onFingerPrint: (() => void) | false | undefined;
   disabled?: boolean;
 }) {
   const { color } = useColor();
@@ -36,7 +36,11 @@ export const Numpad = memo(function Numpad({
       <NumpadLine items={["7", "8", "9"]} handlePress={handlePress} />
 
       <View className=" flex-row justify-between">
-        <IconItem item={<Fingerprint color={color} height={40} width={40} />} onPress={onFingerPrint} />
+        {typeof onFingerPrint === "function" ? (
+          <IconItem item={<Fingerprint color={color} height={40} width={40} />} onPress={onFingerPrint} />
+        ) : (
+          <TextItem item={""} onPress={() => {}} />
+        )}
         <TextItem item={"0"} onPress={() => handlePress("0")} />
         <IconItem item={<Delete color={color} />} onPress={() => handlePress("-1")} />
       </View>

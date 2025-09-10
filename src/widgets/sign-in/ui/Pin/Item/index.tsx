@@ -13,7 +13,7 @@ export function Item({ value, status }: { value: string; status: "success" | "er
       <ColorDecorator
         active={status === "success" || status === "error"}
         decorate="borderColor"
-        colorStart="#FFF"
+        colorStart={color === "white" ? "#fff" : "#000"}
         colorEnd={status === "success" ? "green" : status === "error" ? "red" : undefined}
         config={{ durationOn: 100, durationOff: 200 }}
         className="border rounded aspect-[4/5] h-[60px] items-center justify-center"
