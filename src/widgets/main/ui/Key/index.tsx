@@ -36,7 +36,7 @@ export function Key({ groupId, keyId, data }: { groupId: string; keyId: string; 
           {data.hide ? "*".repeat(data.value.length) : data.value}
         </Text>
         {data.label ? (
-          <Text className="text-sm absolute left-1 -top-[4px] px-1 " numberOfLines={1}>
+          <Text className="text text-sm absolute left-1 -top-[4px] px-1 " numberOfLines={1}>
             {data.label}
           </Text>
         ) : null}
