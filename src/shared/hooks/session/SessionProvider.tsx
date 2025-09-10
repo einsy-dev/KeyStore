@@ -1,16 +1,20 @@
 import { delay } from "@/utils";
 import { signIn, signInBio } from "@/widgets/sign-in";
+import { useRouter } from "expo-router";
 import { ReactNode, useEffect, useState } from "react";
-import { AppState } from "react-native";
+import { AppState, StatusBar } from "react-native";
 import { SessionContext } from "./context";
 
 export function SessionProvider({ children }: { children: ReactNode }) {
+  const router = useRouter();
   const [state, setState] = useState<SessionStateI>({
     auth: { isBioAvailable: true, status: null, isAuth: false, isCanceled: false, autoLock: true }
   });
 
   useEffect(() => {
+    StatusBar.setHidden(true);
     const listener = AppState.addEventListener("change", (appState) => {
+      if (appState === "active") StatusBar.setHidden(true);
       if (appState !== "active" || !state.auth.autoLock) return;
       _signOut();
     });
@@ -57,6 +61,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
 
   async function _signOut() {
     if (!state.auth.isAuth) return;
+    router.dismissTo({ pathname: "/sign-in" });
     setAuth({ status: null, isAuth: false, isCanceled: false });
   }
   // possibly avoided by using background services but this works by now

@@ -1,7 +1,7 @@
 import { setModal } from "@/lib/store/app";
 import { deleteKey } from "@/lib/store/data";
 import { useSession } from "@/shared/hooks";
-import { shareText } from "@/utils";
+import { delay, shareText } from "@/utils";
 import { Confirm } from "@/widgets/Modal/Confirm";
 import { useRouter } from "expo-router";
 import { Edit, Share, Trash } from "lucide-react-native";
@@ -16,19 +16,23 @@ export function useKeyMenu(groupId: string, keyId: string, value: string) {
       name: "Share",
       icon: Share,
       callback: () => {
-        call(() => shareText(value) as Promise<void>);
+        delay(() => {
+          call(() => shareText(value) as Promise<void>);
+        }, 100);
       }
     },
     {
       name: "Edit",
       icon: Edit,
       callback: () => {
-        router.push({
-          pathname: "/(pages)/[groupId]/[keyId]",
-          params: {
-            groupId,
-            keyId
-          }
+        delay(() => {
+          router.push({
+            pathname: "/(pages)/[groupId]/[keyId]",
+            params: {
+              groupId,
+              keyId
+            }
+          });
         });
       }
     },

@@ -20,7 +20,7 @@ export function Header() {
   }, [dispatch, pathName]);
 
   return (
-    <View className="bg-v-dark flex-row justify-between items-center px-4">
+    <View className="card flex-row justify-between items-center px-4">
       <Pressable onPress={() => router.back()}>
         <View className="p-2">
           <ChevronLeft color={color} size={30} />

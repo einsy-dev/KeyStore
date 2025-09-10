@@ -1,4 +1,4 @@
-import { Button, Toggle } from "@/shared/ui";
+import { Toggle } from "@/shared/ui";
 import { useRouter } from "expo-router";
 import { useColorScheme } from "nativewind";
 import { Pressable, Text, View } from "react-native";
@@ -19,14 +19,16 @@ export default function Settings() {
       >
         <Text className="text text-xl py-2">Change Pin</Text>
       </Pressable>
-      <Button
-        onPress={() => {
-          setColorScheme(colorScheme === "dark" ? "light" : "dark");
-        }}
-      >
-        Change Theme
-      </Button>
-      <Toggle />
+
+      <View className="flex-row justify-between items-center">
+        <Text className="text text-xl">Change Theme</Text>
+        <Toggle
+          active={colorScheme === "light"}
+          setActive={(isActive) => {
+            setColorScheme(isActive ? "light" : "dark");
+          }}
+        />
+      </View>
       <View>
         <Text className="text text-center">{process.env.EXPO_PUBLIC_SECRET || "no env"}</Text>
       </View>

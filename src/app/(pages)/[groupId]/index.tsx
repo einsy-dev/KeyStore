@@ -40,7 +40,7 @@ export default function Form_Group() {
   const Icon = (Icons as { [key: string]: any })[state.icon || "Airbnb"];
   return (
     <KeyboardAvoidingView className="app flex-1 p-8 gap-2">
-      <View className="h-[270px] bg-v-dark rounded-xl p-2">
+      <View className="card h-[270px] rounded-xl p-2">
         <FlatList
           data={parseIcons(Icons, 6)}
           keyExtractor={(item: { name: string; Icon: IconI }[]) => item[0].name}

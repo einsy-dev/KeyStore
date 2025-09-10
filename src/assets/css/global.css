@@ -11,18 +11,30 @@
 /* !!! Do not delete, using in the app, deleted class, couses build err,  !!! */
 @layer components {
 	.app {
-		@apply bg-white dark:bg-black;
+		@apply bg-v-light-bg dark:bg-v-dark-bg;
+	}
+
+	.card {
+		@apply bg-v-light-fg dark:bg-v-dark-fg;
 	}
 
 	.text {
-		@apply text-black dark:text-white
+		@apply text-v-light-text dark:text-v-dark-text;
 	}
 
 	.border {
-		@apply border-blue-600 dark:border-v-red;
+		@apply border-v-light-b dark:border-v-dark-b;
 	}
 
 	.button {
-		@apply items-center justify-center bg-blue-500 dark:bg-v-red px-4 py-2 rounded;
+		@apply bg-v-light-button-bg border-v-light-b dark:bg-v-dark-button-bg dark:border-v-dark-button-b;
+	}
+
+	.button_text {
+		@apply text-v-light-button-text dark:text-v-dark-button-text;
+	}
+
+	.err {
+		@apply text-v-light-err-text dark:text-v-dark-err-text;
 	}
 }

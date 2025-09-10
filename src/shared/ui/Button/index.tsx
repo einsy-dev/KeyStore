@@ -11,8 +11,8 @@ export function Button({
 }) {
   return (
     <TouchableNativeFeedback onPress={onPress}>
-      <View className={`button ${className}`}>
-        <Text className="text">{children}</Text>
+      <View className={`button items-center justify-center px-4 py-2 rounded ${className}`}>
+        <Text className="button_text">{children}</Text>
       </View>
     </TouchableNativeFeedback>
   );

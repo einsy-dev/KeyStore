@@ -6,20 +6,15 @@ import { View } from "react-native";
 
 export default function SignIn() {
   const [value, setValue] = useState("");
-  const { isAuth, signIn, signInBio, status, isCanceled } = useSession();
+  const { signIn, signInBio, status, isCanceled } = useSession();
 
   useEffect(() => {
-    if (status || isCanceled) return;
-    signInBio();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isCanceled, isAuth]);
-
-  useEffect(() => {
+    if (!status && !isCanceled) signInBio();
     if (status !== "error") return;
     delay(() => {
       setValue("");
     }, 300);
-  }, [status]);
+  }, [isCanceled, signInBio, status]);
 
   useEffect(() => {
     if (value.length < 4) return;

@@ -1,7 +1,7 @@
 import * as Icons from "@/assets/icons";
 import { setMenu } from "@/lib/store/app";
 import { ReactNode } from "react";
-import { Animated, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 
 import { SizeDecorator } from "@/shared/decorators";
 import { useSharedValue } from "react-native-reanimated";
@@ -16,7 +16,7 @@ export function Group({
   drag
 }: {
   groupId: string;
-  data: DataI;
+  data: GroupI;
   children?: ReactNode;
   className?: string;
   drag: () => void;
@@ -36,7 +36,7 @@ export function Group({
 
   const Icon: IconI = (Icons as any)[data.icon];
   return (
-    <Animated.View className={`${className}`}>
+    <View className={`card rounded ${className}`}>
       <View className="flex-row">
         <View className="items-center justify-center">
           <TouchableOpacity
@@ -62,6 +62,6 @@ export function Group({
       <SizeDecorator active={active} key={groupId}>
         {children && children}
       </SizeDecorator>
-    </Animated.View>
+    </View>
   );
 }

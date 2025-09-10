@@ -13,11 +13,11 @@ export function FlatList() {
     return (
       <ScaleDecorator activeScale={1.02}>
         <View className="mb-2">
-          <Group groupId={item.id} data={item} drag={drag} className="bg-v-dark rounded">
+          <Group groupId={item.id} data={item} drag={drag}>
             {Object.keys(item.keys)?.map((id: string, index: number) => (
               <View
                 key={id}
-                className={`flex-1 mx-2 flex-row gap-2 p-1 ${Object.keys(item.keys).length - 1 === index ? "mb-2" : ""} ${index === 0 ? "mt-1" : ""} `}
+                className={`flex-1 mx-4 flex-row gap-2 p-1 ${Object.keys(item.keys).length - 1 === index ? "mb-2" : ""} ${index === 0 ? "mt-2" : ""} `}
               >
                 <Key groupId={item.id} keyId={id} data={item.keys[id].name} />
                 <Key groupId={item.id} keyId={id} data={item.keys[id].value} />
@@ -34,6 +34,7 @@ export function FlatList() {
       data={data}
       renderItem={renderItem}
       keyExtractor={(item, index) => item.id + "-" + index}
+      showsVerticalScrollIndicator={false}
       onDragEnd={({ data: dataArr }) =>
         dispatch(
           setData(

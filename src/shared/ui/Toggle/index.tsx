@@ -1,13 +1,16 @@
 import { ColorDecorator, SlideDecorator } from "@/shared/decorators";
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { Pressable, View } from "react-native";
 
-export function Toggle() {
-  const [active, setActive] = useState(false);
+interface StateI {
+  active?: boolean;
+  setActive?: Dispatch<SetStateAction<boolean>>;
+}
 
+export function Toggle({ active = false, setActive = () => undefined }: StateI) {
   return (
-    <Pressable onPress={() => setActive((prev) => !prev)}>
-      <View className=" h-10 rounded-full overflow-hidden " style={{ width: 80 }}>
+    <Pressable onPress={() => setActive(!active)}>
+      <View className="rounded-full overflow-hidden h-10 w-24">
         <ColorDecorator
           active={active}
           colorStart="#00e600"
@@ -15,8 +18,10 @@ export function Toggle() {
           config={{ duration: 400 }}
           decorate="backgroundColor"
         >
-          <SlideDecorator active={active} config={{ translate: "x", startX: 0, endX: 45, duration: 300 }}>
-            <View className="bg-v-light w-10 h-10 rounded-full z-10"></View>
+          <SlideDecorator active={active} config={{ translate: "x", startX: 0, endX: 48, duration: 300 }}>
+            <View className="p-1">
+              <View className="card aspect-square h-full rounded-full"></View>
+            </View>
           </SlideDecorator>
         </ColorDecorator>
       </View>

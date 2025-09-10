@@ -38,7 +38,7 @@ export function Menu() {
           className="flex-1 justify-end"
         >
           <Pressable onPress={(e) => e.stopPropagation()}>
-            <View className="rounded-2xl gap-4 p-4 pb-6 bg-black border-gray-600">
+            <View className="card rounded-2xl gap-4 p-4 pb-6">
               {menu.menu?.map((el: any) => (
                 <TouchableOpacity
                   key={el.name}

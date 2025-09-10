@@ -32,12 +32,13 @@ export function SizeDecorator({
   });
 
   return (
-    <Animated.View key={keyView} style={[styles.animatedView, sizeStyle, style]} {...props}>
+    <Animated.View key={keyView} style={[styles.animatedView, sizeStyle, style]}>
       <View
         onLayout={(e) => {
           h.value = e.nativeEvent.layout.height;
         }}
         style={[styles.container]}
+         {...props}
       >
         {children}
       </View>
