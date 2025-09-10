@@ -45,7 +45,7 @@ export default function Form_Group() {
 
   const Icon = (Icons as { [key: string]: any })[state.icon || "Airbnb"];
   return (
-    <KeyboardAvoidingView className="app flex-1 p-8 gap-4">
+    <KeyboardAvoidingView className="app flex-1 p-8 gap-2">
       <View className="h-[270px] bg-v-dark rounded-xl p-2">
         <FlatList
           data={parseIcons(Icons, 6)}
@@ -63,7 +63,6 @@ export default function Form_Group() {
           label="Group Name"
           value={state.name || ""}
           onChangeText={(text) => setState((prev: any) => ({ ...prev, name: text }))}
-          className="flex-1"
         />
       </View>
     </KeyboardAvoidingView>

@@ -35,7 +35,6 @@ export function Group({
   }
 
   const Icon: IconI = (Icons as any)[data.icon];
-
   return (
     <Animated.View className={`${className}`}>
       <View className="flex-row">
