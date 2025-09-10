@@ -9,8 +9,7 @@ import { Key } from "../Key";
 export function FlatList() {
   const dispatch = useDispatch();
   const data = useSelector(selectListData);
-
-  const renderItem = useCallback(({ item, drag }: RenderItemParams<DataI & { id: string }>) => {
+  const renderItem = useCallback(({ item, drag }: RenderItemParams<GroupI>) => {
     return (
       <ScaleDecorator activeScale={1.02}>
         <View className="mb-2">
@@ -38,12 +37,15 @@ export function FlatList() {
       onDragEnd={({ data: dataArr }) =>
         dispatch(
           setData(
-            dataArr.reduce((acc, dataId) => {
-              acc[dataId.id] = {
-                ...dataId
-              };
-              return acc;
-            }, {} as DataListI)
+            dataArr.reduce(
+              (acc, dataId) => {
+                acc[dataId.id] = {
+                  ...dataId
+                };
+                return acc;
+              },
+              {} as { [id: string]: GroupI }
+            )
           )
         )
       }

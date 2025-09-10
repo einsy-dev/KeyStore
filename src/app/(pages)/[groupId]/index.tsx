@@ -1,19 +1,18 @@
 import * as Icons from "@/assets/icons";
 import { setHeader } from "@/lib/store/app";
-import { selectData, setGroup } from "@/lib/store/data";
+import { createGroup, selectData, updateGroup } from "@/lib/store/data";
 import { KeyboardAvoidingView, TextInput } from "@/shared/ui";
 import { parseIcons, RenderItem } from "@/widgets/select-icon";
-import { createId } from "@paralleldrive/cuid2";
 import { useFocusEffect, useGlobalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { FlatList, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Form_Group() {
-  const data: DataListI = useSelector(selectData);
+  const data = useSelector(selectData);
   const { groupId, icon } = useGlobalSearchParams<{ groupId: string; icon: string }>();
-  const [state, setState] = useState<DataI>(
-    groupId === "new" ? { name: "", icon: "", keys: {} } : (data[groupId] as DataI)
+  const [state, setState] = useState<Optinal<GroupI, "id">>(
+    groupId === "new" ? { name: "", icon: "", keys: {} } : (data[groupId] as GroupI)
   );
   const dispatch = useDispatch();
   const router = useRouter();
@@ -27,19 +26,14 @@ export default function Form_Group() {
     );
     function saveGroup() {
       if (!state.name || !state.icon) return;
-      dispatch(
-        setGroup({
-          id: groupId === "new" ? createId() : groupId,
-          data: state
-        })
-      );
+      dispatch((groupId === "new" ? createGroup : updateGroup)(state as GroupI));
       router.dismiss();
     }
   });
 
   useEffect(() => {
     if (icon) {
-      setState((prev) => ({ ...prev, icon }) as DataI);
+      setState((prev) => ({ ...prev, icon }));
     }
   }, [state, icon, dispatch, groupId, router]);
 

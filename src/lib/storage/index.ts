@@ -1,16 +1,14 @@
 import { createId } from "@paralleldrive/cuid2";
 import * as SecureStore from "expo-secure-store";
 
-type IndexI = Map<string, Set<string>>;
-
 class Storage {
   private _index: IndexI = new Map();
   constructor() {
     this._loadIndex();
   }
 
-  private async _loadIndex() {
-    const indexString = await SecureStore.getItemAsync("index");
+  private _loadIndex() {
+    const indexString = SecureStore.getItem("index");
     if (indexString) {
       try {
         const parsedIndex = JSON.parse(indexString);
@@ -23,14 +21,13 @@ class Storage {
     }
   }
 
-  private async _saveIndex() {
-    // Convert Map with Sets to a storable array of arrays
+  private _saveIndex() {
     const indexArray = Array.from(this._index.entries()).map(([key, value]) => [key, Array.from(value)]);
-    await SecureStore.setItemAsync("index", JSON.stringify(indexArray));
+    SecureStore.setItem("index", JSON.stringify(indexArray));
   }
 
-  private async _read(id: string) {
-    const item = await SecureStore.getItemAsync(id);
+  private _read(id: string) {
+    const item = SecureStore.getItem(id);
     if (!item) return null;
     try {
       return JSON.parse(item);
@@ -40,37 +37,38 @@ class Storage {
     }
   }
 
-  private async _write(id: string, value: any) {
-    await SecureStore.setItemAsync(id, JSON.stringify(value));
+  private _write(id: string, value: any) {
+    SecureStore.setItem(id, JSON.stringify(value));
     return id;
   }
 
-  private async _delete(id: string) { // What is deleted lost forever
-    await SecureStore.deleteItemAsync(id);
+  private _delete(id: string) {
+    // What is deleted lost forever
+    return SecureStore.deleteItemAsync(id);
   }
 
-  async setIntex(groups: GroupI[]) {
+  setIntex(groups: { [id: string]: GroupI }) {
     const newIndex: IndexI = new Map();
-    for (let i = 0; i < groups.length; i++) {
-      newIndex.set(groups[i].id, new Set());
-      for (let j = 0; j < groups[i].keys.length; j++) {
-        newIndex.get(groups[i].id)?.add(groups[i].keys[j].id);
+    for (let groupId in groups) {
+      newIndex.set(groups[groupId].id, new Set());
+      for (let keyId in groups[groupId].keys) {
+        newIndex.get(groups[groupId].id)?.add(groups[groupId].keys[keyId].id);
       }
     }
     this._index = newIndex;
     this._saveIndex();
   }
 
-  async createGroup(data: Optinal<GroupI, "id" | "keys">) {
+  createGroup(data: Optinal<GroupI, "id" | "keys">) {
     const id = createId();
     data.id = id;
     this._index.set(id, new Set());
-    await this._write(id, data);
-    await this._saveIndex();
+    this._write(id, data);
+    this._saveIndex();
     return id;
   }
 
-  async createKey(groupId: string, data: Optinal<KeyI, "id">) {
+  createKey(groupId: string, data: Optinal<KeyI, "id">) {
     if (!this._index.has(groupId)) {
       console.error(`Group with id ${groupId} not found.`);
       return;
@@ -78,58 +76,58 @@ class Storage {
     const id = createId();
     data.id = id;
     this._index.get(groupId)?.add(id);
-    await this._write(id, data);
-    await this._saveIndex();
+    this._write(id, data);
+    this._saveIndex();
     return id;
   }
 
-  async deleteGroup(id: string) {
+  deleteGroup(id: string) {
     const keys = this._index.get(id);
     if (keys) {
       for (const keyId of keys) {
-        await this._delete(keyId);
+        this._delete(keyId);
       }
     }
     this._index.delete(id);
-    await this._delete(id);
-    await this._saveIndex();
+    this._delete(id);
+    this._saveIndex();
   }
 
-  async deleteKey(groupId: string, id: string) {
+  deleteKey(groupId: string, id: string) {
     this._index.get(groupId)?.delete(id);
-    await this._delete(id);
-    await this._saveIndex();
+    this._delete(id);
+    this._saveIndex();
   }
 
-  async updateGroup(id: string, data: GroupI) {
-    await this._write(id, data);
+  updateGroup(data: GroupI) {
+    this._write(data.id, data);
   }
 
-  async updateKey(id: string, data: KeyI) {
-    await this._write(id, data);
+  updateKey(data: KeyI) {
+    this._write(data.id, data);
   }
 
-  async getGroups(): Promise<GroupI[]> {
-    const res: GroupI[] = [];
+  getGroups(): { [id: string]: GroupI } {
+    const res: { [id: string]: GroupI } = {};
     for (const [id] of this._index.entries()) {
       if (id) {
-        const groupData: GroupI = await this._read(id);
+        const groupData: GroupI = this._read(id);
         if (groupData) {
-          groupData.keys = await this.getKeys(id);
-          res.push(groupData);
+          groupData.keys = this.getKeys(id);
+          res[id] = groupData;
         }
       }
     }
     return res;
   }
 
-  async getKeys(groupId: string): Promise<KeyI[]> {
-    const res: KeyI[] = [];
+  getKeys(groupId: string): { [id: string]: KeyI } {
+    const res: { [id: string]: KeyI } = {};
     const keyIds = this._index.get(groupId);
     if (keyIds) {
       for (const keyId of keyIds) {
-        const keyData = await this._read(keyId);
-        if (keyData) res.push(keyData);
+        const keyData = this._read(keyId);
+        if (keyData) res[keyId] = keyData;
       }
     }
     return res;

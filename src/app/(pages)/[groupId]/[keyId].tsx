@@ -1,9 +1,8 @@
 import { setHeader } from "@/lib/store/app";
-import { selectData, setKey } from "@/lib/store/data";
+import { createKey, selectData, updateKey } from "@/lib/store/data";
 import { CheckBox, KeyboardAvoidingView, TextInput } from "@/shared/ui";
 import { genPass } from "@/utils";
 import { KeyMode } from "@/widgets/form-key/ui/KeyMode";
-import { createId } from "@paralleldrive/cuid2";
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { SetStateAction, useState } from "react";
 import { Text, View } from "react-native";
@@ -13,14 +12,19 @@ type LocalSearchParamI = {
   groupId: string;
   keyId: string;
 };
+const defaultKey: KeyNameI | KeyValueI = {
+  label: "",
+  value: "",
+  hide: false
+};
 
 export default function KeyGroupForm() {
   const router = useRouter();
   const dispatch = useDispatch();
   const { groupId, keyId } = useLocalSearchParams<LocalSearchParamI>();
   const data = useSelector(selectData);
-  const [state, setState] = useState<KeyI>(
-    keyId !== "new" ? (data[groupId].keys[keyId] as any) : { name: "", value: "" }
+  const [state, setState] = useState<Optinal<KeyI, "id">>(
+    keyId === "new" ? { name: defaultKey, value: defaultKey } : data[groupId].keys[keyId]
   );
   const [err, setErr] = useState<string>("");
   const [type, setType] = useState<KeyModeT>("double");
@@ -29,13 +33,7 @@ export default function KeyGroupForm() {
     if (!state.name.value || (type === "double" && !state.value.value)) {
       return setErr("*Please fill all fields");
     }
-    dispatch(
-      setKey({
-        groupId,
-        keyId: keyId !== "new" ? keyId : createId(),
-        key: type === "single" ? { ...state, value: { value: "", label: "" } } : state
-      })
-    );
+    dispatch((keyId === "new" ? createKey : updateKey)({ groupId, key: state as KeyI }));
     router.back();
     setErr("");
     setState((prev: any) =>
@@ -68,28 +66,28 @@ export default function KeyGroupForm() {
   );
 }
 
-function FormElement({ state, setState }: { state: KeyElementI; setState: SetStateAction<any> }) {
+function FormElement({ state, setState }: { state: KeyNameI | KeyValueI; setState: SetStateAction<any> }) {
   return (
     <View className="gap-2">
       <View className="gap-4">
         <TextInput
           label="Label"
           value={state.label}
-          onChangeText={(text) => setState((prev: KeyElementI) => ({ ...prev, label: text }))}
+          onChangeText={(text) => setState((prev: KeyNameI | KeyValueI) => ({ ...prev, label: text }))}
           className="text text-lg"
         />
 
         <TextInput
           label="Value"
           value={state.value}
-          onChangeText={(text) => setState((prev: KeyElementI) => ({ ...prev, value: text }))}
+          onChangeText={(text) => setState((prev: KeyNameI | KeyValueI) => ({ ...prev, value: text }))}
           className="text-lg"
         />
       </View>
       <View className="flex-row gap-4">
         <CheckBox
           onChange={(hide) => {
-            setState((prev: KeyElementI) => ({ ...prev, hide }));
+            setState((prev: KeyNameI | KeyValueI) => ({ ...prev, hide }));
           }}
         >
           Hide
@@ -101,11 +99,11 @@ function FormElement({ state, setState }: { state: KeyElementI; setState: SetSta
               value = await genPass({ length: 15 });
             }
             setState(
-              (prev: KeyElementI) =>
+              (prev: KeyNameI | KeyValueI) =>
                 ({
                   ...prev,
                   value
-                }) as KeyElementI
+                }) as KeyNameI | KeyValueI
             );
           }}
         >
