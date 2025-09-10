@@ -6,11 +6,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "v-black": "rgb(0 0 0)",
-        "v-dark": "rgb(51 51 51)",
-        "v-white": "hsl(0 0% 20%)",
-        "v-light": "hsl(0 0% 94%)",
-        "v-red": "rgb(255 0 0)",
         "v-50": "rgba(0 0 0 0.5)",
 
         "v-dark-bg": "rgb(0 0 0)",

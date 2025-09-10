@@ -61,7 +61,7 @@ export default function KeyGroupForm() {
           setState={(val: any) => setState((prev) => ({ ...prev, value: val(prev.value) }))}
         />
       ) : null}
-      <Text className="!text-v-red">{err}</Text>
+      <Text className="err">{err}</Text>
     </KeyboardAvoidingView>
   );
 }
