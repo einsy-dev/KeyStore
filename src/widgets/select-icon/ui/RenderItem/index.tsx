@@ -10,7 +10,7 @@ export function RenderItem(selected: string, setSelected: any, size: number = 45
               onPress={() => {
                 if (el.name) setSelected(el.name);
               }}
-              background={TouchableNativeFeedback.Ripple("hsl(0,0, 50%)", false, size - 10)}
+              background={TouchableNativeFeedback.Ripple("hsl(0,0, 50%)", false, size - 15)}
             >
               <View
                 className={`aspect-square items-center justify-center rounded-full ${selected && selected === el.name ? "border !p-[4px]" : "p-[6px]"}`}

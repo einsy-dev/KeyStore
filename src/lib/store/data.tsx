@@ -28,9 +28,9 @@ export const dataSlice = createSlice({
       state.data[payload.id] = payload;
       Storage.updateGroup(payload);
     },
-    deleteGroup: (state: StateI, { payload }: { payload: GroupI }) => {
-      delete state.data[payload.id];
-      Storage.deleteGroup(payload.id);
+    deleteGroup: (state: StateI, { payload }: { payload: string }) => {
+      delete state.data[payload];
+      Storage.deleteGroup(payload);
     },
     // keys
     createKey: (state: StateI, { payload }: { payload: { groupId: string; key: Optinal<KeyI, "id"> } }) => {

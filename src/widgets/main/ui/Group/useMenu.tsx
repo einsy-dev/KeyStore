@@ -40,7 +40,7 @@ export function useMenu(groupId: string) {
             component: (
               <Confirm
                 onSubmit={() => {
-                  dispatch(deleteGroup({ groupId }));
+                  dispatch(deleteGroup(groupId));
                 }}
                 title="Delete grpup and all it`s keys?"
               />

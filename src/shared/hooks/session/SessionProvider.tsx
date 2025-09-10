@@ -1,19 +1,24 @@
+import { setMenu, setModal, setPopup } from "@/lib/store/app";
 import { delay } from "@/utils";
 import { signIn, signInBio } from "@/widgets/sign-in";
 import { useRouter } from "expo-router";
 import { ReactNode, useEffect, useState } from "react";
 import { AppState } from "react-native";
+import { useDispatch } from "react-redux";
 import { SessionContext } from "./context";
 
 export function SessionProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [state, setState] = useState<SessionStateI>({
     auth: { isBioAvailable: true, status: null, isAuth: false, isCanceled: false, autoLock: true }
   });
-
   useEffect(() => {
     const listener = AppState.addEventListener("change", (appState) => {
       if (appState !== "active" || !state.auth.autoLock) return;
+      dispatch(setModal({ active: false }));
+      dispatch(setPopup({ active: false }));
+      dispatch(setMenu({ active: false }));
       _signOut();
     });
     return () => {
