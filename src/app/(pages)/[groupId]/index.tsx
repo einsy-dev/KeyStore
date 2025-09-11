@@ -1,4 +1,4 @@
-import * as Icons from "@/assets/icons";
+import * as Icons from "@/assets/icons/user";
 import { setHeader } from "@/lib/store/app";
 import { createGroup, selectData, updateGroup } from "@/lib/store/data";
 import { KeyboardAvoidingView, TextInput } from "@/shared/ui";

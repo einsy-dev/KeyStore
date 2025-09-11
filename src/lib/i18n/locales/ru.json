@@ -1,1 +1,15 @@
-{}
+{
+  "contextMenu": {
+    "addGroup": "Add Group",
+    "settings": "Settings",
+    "addKey": "Add Key",
+    "edit": "Edit",
+    "delete": "Delete",
+    "share": "Share"
+  },
+  "main": {},
+  "settings": {},
+  "signIn": {},
+  "formGroup": {},
+  "formKey": {}
+}

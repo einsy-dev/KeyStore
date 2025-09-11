@@ -19,7 +19,3 @@ type KeyNameI = {
   hide: boolean;
 };
 type KeyValueI = KeyNameI;
-
-type Require<T, K extends keyof T> = T & Required<Pick<T, K>>;
-type Optinal<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
-//  function set<V extends keyof ConfigI>(key: V, value: ConfigI[V])

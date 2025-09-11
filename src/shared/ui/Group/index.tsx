@@ -1,4 +1,4 @@
-import * as Icons from "@/assets/icons";
+import * as Icons from "@/assets/icons/user";
 import { setMenu } from "@/lib/store/app";
 import { ReactNode } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
