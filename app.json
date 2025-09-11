@@ -43,7 +43,8 @@
           "faceIDPermission": "Allow $(PRODUCT_NAME) to access your Face ID biometric data."
         }
       ],
-      "expo-background-task"
+      "expo-background-task",
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true

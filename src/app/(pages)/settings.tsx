@@ -19,6 +19,7 @@ export default function Settings() {
         }}
       />
 
+      <Divider title="Apperance" />
       <View className="flex-row justify-between items-center">
         <Text className="text text-xl">Change Theme</Text>
         <Toggle
@@ -28,11 +29,9 @@ export default function Settings() {
           }}
         />
       </View>
+      <Divider title="Localization" />
 
-      <View className="border border-t-0 border-x-0">
-        <Text className="text text-2xl">Backup</Text>
-      </View>
-
+      <Divider title="Backup" />
       <Link title="Import Backup" cb={() => {}} />
       <Link title="Export Backup" cb={() => {}} />
       <Link title="Download Backup" cb={() => {}} />
@@ -40,6 +39,14 @@ export default function Settings() {
       <View className="mt-auto">
         <Text className="text text-center">{process.env.EXPO_PUBLIC_SECRET || "no env"}</Text>
       </View>
+    </View>
+  );
+}
+
+function Divider({ title }: { title: string }) {
+  return (
+    <View className="border border-t-0 border-x-0">
+      <Text className="text text-2xl">{title}</Text>
     </View>
   );
 }
