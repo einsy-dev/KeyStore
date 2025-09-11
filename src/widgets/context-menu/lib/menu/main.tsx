@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
 import { CirclePlus, Settings } from "lucide-react-native";
 
-export function useMenu() {
+export function useMainMenu() {
   const router = useRouter();
 
   return [

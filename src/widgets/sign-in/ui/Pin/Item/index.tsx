@@ -1,4 +1,4 @@
-import { useColor } from "@/hooks";
+import { useColor } from "@/hooks/useColor";
 import { ColorDecorator, OpacityDecorator, ScaleDecorator } from "@/shared/decorators";
 import { Circle } from "lucide-react-native";
 

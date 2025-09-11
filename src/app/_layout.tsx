@@ -1,10 +1,10 @@
 import "@/assets/css/global.css";
 import store from "@/lib/store";
 import { SessionProvider, useColor, useConfig, useSession } from "@/shared/hooks";
+import { ContextMenu } from "@/widgets/context-menu";
 import { Header } from "@/widgets/header";
-import { Menu } from "@/widgets/Menu";
-import { Modal } from "@/widgets/Modal";
-import { Popup } from "@/widgets/Popup";
+import { Modal } from "@/widgets/modal";
+import { Popup } from "@/widgets/popup";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -16,19 +16,19 @@ export default function Layout() {
   useConfig();
   return (
     <GestureHandlerRootView>
-      <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
-      <Provider store={store}>
-        <SessionProvider>
-          <SafeAreaProvider>
-            <SafeAreaView className="app flex-1">
+      <SafeAreaProvider>
+        <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
+        <Provider store={store}>
+          <SessionProvider>
+            <SafeAreaView className="app flex-1 relative">
               <Router />
+              <Popup />
             </SafeAreaView>
-          </SafeAreaProvider>
-          <Modal />
-          <Popup />
-          <Menu />
-        </SessionProvider>
-      </Provider>
+            <Modal />
+            <ContextMenu />
+          </SessionProvider>
+        </Provider>
+      </SafeAreaProvider>
     </GestureHandlerRootView>
   );
 }

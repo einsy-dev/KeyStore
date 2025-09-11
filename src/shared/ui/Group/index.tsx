@@ -4,9 +4,9 @@ import { ReactNode } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
 import { SizeDecorator } from "@/shared/decorators";
+import { useGroupMenu } from "@/widgets/context-menu";
 import { useSharedValue } from "react-native-reanimated";
 import { useDispatch } from "react-redux";
-import { useMenu } from "./useMenu";
 
 export function Group({
   groupId,
@@ -22,7 +22,7 @@ export function Group({
   drag: () => void;
 }) {
   const dispatch = useDispatch();
-  const menu = useMenu(groupId);
+  const menu = useGroupMenu(groupId);
   const active = useSharedValue<boolean>(false);
 
   function handleMenu() {

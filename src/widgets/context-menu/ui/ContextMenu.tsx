@@ -1,13 +1,13 @@
-import { useColor } from "@/hooks/useColor";
 import { useGoBack } from "@/hooks/useGoBack";
 import { selectMenu, setMenu } from "@/lib/store/app";
 import { OpacityDecorator, SlideDecorator } from "@/shared/decorators";
-import { Dimensions, Pressable, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, Pressable, View } from "react-native";
 
+import { delay } from "@/utils";
 import { useDispatch, useSelector } from "react-redux";
+import { ContextMenuItem } from "./ContextMenuItem";
 
-export function Menu() {
-  const { color } = useColor();
+export function ContextMenu() {
   const menu: MenuI = useSelector(selectMenu);
   const dispatch = useDispatch();
 
@@ -40,22 +40,15 @@ export function Menu() {
           <Pressable onPress={(e) => e.stopPropagation()}>
             <View className="card rounded-2xl gap-4 p-4 pb-6">
               {menu.menu?.map((el: any) => (
-                <TouchableOpacity
+                <ContextMenuItem
                   key={el.name}
-                  onPress={async () => {
+                  title={el.name}
+                  Icon={el.icon}
+                  onPress={() => {
                     dispatch(setMenu({ active: false }));
-                    setTimeout(() => {
-                      el.callback();
-                    }, 100);
+                    delay(el.callback, 100);
                   }}
-                >
-                  <View className="flex-row items-center gap-6">
-                    <View>
-                      <el.icon color={color} height={30} />
-                    </View>
-                    <Text className="text text-xl">{el.name}</Text>
-                  </View>
-                </TouchableOpacity>
+                />
               ))}
             </View>
           </Pressable>

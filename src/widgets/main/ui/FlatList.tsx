@@ -1,10 +1,10 @@
 import { selectListData, setData } from "@/lib/store/data";
+import { Group } from "@/shared/ui/Group";
+import { Key } from "@/shared/ui/Key";
 import { useCallback } from "react";
 import { View } from "react-native";
 import DragableFlatList, { RenderItemParams, ScaleDecorator } from "react-native-draggable-flatlist";
 import { useDispatch, useSelector } from "react-redux";
-import { Group } from "../Group";
-import { Key } from "../Key";
 
 export function FlatList() {
   const dispatch = useDispatch();

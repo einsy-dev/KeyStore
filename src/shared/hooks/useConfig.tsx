@@ -1,13 +1,13 @@
 import * as SecureStore from "expo-secure-store";
-import { useColorScheme } from "nativewind";
 import { useLayoutEffect, useState } from "react";
+import { useColor } from "./useColor";
 
 type ConfigI = {
   theme: "light" | "dark" | "system";
 };
 
 export function useConfig() {
-  const { colorScheme, setColorScheme } = useColorScheme();
+  const { colorScheme, setColorScheme } = useColor();
   const [config, setConfig] = useState<Partial<ConfigI>>(JSON.parse(SecureStore.getItem("config") || "{}"));
 
   useLayoutEffect(() => {

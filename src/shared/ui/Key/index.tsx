@@ -1,8 +1,8 @@
 import { setMenu } from "@/lib/store/app";
 import { copyText } from "@/utils";
+import { useKeyMenu } from "@/widgets/context-menu";
 import { Text, TouchableOpacity, View } from "react-native";
 import { useDispatch } from "react-redux";
-import { useKeyMenu } from "./useMenu";
 
 export function Key({ groupId, keyId, data }: { groupId: string; keyId: string; data: KeyNameI | KeyValueI }) {
   const dispatch = useDispatch();

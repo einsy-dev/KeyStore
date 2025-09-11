@@ -13,6 +13,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<SessionStateI>({
     auth: { isBioAvailable: true, status: null, isAuth: false, isCanceled: false, autoLock: true }
   });
+
   useEffect(() => {
     const listener = AppState.addEventListener("change", (appState) => {
       if (appState !== "active" || !state.auth.autoLock) return;

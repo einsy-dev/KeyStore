@@ -1,12 +1,13 @@
 import { setMenu } from "@/lib/store/app";
-import { FlatList, useMenu } from "@/widgets/main";
+import { useMainMenu } from "@/widgets/context-menu";
+import { FlatList } from "@/widgets/main";
 import React from "react";
 import { Pressable } from "react-native";
 import { useDispatch } from "react-redux";
 
 export default function Main() {
   const dispatch = useDispatch();
-  const menu = useMenu();
+  const menu = useMainMenu();
 
   return (
     <Pressable

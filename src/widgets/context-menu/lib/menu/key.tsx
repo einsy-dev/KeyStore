@@ -2,7 +2,7 @@ import { setModal } from "@/lib/store/app";
 import { deleteKey } from "@/lib/store/data";
 import { useSession } from "@/shared/hooks";
 import { delay, shareText } from "@/utils";
-import { Confirm } from "@/widgets/Modal/Confirm";
+import { Confirm } from "@/widgets/modal/ui/Confirm";
 import { useRouter } from "expo-router";
 import { Edit, Share, Trash } from "lucide-react-native";
 import { useDispatch } from "react-redux";

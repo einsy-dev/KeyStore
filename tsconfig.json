@@ -5,10 +5,13 @@
     "paths": {
       "@/": ["./src"],
       "@/*": ["./src/*"],
+
       "@/animations": ["./src/shared/animations"],
       "@/animations/*": ["./src/shared/animations/*"],
+
       "@/docarators": ["./src/shared/decorators"],
       "@/decorators/*": ["./src/shared/decorators/*"],
+
       "@/hooks": ["./src/shared/hooks"],
       "@/hooks/*": ["./src/shared/hooks/*"]
     }

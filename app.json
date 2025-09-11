@@ -44,7 +44,15 @@
         }
       ],
       "expo-background-task",
-      "expo-localization"
+      [
+        "expo-localization",
+        {
+          "supportedLocales": {
+            "ios": ["en", "de", "ru"],
+            "android": ["en", "de", "ru"]
+          }
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

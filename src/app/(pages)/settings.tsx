@@ -1,11 +1,10 @@
-import { useConfig, useSession } from "@/shared/hooks";
+import { useColor, useConfig, useSession } from "@/shared/hooks";
 import { Toggle } from "@/shared/ui";
 import * as SecureStore from "expo-secure-store";
-import { useColorScheme } from "nativewind";
 import { Pressable, Text, View } from "react-native";
 
 export default function Settings() {
-  const { colorScheme } = useColorScheme();
+  const { colorScheme } = useColor();
   const { signOut } = useSession();
   const { set } = useConfig();
 

@@ -3,7 +3,7 @@ import { setModal } from "@/lib/store/app";
 import { selectData, setData } from "@/lib/store/data";
 import { useSession } from "@/shared/hooks";
 import { readFile, saveFile, shareFile } from "@/utils";
-import { InputPassword } from "@/widgets/Modal/InputPass";
+import { InputPassword } from "@/widgets/modal";
 import { Download, File, Share } from "lucide-react-native";
 import { useDispatch, useSelector } from "react-redux";
 
