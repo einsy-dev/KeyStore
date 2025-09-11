@@ -8,8 +8,24 @@
     "share": "Share"
   },
   "main": {},
-  "settings": {},
+  "settings": {
+    "changePin": "Change Pin",
+    "apperance": "Apperance",
+    "theme": "Theme",
+    "localization": "Localization",
+    "backup": "Backup",
+    "importBackUp": "Import BackUp",
+    "exportBackUp": "Export BackUp",
+    "downloadBackUp": "Download BackUp"
+  },
   "signIn": {},
-  "formGroup": {},
-  "formKey": {}
+  "formGroup": {
+    "groupName": "Group name"
+  },
+  "formKey": {
+    "label": "Label",
+    "value": "Value",
+    "hide": "Hide",
+    "genPassword": "Generate password"
+  }
 }

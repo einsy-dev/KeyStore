@@ -1,15 +1,31 @@
 {
   "contextMenu": {
-    "addGroup": "Add Group",
-    "settings": "Settings",
-    "addKey": "Add Key",
-    "edit": "Edit",
-    "delete": "Delete",
-    "share": "Share"
+    "addGroup": "Создать группу",
+    "settings": "Настройки",
+    "addKey": "Добавить ключ",
+    "edit": "Редактировать",
+    "delete": "Удалить",
+    "share": "Поделиться"
   },
   "main": {},
-  "settings": {},
+  "settings": {
+    "changePin": "Сменить пароль",
+    "apperance": "Внешний вид",
+    "theme": "Тема",
+    "localization": "Локализация",
+    "backup": "Бэкап",
+    "importBackUp": "Импортировать бэкап",
+    "exportBackUp": "Экспортировать бэкап",
+    "downloadBackUp": "Скачать Бэкап"
+  },
   "signIn": {},
-  "formGroup": {},
-  "formKey": {}
+  "formGroup": {
+    "groupName": "Название группы"
+  },
+  "formKey": {
+    "label": "Лэйбэл",
+    "value": "Значение",
+    "hide": "Скрыть",
+    "genPassword": "Сгенерировать пароль"
+  }
 }

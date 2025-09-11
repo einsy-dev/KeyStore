@@ -1,4 +1,5 @@
 import * as Icons from "@/assets/icons/user";
+import { i18 } from "@/lib/i18n";
 import { setHeader } from "@/lib/store/app";
 import { createGroup, selectData, updateGroup } from "@/lib/store/data";
 import { KeyboardAvoidingView, TextInput } from "@/shared/ui";
@@ -54,7 +55,7 @@ export default function Form_Group() {
           <Icon width={45} height={45} />
         </View>
         <TextInput
-          label="Group Name"
+          label={i18("formGroup.groupName")}
           value={state.name || ""}
           onChangeText={(text) => setState((prev: any) => ({ ...prev, name: text }))}
         />

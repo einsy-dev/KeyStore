@@ -1,3 +1,4 @@
+import { i18 } from "@/lib/i18n";
 import { setHeader } from "@/lib/store/app";
 import { createKey, selectData, updateKey } from "@/lib/store/data";
 import { CheckBox, KeyboardAvoidingView, TextInput } from "@/shared/ui";
@@ -71,14 +72,14 @@ function FormElement({ state, setState }: { state: KeyNameI | KeyValueI; setStat
     <View className="gap-2">
       <View className="gap-4">
         <TextInput
-          label="Label"
+          label={i18("formKey.label")}
           value={state.label}
           onChangeText={(text) => setState((prev: KeyNameI | KeyValueI) => ({ ...prev, label: text }))}
           className="text text-lg"
         />
 
         <TextInput
-          label="Value"
+          label={i18("formKey.value")}
           value={state.value}
           onChangeText={(text) => setState((prev: KeyNameI | KeyValueI) => ({ ...prev, value: text }))}
           className="text-lg"
@@ -90,7 +91,7 @@ function FormElement({ state, setState }: { state: KeyNameI | KeyValueI; setStat
             setState((prev: KeyNameI | KeyValueI) => ({ ...prev, hide }));
           }}
         >
-          Hide
+          {i18("formKey.hide")}
         </CheckBox>
         <CheckBox
           onChange={async (gen) => {
@@ -107,7 +108,7 @@ function FormElement({ state, setState }: { state: KeyNameI | KeyValueI; setStat
             );
           }}
         >
-          GenPass
+          {i18("formKey.genPassword")}
         </CheckBox>
       </View>
     </View>

@@ -1,3 +1,4 @@
+import { i18 } from "@/lib/i18n";
 import { setModal } from "@/lib/store/app";
 import { deleteKey } from "@/lib/store/data";
 import { useSession } from "@/shared/hooks";
@@ -13,7 +14,7 @@ export function useKeyMenu(groupId: string, keyId: string, value: string) {
   const { call } = useSession();
   return [
     {
-      name: "Share",
+      name: i18("contextMenu.share"),
       icon: Share,
       callback: () => {
         delay(() => {
@@ -22,7 +23,7 @@ export function useKeyMenu(groupId: string, keyId: string, value: string) {
       }
     },
     {
-      name: "Edit",
+      name: i18("contextMenu.edit"),
       icon: Edit,
       callback: () => {
         delay(() => {
@@ -37,7 +38,7 @@ export function useKeyMenu(groupId: string, keyId: string, value: string) {
       }
     },
     {
-      name: "Delete",
+      name: i18("contextMenu.delete"),
       icon: Trash,
       callback: () => {
         dispatch(
