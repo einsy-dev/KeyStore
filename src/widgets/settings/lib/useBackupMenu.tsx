@@ -1,7 +1,7 @@
 import { decrypt, encrypt } from "@/lib/crypto";
+import { useSession } from "@/lib/providers";
 import { setModal } from "@/lib/store/app";
 import { selectData, setData } from "@/lib/store/data";
-import { useSession } from "@/shared/hooks";
 import { readFile, saveFile, shareFile } from "@/utils";
 import { InputPassword } from "@/widgets/modal";
 import { Download, File, Share } from "lucide-react-native";

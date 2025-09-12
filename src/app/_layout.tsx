@@ -1,6 +1,7 @@
 import "@/assets/css/global.css";
+import { ConfigProvider, SessionProvider, useSession } from "@/lib/providers";
 import store from "@/lib/store";
-import { SessionProvider, useColor, useConfig, useSession } from "@/shared/hooks";
+import { useColor } from "@/shared/hooks";
 import { ContextMenu } from "@/widgets/context-menu";
 import { Header } from "@/widgets/header";
 import { Modal } from "@/widgets/modal";
@@ -13,19 +14,20 @@ import { Provider } from "react-redux";
 
 export default function Layout() {
   const { colorScheme } = useColor();
-  useConfig();
   return (
     <GestureHandlerRootView>
       <SafeAreaProvider>
         <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
         <Provider store={store}>
           <SessionProvider>
-            <SafeAreaView className="app flex-1 relative">
-              <Router />
-              <Popup />
-            </SafeAreaView>
-            <Modal />
-            <ContextMenu />
+            <ConfigProvider>
+              <SafeAreaView className="app flex-1 relative">
+                <Router />
+                <Popup />
+              </SafeAreaView>
+              <Modal />
+              <ContextMenu />
+            </ConfigProvider>
           </SessionProvider>
         </Provider>
       </SafeAreaProvider>

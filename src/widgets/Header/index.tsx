@@ -5,6 +5,7 @@ import { Check, ChevronLeft } from "lucide-react-native";
 import { useEffect } from "react";
 import { Pressable, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { ChangeLanguage } from "../settings";
 
 export function Header() {
   const { color } = useColor();
@@ -18,6 +19,7 @@ export function Header() {
       dispatch(setHeader({}));
     };
   }, [dispatch, pathName]);
+  console.log(pathName);
 
   return (
     <View className="card flex-row justify-between items-center px-4">
@@ -28,7 +30,9 @@ export function Header() {
       </Pressable>
       <Pressable>
         <View className="p-2">
-          {header.onSubmit ? (
+          {pathName === "/settings" ? (
+            <ChangeLanguage />
+          ) : header.onSubmit ? (
             <Pressable onPress={header.onSubmit}>
               <Check color={color} size={30} />
             </Pressable>

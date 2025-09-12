@@ -1,5 +1,4 @@
-import { RefObject, useLayoutEffect } from "react";
-import { View } from "react-native";
+import { LayoutChangeEvent } from "react-native";
 import { useDerivedValue, useSharedValue, withTiming } from "react-native-reanimated";
 
 const defaultConfig: SizeConfigI = {
@@ -10,14 +9,16 @@ const defaultConfig: SizeConfigI = {
   durationOffHeight: undefined
 };
 
-export function useSize(ref: RefObject<View | null>, config: Partial<SizeConfigI> = {}) {
+export function useSize(config: Partial<SizeConfigI> = {}) {
   const { duration, durationOnHeight, durationOnWidth, durationOffHeight, durationOffWidth } = {
     ...defaultConfig,
     ...config
   };
   const status = useSharedValue(false);
+
   const height = useSharedValue(0);
   const width = useSharedValue(0);
+
   const derivedHeight = useDerivedValue(() =>
     withTiming(height.value * Number(status.value), {
       duration: status.value ? durationOnHeight || duration : durationOffHeight || duration
@@ -28,16 +29,14 @@ export function useSize(ref: RefObject<View | null>, config: Partial<SizeConfigI
       duration: status.value ? durationOnWidth || duration : durationOffWidth || duration
     })
   );
-  useLayoutEffect(() => {
-    if (!ref.current) return;
-    ref.current.measure((...m) => {
-      height.value = m[3];
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ref]);
+
+  function onLayout(e: LayoutChangeEvent): void {
+    height.value = e.nativeEvent.layout.height;
+    width.value = e.nativeEvent.layout.height;
+  }
 
   function startSize(active: boolean) {
     status.value = active;
   }
-  return { height: derivedHeight, width: derivedWidth, startSize };
+  return { onLayout, height: derivedHeight, width: derivedWidth, startSize };
 }

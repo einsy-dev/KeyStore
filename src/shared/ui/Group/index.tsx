@@ -1,11 +1,10 @@
 import * as Icons from "@/assets/icons/user";
 import { setMenu } from "@/lib/store/app";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
 import { SizeDecorator } from "@/shared/decorators";
 import { useGroupMenu } from "@/widgets/context-menu";
-import { useSharedValue } from "react-native-reanimated";
 import { useDispatch } from "react-redux";
 
 export function Group({
@@ -23,7 +22,7 @@ export function Group({
 }) {
   const dispatch = useDispatch();
   const menu = useGroupMenu(groupId);
-  const active = useSharedValue<boolean>(false);
+  const [active, setActive] = useState<boolean>(false);
 
   function handleMenu() {
     dispatch(
@@ -50,7 +49,7 @@ export function Group({
           </TouchableOpacity>
         </View>
         <View className="flex-1">
-          <TouchableOpacity onPress={() => (active.value = !active.value)} onLongPress={handleMenu} className="flex-1">
+          <TouchableOpacity onPress={() => setActive((prev) => !prev)} onLongPress={handleMenu} className="flex-1">
             <View className="flex-1 px-4 items-center justify-center">
               <Text className="text text-2xl w-full" numberOfLines={1} ellipsizeMode="clip">
                 {data.name}
@@ -59,7 +58,7 @@ export function Group({
           </TouchableOpacity>
         </View>
       </View>
-      <SizeDecorator active={active} key={groupId}>
+      <SizeDecorator active={active} className="w-full">
         {children && children}
       </SizeDecorator>
     </View>

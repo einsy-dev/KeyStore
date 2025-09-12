@@ -1,4 +1,4 @@
-import { useSession } from "@/hooks";
+import { useSession } from "@/lib/providers";
 import { delay } from "@/utils";
 import { Numpad, Pin } from "@/widgets/sign-in";
 import * as SecureStore from "expo-secure-store";

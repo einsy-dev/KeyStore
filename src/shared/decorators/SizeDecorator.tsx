@@ -1,13 +1,8 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { StyleSheet, View } from "react-native";
-import Animated, {
-  SharedValue,
-  useAnimatedStyle,
-  useDerivedValue,
-  useSharedValue,
-  withTiming
-} from "react-native-reanimated";
+import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import { ViewProps } from "react-native-svg/lib/typescript/fabric/utils";
+import { useSize } from "../animations";
 
 export function SizeDecorator({
   active,
@@ -15,31 +10,30 @@ export function SizeDecorator({
   config,
   style,
   keyView = "",
+  className = "",
+  contentContainerClassName = "",
   ...props
 }: {
-  active: SharedValue<boolean>;
+  active: boolean;
   children?: ReactNode;
   config?: Partial<SizeConfigI>;
+  contentContainerClassName?: string;
   keyView?: string;
 } & ViewProps) {
-  const h = useSharedValue(0);
-  const h2 = useDerivedValue(() => {
-    return withTiming(h.value * Number(active.value), { duration: 250 });
-  });
+  const { onLayout, height, startSize } = useSize(config);
+
+  useEffect(() => {
+    startSize(active);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active]);
 
   const sizeStyle = useAnimatedStyle(() => {
-    return { height: h2.value };
+    return { height: height.value };
   });
 
   return (
-    <Animated.View key={keyView} style={[styles.animatedView, sizeStyle, style]}>
-      <View
-        onLayout={(e) => {
-          h.value = e.nativeEvent.layout.height;
-        }}
-        style={[styles.container]}
-         {...props}
-      >
+    <Animated.View key={keyView} style={[styles.animatedView, sizeStyle, style]} className={className}>
+      <View onLayout={onLayout} style={[styles.container]} className={contentContainerClassName} {...props}>
         {children}
       </View>
     </Animated.View>
@@ -51,8 +45,6 @@ const styles = StyleSheet.create({
     overflow: "hidden"
   },
   container: {
-    position: "absolute",
-    width: "100%",
-    alignItems: "center"
+    position: "absolute"
   }
 });

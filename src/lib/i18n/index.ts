@@ -6,7 +6,7 @@ import ru from "./locales/ru.json";
 
 export const deviceLanguage = getLocales()?.[0]?.languageCode ?? "en";
 
-const i18n = new I18n({
+export const i18n = new I18n({
   en,
   ru,
   de
@@ -17,8 +17,4 @@ i18n.locale = deviceLanguage;
 
 export function i18(key: Paths<typeof en> & Paths<typeof ru> & Paths<typeof de>, options?: TranslateOptions) {
   return i18n.t(key, options);
-}
-
-export function changeLanguage(lang: string) {
-  i18n.locale = lang;
 }
