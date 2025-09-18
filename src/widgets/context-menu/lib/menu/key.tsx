@@ -1,5 +1,4 @@
-import { i18 } from "@/lib/i18n";
-import { useSession } from "@/lib/providers";
+import { useConfig, useSession } from "@/lib/providers";
 import { setModal } from "@/lib/store/app";
 import { deleteKey } from "@/lib/store/data";
 import { delay, shareText } from "@/utils";
@@ -12,9 +11,10 @@ export function useKeyMenu(groupId: string, keyId: string, value: string) {
   const dispatch = useDispatch();
   const router = useRouter();
   const { call } = useSession();
+  const { t } = useConfig();
   return [
     {
-      name: i18("contextMenu.share"),
+      name: t("contextMenu.share"),
       icon: Share,
       callback: () => {
         delay(() => {
@@ -23,7 +23,7 @@ export function useKeyMenu(groupId: string, keyId: string, value: string) {
       }
     },
     {
-      name: i18("contextMenu.edit"),
+      name: t("contextMenu.edit"),
       icon: Edit,
       callback: () => {
         delay(() => {
@@ -38,7 +38,7 @@ export function useKeyMenu(groupId: string, keyId: string, value: string) {
       }
     },
     {
-      name: i18("contextMenu.delete"),
+      name: t("contextMenu.delete"),
       icon: Trash,
       callback: () => {
         dispatch(

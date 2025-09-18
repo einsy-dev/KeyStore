@@ -58,7 +58,7 @@ export function Group({
           </TouchableOpacity>
         </View>
       </View>
-      <SizeDecorator active={active} className="w-full">
+      <SizeDecorator active={active} contentContainerClassName="w-full">
         {children && children}
       </SizeDecorator>
     </View>

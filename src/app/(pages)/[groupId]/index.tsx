@@ -1,5 +1,5 @@
 import * as Icons from "@/assets/icons/user";
-import { i18 } from "@/lib/i18n";
+import { useConfig } from "@/lib/providers";
 import { setHeader } from "@/lib/store/app";
 import { createGroup, selectData, updateGroup } from "@/lib/store/data";
 import { KeyboardAvoidingView, TextInput } from "@/shared/ui";
@@ -15,6 +15,7 @@ export default function Form_Group() {
   const [state, setState] = useState<Optinal<GroupI, "id">>(
     groupId === "new" ? { name: "", icon: "", keys: {} } : (data[groupId] as GroupI)
   );
+  const { t } = useConfig();
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -55,7 +56,7 @@ export default function Form_Group() {
           <Icon width={45} height={45} />
         </View>
         <TextInput
-          label={i18("formGroup.groupName")}
+          label={t("formGroup.groupName")}
           value={state.name || ""}
           onChangeText={(text) => setState((prev: any) => ({ ...prev, name: text }))}
         />

@@ -1,20 +1,20 @@
-import { i18 } from "@/lib/i18n";
+import { useConfig } from "@/lib/providers";
 import { useRouter } from "expo-router";
 import { CirclePlus, Settings } from "lucide-react-native";
 
 export function useMainMenu() {
   const router = useRouter();
-
+  const { t } = useConfig();
   return [
     {
-      name: i18("contextMenu.addGroup"),
+      name: t("contextMenu.addGroup"),
       icon: CirclePlus,
       callback: () => {
         router.push({ pathname: "/(pages)/[groupId]", params: { groupId: "new" } });
       }
     },
     {
-      name: i18("contextMenu.settings"),
+      name: t("contextMenu.settings"),
       icon: Settings,
       callback: () => {
         router.push("/(pages)/settings");

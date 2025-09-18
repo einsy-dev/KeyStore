@@ -22,7 +22,6 @@ export function Modal() {
       return false;
     }
   });
-
   if (modal.active) {
     return (
       <TouchableWithoutFeedback
@@ -30,9 +29,9 @@ export function Modal() {
           dispatch(setModal({ active: false }));
         }}
       >
-        <View className="absolute inset-0 w-full p-8 bg-v-50">
+        <View className="absolute inset-0 w-full p-8 bg-v-50 items-center justify-center">
           <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
-            {modal.component || <View />}
+            <View>{modal.component}</View>
           </TouchableWithoutFeedback>
         </View>
       </TouchableWithoutFeedback>

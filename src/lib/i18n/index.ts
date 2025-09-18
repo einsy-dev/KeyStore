@@ -1,5 +1,5 @@
 import { getLocales } from "expo-localization";
-import { I18n, TranslateOptions } from "i18n-js";
+import { I18n } from "i18n-js";
 import de from "./locales/de.json";
 import en from "./locales/en.json";
 import ru from "./locales/ru.json";
@@ -15,6 +15,4 @@ export const i18n = new I18n({
 i18n.defaultLocale = deviceLanguage;
 i18n.locale = deviceLanguage;
 
-export function i18(key: Paths<typeof en> & Paths<typeof ru> & Paths<typeof de>, options?: TranslateOptions) {
-  return i18n.t(key, options);
-}
+export type LangKeyType = Paths<typeof en> & Paths<typeof ru> & Paths<typeof de>;

@@ -19,7 +19,6 @@ export function Header() {
       dispatch(setHeader({}));
     };
   }, [dispatch, pathName]);
-  console.log(pathName);
 
   return (
     <View className="card flex-row justify-between items-center px-4">

@@ -1,4 +1,4 @@
-import { i18 } from "@/lib/i18n";
+import { useConfig } from "@/lib/providers";
 import { setHeader } from "@/lib/store/app";
 import { createKey, selectData, updateKey } from "@/lib/store/data";
 import { CheckBox, KeyboardAvoidingView, TextInput } from "@/shared/ui";
@@ -22,6 +22,7 @@ const defaultKey: KeyNameI | KeyValueI = {
 export default function KeyGroupForm() {
   const router = useRouter();
   const dispatch = useDispatch();
+  const { t } = useConfig();
   const { groupId, keyId } = useLocalSearchParams<LocalSearchParamI>();
   const data = useSelector(selectData);
   const [state, setState] = useState<Optinal<KeyI, "id">>(
@@ -68,18 +69,19 @@ export default function KeyGroupForm() {
 }
 
 function FormElement({ state, setState }: { state: KeyNameI | KeyValueI; setState: SetStateAction<any> }) {
+  const { t } = useConfig();
   return (
     <View className="gap-2">
       <View className="gap-4">
         <TextInput
-          label={i18("formKey.label")}
+          label={t("formKey.label")}
           value={state.label}
           onChangeText={(text) => setState((prev: KeyNameI | KeyValueI) => ({ ...prev, label: text }))}
-          className="text text-lg"
+          className="text text-lg w-full"
         />
 
         <TextInput
-          label={i18("formKey.value")}
+          label={t("formKey.value")}
           value={state.value}
           onChangeText={(text) => setState((prev: KeyNameI | KeyValueI) => ({ ...prev, value: text }))}
           className="text-lg"
@@ -91,7 +93,7 @@ function FormElement({ state, setState }: { state: KeyNameI | KeyValueI; setStat
             setState((prev: KeyNameI | KeyValueI) => ({ ...prev, hide }));
           }}
         >
-          {i18("formKey.hide")}
+          {t("formKey.hide")}
         </CheckBox>
         <CheckBox
           onChange={async (gen) => {
@@ -108,7 +110,7 @@ function FormElement({ state, setState }: { state: KeyNameI | KeyValueI; setStat
             );
           }}
         >
-          {i18("formKey.genPassword")}
+          {t("formKey.genPassword")}
         </CheckBox>
       </View>
     </View>

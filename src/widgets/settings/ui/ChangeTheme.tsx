@@ -1,14 +1,50 @@
-import { i18 } from "@/lib/i18n";
 import { useConfig } from "@/lib/providers";
-import { Text, View } from "react-native";
+import { setModal } from "@/lib/store/app";
+import { useColor } from "@/shared/hooks";
+import { Circle, CircleSmall } from "lucide-react-native";
+
+import { Pressable, Text, View } from "react-native";
+import { useDispatch } from "react-redux";
 
 // dispatch modal
 export function ChangeTheme() {
-  const { setConfig, theme } = useConfig();
+  const { t } = useConfig();
+  const dispatch = useDispatch();
+  function handlePress() {
+    dispatch(setModal({ active: true, component: <ThemeModal /> }));
+  }
 
   return (
     <View className="">
-      <Text className="text text-xl">{i18("settings.apperance")}</Text>
+      <Pressable onPress={handlePress}>
+        <Text className="text text-xl">{t("settings.apperance")}</Text>
+      </Pressable>
+    </View>
+  );
+}
+
+function ThemeModal() {
+  const { theme, setConfig } = useConfig();
+  const { color } = useColor();
+  return (
+    <View className="card p-4 w-5/6 rounded gap-4">
+      {["system", "light", "dark"].map((th) => (
+        <Pressable key={th} onPress={() => setConfig("theme", th as any)}>
+          <View className="flex-row h-[30px] items-center">
+            <Text className="text text-xl w-5/6 ">{th}</Text>
+            <View className="relative -top-1/2 w-1/6">
+              <View className="absolute">
+                <Circle size={30} stroke={color} />
+              </View>
+              {theme === th && (
+                <View className="absolute ">
+                  <CircleSmall size={30} fill={color} stroke={color} />
+                </View>
+              )}
+            </View>
+          </View>
+        </Pressable>
+      ))}
     </View>
   );
 }

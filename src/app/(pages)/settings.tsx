@@ -1,16 +1,16 @@
-import { i18 } from "@/lib/i18n";
-import { useSession } from "@/lib/providers";
-import { ChangeTheme, Divider, Link } from "@/widgets/settings";
+import { useConfig, useSession } from "@/lib/providers";
+import { Backup, ChangeTheme, Divider, Link } from "@/widgets/settings";
 import * as SecureStore from "expo-secure-store";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
 export default function Settings() {
   const { signOut } = useSession();
+  const { t } = useConfig();
 
   return (
     <View className="flex-1 app p-4 gap-4">
       <Link
-        title={i18("settings.changePin")}
+        title={t("settings.changePin")}
         cb={() => {
           SecureStore.setItem("pin", "");
           signOut();
@@ -19,15 +19,8 @@ export default function Settings() {
 
       <ChangeTheme />
 
-      <Divider title={i18("settings.backup")} />
-
-      <Link title={i18("settings.importBackUp")} cb={() => {}} />
-      <Link title={i18("settings.exportBackUp")} cb={() => {}} />
-      <Link title={i18("settings.downloadBackUp")} cb={() => {}} />
-
-      <View className="mt-auto">
-        <Text className="text text-center">{process.env.EXPO_PUBLIC_SECRET || "no env"}</Text>
-      </View>
+      <Divider title={t("settings.backup")} />
+      <Backup />
     </View>
   );
 }

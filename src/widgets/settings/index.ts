@@ -1,3 +1,4 @@
+export { Backup } from "./ui/BackUp";
 export { ChangeLanguage } from "./ui/ChangeLanguage";
 export { ChangeTheme } from "./ui/ChangeTheme";
 export { Divider } from "./ui/Divider";
