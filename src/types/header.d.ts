@@ -1,4 +1,7 @@
 interface HeaderI {
+  active?: boolean;
   title?: string;
-  onSubmit?: (() => void) | null;
+  onBack?: () => void;
+  onSubmit?: () => void;
+  onMenu?: () => void;
 }

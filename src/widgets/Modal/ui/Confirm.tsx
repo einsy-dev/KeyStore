@@ -12,27 +12,25 @@ interface ConfirmI {
 export function Confirm({ title, onSubmit, onReject = () => "" }: ConfirmI) {
   const dispatch = useDispatch();
   return (
-    <View className="flex-1 justify-center">
-      <View className="card rounded-xl p-4 gap-2">
-        <Text className="text text-2xl text-center mb-4">{title}</Text>
-        <View className="flex-row justify-evenly gap-4">
-          <Button
-            onPress={async () => {
-              await onReject();
-              dispatch(setModal({ active: false }));
-            }}
-          >
-            Cancel
-          </Button>
-          <Button
-            onPress={async () => {
-              await onSubmit();
-              dispatch(setModal({ active: false }));
-            }}
-          >
-            Confirm
-          </Button>
-        </View>
+    <View className="card rounded-xl p-4 gap-2">
+      <Text className="text text-2xl text-center mb-4">{title}</Text>
+      <View className="flex-row justify-evenly gap-4">
+        <Button
+          onPress={async () => {
+            await onReject();
+            dispatch(setModal({ active: false }));
+          }}
+        >
+          Cancel
+        </Button>
+        <Button
+          onPress={async () => {
+            await onSubmit();
+            dispatch(setModal({ active: false }));
+          }}
+        >
+          Confirm
+        </Button>
       </View>
     </View>
   );

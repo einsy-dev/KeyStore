@@ -27,17 +27,17 @@ function ThemeModal() {
   const { theme, setConfig } = useConfig();
   const { color } = useColor();
   return (
-    <View className="card p-4 w-5/6 rounded gap-4">
+    <View className="card p-4 w-5/6 rounded gap-4 self-center">
       {["system", "light", "dark"].map((th) => (
         <Pressable key={th} onPress={() => setConfig("theme", th as any)}>
           <View className="flex-row h-[30px] items-center">
-            <Text className="text text-xl w-5/6 ">{th}</Text>
-            <View className="relative -top-1/2 w-1/6">
-              <View className="absolute">
+            <Text className="text text-xl flex-1">{th}</Text>
+            <View className="relative h-full w-[30px]">
+              <View className="absolute right-0">
                 <Circle size={30} stroke={color} />
               </View>
               {theme === th && (
-                <View className="absolute ">
+                <View className="absolute right-0">
                   <CircleSmall size={30} fill={color} stroke={color} />
                 </View>
               )}

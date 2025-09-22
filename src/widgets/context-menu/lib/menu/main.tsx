@@ -1,10 +1,11 @@
 import { useConfig } from "@/lib/providers";
 import { useRouter } from "expo-router";
-import { CirclePlus, Settings } from "lucide-react-native";
+import { CirclePlus, Edit, Settings } from "lucide-react-native";
 
 export function useMainMenu() {
   const router = useRouter();
   const { t } = useConfig();
+
   return [
     {
       name: t("contextMenu.addGroup"),
@@ -18,6 +19,13 @@ export function useMainMenu() {
       icon: Settings,
       callback: () => {
         router.push("/(pages)/settings");
+      }
+    },
+    {
+      name: "Edit",
+      icon: Edit,
+      callback: () => {
+        router.setParams({ status: "edit" });
       }
     }
   ];

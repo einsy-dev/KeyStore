@@ -8,6 +8,7 @@ import { Modal } from "@/widgets/modal";
 import { Popup } from "@/widgets/popup";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { ReactNode } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
@@ -15,35 +16,29 @@ import { Provider } from "react-redux";
 export default function Layout() {
   const { colorScheme } = useColor();
   return (
-    <GestureHandlerRootView>
-      <SafeAreaProvider>
-        <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
-        <Provider store={store}>
-          <SessionProvider>
-            <ConfigProvider>
-              <SafeAreaView className="app flex-1 relative">
-                <Router />
-                <Popup />
-              </SafeAreaView>
-              <Modal />
-              <ContextMenu />
-            </ConfigProvider>
-          </SessionProvider>
-        </Provider>
-      </SafeAreaProvider>
-    </GestureHandlerRootView>
+    <Providers>
+      <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
+      <SafeAreaView className="app flex-1 relative">
+        <Router />
+        <Popup />
+      </SafeAreaView>
+      <Modal />
+      <ContextMenu />
+    </Providers>
   );
 }
 
 function Router() {
   const { isAuth } = useSession();
   return (
-    <Stack screenOptions={{ header: () => <Header /> }}>
+    <Stack screenOptions={{ header: () => <Header />, animation: "fade" }}>
       <Stack.Protected guard={isAuth}>
-        <Stack.Screen name="(pages)/main" options={{ headerShown: false }} />
-        <Stack.Screen name="(pages)/settings" />
+        <Stack.Screen name="(pages)/main" />
+        <Stack.Screen name="modal/mainEdit" options={{ presentation: "modal" }} />
+
         <Stack.Screen name="(pages)/[groupId]/index" />
         <Stack.Screen name="(pages)/[groupId]/[keyId]" />
+        <Stack.Screen name="(pages)/settings" />
       </Stack.Protected>
 
       <Stack.Protected guard={!isAuth}>
@@ -51,5 +46,19 @@ function Router() {
         <Stack.Screen name="(pages)/sign-in" options={{ headerShown: false }} />
       </Stack.Protected>
     </Stack>
+  );
+}
+
+function Providers({ children }: { children: ReactNode }) {
+  return (
+    <Provider store={store}>
+      <ConfigProvider>
+        <SessionProvider>
+          <SafeAreaProvider>
+            <GestureHandlerRootView>{children}</GestureHandlerRootView>
+          </SafeAreaProvider>
+        </SessionProvider>
+      </ConfigProvider>
+    </Provider>
   );
 }

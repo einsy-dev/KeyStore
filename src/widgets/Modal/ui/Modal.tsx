@@ -22,16 +22,21 @@ export function Modal() {
       return false;
     }
   });
-  if (modal.active) {
+
+  if (modal.active && modal.component) {
     return (
       <TouchableWithoutFeedback
         onPress={() => {
           dispatch(setModal({ active: false }));
         }}
       >
-        <View className="absolute inset-0 w-full p-8 bg-v-50 items-center justify-center">
-          <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
-            <View>{modal.component}</View>
+        <View className="absolute inset-0 items-center justify-center p-8 bg-v-50">
+          <TouchableWithoutFeedback
+            onPress={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <View className="w-full">{modal.component}</View>
           </TouchableWithoutFeedback>
         </View>
       </TouchableWithoutFeedback>

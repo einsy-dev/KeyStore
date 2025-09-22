@@ -1,2 +1,2 @@
-export { FlatList } from "./ui/FlatList";
+export { GroupList } from "./ui/GroupList";
 

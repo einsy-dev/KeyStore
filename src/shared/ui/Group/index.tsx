@@ -1,29 +1,28 @@
 import * as Icons from "@/assets/icons/user";
 import { setMenu } from "@/lib/store/app";
 import { ReactNode, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableNativeFeedback, TouchableOpacity, View } from "react-native";
 
 import { SizeDecorator } from "@/shared/decorators";
 import { useGroupMenu } from "@/widgets/context-menu";
 import { useDispatch } from "react-redux";
 
 export function Group({
-  groupId,
   data,
+  edit = false,
   children,
   className = "",
-  drag
+  drag = () => null
 }: {
-  groupId: string;
   data: GroupI;
+  edit?: boolean;
   children?: ReactNode;
   className?: string;
-  drag: () => void;
+  drag?: () => void;
 }) {
   const dispatch = useDispatch();
-  const menu = useGroupMenu(groupId);
-  const [active, setActive] = useState<boolean>(false);
-
+  const menu = useGroupMenu(data.id ?? null);
+  const [active, setActive] = useState(false);
   function handleMenu() {
     dispatch(
       setMenu({
@@ -32,34 +31,27 @@ export function Group({
       })
     );
   }
-
   const Icon: IconI = (Icons as any)[data.icon];
   return (
     <View className={`card rounded ${className}`}>
-      <View className="flex-row">
-        <View className="items-center justify-center">
-          <TouchableOpacity
-            onPressIn={() => {
-              drag();
-            }}
-          >
-            <View className="p-3">
-              <Icon width={30} height={30} />
+      <TouchableOpacity onPress={() => setActive((prev) => !prev)} onLongPress={handleMenu} disabled={edit}>
+        <View className="flex-row">
+          <TouchableNativeFeedback onPressIn={() => edit && drag()}>
+            <View className="items-center justify-center p-2">
+              <Icon width={40} height={40} />
             </View>
-          </TouchableOpacity>
-        </View>
-        <View className="flex-1">
-          <TouchableOpacity onPress={() => setActive((prev) => !prev)} onLongPress={handleMenu} className="flex-1">
+          </TouchableNativeFeedback>
+          <View className="flex-1 justify-center">
             <View className="flex-1 px-4 items-center justify-center">
               <Text className="text text-2xl w-full" numberOfLines={1} ellipsizeMode="clip">
                 {data.name}
               </Text>
             </View>
-          </TouchableOpacity>
+          </View>
         </View>
-      </View>
-      <SizeDecorator active={active} contentContainerClassName="w-full">
-        {children && children}
+      </TouchableOpacity>
+      <SizeDecorator active={Boolean(active && children)} contentContainerClassName="w-full">
+        <View className="gap-2 p-2">{children}</View>
       </SizeDecorator>
     </View>
   );

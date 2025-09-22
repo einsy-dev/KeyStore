@@ -7,12 +7,13 @@ import { useRouter } from "expo-router";
 import { Edit, Share, Trash } from "lucide-react-native";
 import { useDispatch } from "react-redux";
 
-export function useKeyMenu(groupId: string, keyId: string, value: string) {
+export function useKeyMenu(groupId: string, key: KeyI) {
   const dispatch = useDispatch();
   const router = useRouter();
   const { call } = useSession();
   const { t } = useConfig();
-  return [
+
+  return (value: string) => [
     {
       name: t("contextMenu.share"),
       icon: Share,
@@ -31,7 +32,7 @@ export function useKeyMenu(groupId: string, keyId: string, value: string) {
             pathname: "/(pages)/[groupId]/[keyId]",
             params: {
               groupId,
-              keyId
+              keyId: key.id
             }
           });
         });
@@ -49,7 +50,7 @@ export function useKeyMenu(groupId: string, keyId: string, value: string) {
                   dispatch(
                     deleteKey({
                       groupId,
-                      keyId
+                      keyId: key.id
                     })
                   );
                 }}

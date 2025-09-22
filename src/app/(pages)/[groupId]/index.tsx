@@ -3,14 +3,17 @@ import { useConfig } from "@/lib/providers";
 import { setHeader } from "@/lib/store/app";
 import { createGroup, selectData, updateGroup } from "@/lib/store/data";
 import { KeyboardAvoidingView, TextInput } from "@/shared/ui";
-import { parseIcons, RenderItem } from "@/widgets/select-icon";
-import { useFocusEffect, useGlobalSearchParams, useRouter } from "expo-router";
+import { Key } from "@/shared/ui/Key";
+import { useFocusEffect } from "@react-navigation/native";
+import { useGlobalSearchParams, useRouter } from "expo-router";
+import { GripVertical } from "lucide-react-native";
 import { useEffect, useState } from "react";
-import { FlatList, View } from "react-native";
+import { Pressable, View } from "react-native";
+import DraggableFlatList from "react-native-draggable-flatlist";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Form_Group() {
-  const data = useSelector(selectData);
+  const data: { [id: string]: GroupI } = useSelector(selectData);
   const { groupId, icon } = useGlobalSearchParams<{ groupId: string; icon: string }>();
   const [state, setState] = useState<Optinal<GroupI, "id">>(
     groupId === "new" ? { name: "", icon: "", keys: {} } : (data[groupId] as GroupI)
@@ -19,38 +22,31 @@ export default function Form_Group() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  useFocusEffect(() => {
-    dispatch(
-      setHeader({
-        title: "IconsSelect",
-        onSubmit: saveGroup
-      })
-    );
-    function saveGroup() {
-      if (!state.name || !state.icon) return;
-      dispatch((groupId === "new" ? createGroup : updateGroup)(state as GroupI));
-      router.dismiss();
-    }
-  });
-
   useEffect(() => {
     if (icon) {
       setState((prev) => ({ ...prev, icon }));
     }
   }, [state, icon, dispatch, groupId, router]);
 
+  useFocusEffect(() => {
+    dispatch(
+      setHeader({
+        active: true,
+        onBack: () => {
+          router.back();
+        },
+        onSubmit: () => {
+          if (!state.name || !state.icon) return;
+          dispatch((groupId === "new" ? createGroup : updateGroup)(state as GroupI));
+          router.dismiss();
+        }
+      })
+    );
+  });
+
   const Icon = (Icons as { [key: string]: any })[state.icon || "Airbnb"];
   return (
-    <KeyboardAvoidingView className="app flex-1 p-8 gap-2">
-      <View className="card h-[270px] rounded-xl p-2">
-        <FlatList
-          data={parseIcons(Icons, 6)}
-          keyExtractor={(item: { name: string; Icon: IconI }[]) => item[0].name}
-          renderItem={RenderItem(state.icon, (newIcon: string) => setState((prev) => ({ ...prev, icon: newIcon })), 40)}
-          extraData={state.icon}
-          showsVerticalScrollIndicator={false}
-        />
-      </View>
+    <KeyboardAvoidingView className="app flex-1 px-4 gap-2">
       <View className=" gap-2 flex-row items-center justify-center">
         <View className="">
           <Icon width={45} height={45} />
@@ -61,6 +57,37 @@ export default function Form_Group() {
           onChangeText={(text) => setState((prev: any) => ({ ...prev, name: text }))}
         />
       </View>
+
+      {Object.keys(state.keys).length ? (
+        <View className="card px-2 pt-2 rounded">
+          <DraggableFlatList
+            data={Object.keys(state.keys).map((id) => ({ ...state.keys[id] }))}
+            keyExtractor={(item: KeyI, index: number) => `dragable_list-${item.id}-${index} `}
+            renderItem={({ item, drag }: { item: KeyI; drag: () => void }) => {
+              return (
+                <View className="mb-2 flex-row items-center justify-center">
+                  <Pressable onPressIn={drag}>
+                    <GripVertical width={30} height={30} />
+                  </Pressable>
+                  <Key groupId={groupId} data={data[groupId].keys[item.id]} />
+                </View>
+              );
+            }}
+            onDragEnd={({ data }) => {
+              setState((prev) => ({
+                ...prev,
+                keys: data.reduce(
+                  (acc, el) => {
+                    acc[el.id] = el;
+                    return acc;
+                  },
+                  {} as { [id: string]: KeyI }
+                )
+              }));
+            }}
+          />
+        </View>
+      ) : null}
     </KeyboardAvoidingView>
   );
 }

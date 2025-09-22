@@ -4,39 +4,48 @@ import { useKeyMenu } from "@/widgets/context-menu";
 import { Text, TouchableOpacity, View } from "react-native";
 import { useDispatch } from "react-redux";
 
-export function Key({ groupId, keyId, data }: { groupId: string; keyId: string; data: KeyNameI | KeyValueI }) {
+export function Key({ groupId, data }: { groupId: string; data: KeyI }) {
+  const menu = useKeyMenu(groupId, data);
   const dispatch = useDispatch();
-  const menu = useKeyMenu(groupId, keyId, data.value);
 
-  function handlePress() {
-    copyText(data.value);
+  function handleLongPress(value: string) {
+    dispatch(setMenu({ active: true, menu: menu(value) }));
   }
 
-  function handleLongPress() {
-    dispatch(
-      setMenu({
-        active: true,
-        menu
-      })
-    );
-  }
+  return (
+    <View key={data.id} className="flex-row flex-1 gap-2">
+      <KeyItem
+        data={data.name}
+        onPress={() => copyText(data.name.value)}
+        onLongPress={() => handleLongPress(data.name.value)}
+      />
+      <KeyItem
+        data={data.value}
+        onPress={() => copyText(data.value.value)}
+        onLongPress={() => handleLongPress(data.name.value)}
+      />
+    </View>
+  );
+}
 
+function KeyItem({
+  data,
+  onPress,
+  onLongPress
+}: {
+  data: KeyNameI | KeyValueI;
+  onPress?: () => void;
+  onLongPress?: () => void;
+}) {
   if (!data.value) return null;
   return (
-    <TouchableOpacity
-      onPress={handlePress}
-      onLongPress={() => {
-        handleLongPress();
-      }}
-      delayPressOut={100}
-      className="flex-1"
-    >
+    <TouchableOpacity onPress={onPress} onLongPress={onLongPress} delayPressOut={100} className="flex-1">
       <View className="app rounded relative px-4 py-2">
-        <Text className={`text text-xl ${data.hide ? "top-1" : ""}`} numberOfLines={1}>
+        <Text className={`text text-xl }`} numberOfLines={1}>
           {data.hide ? "*".repeat(data.value.length) : data.value}
         </Text>
         {data.label ? (
-          <Text className="text text-sm absolute left-1 -top-[4px] px-1 " numberOfLines={1}>
+          <Text className="text text-sm absolute left-1 -top-[4px] px-1" numberOfLines={1}>
             {data.label}
           </Text>
         ) : null}

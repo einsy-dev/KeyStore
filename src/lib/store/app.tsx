@@ -16,8 +16,11 @@ const defaultPopup: PopupI = {
   position: "center"
 };
 const defaultHeader: HeaderI = {
+  active: false,
   title: "",
-  onSubmit: null
+  onBack: undefined,
+  onSubmit: undefined,
+  onMenu: undefined
 };
 
 export const appSlice = createSlice({
@@ -46,15 +49,15 @@ export const appSlice = createSlice({
 
 export const { setModal, setMenu, setPopup, setHeader } = appSlice.actions;
 
-export const selectModal = (state: { app: { modal: ModalI } }) => {
+export const selectModal = (state: { app: { modal: Required<ModalI> } }) => {
   return state.app.modal;
 };
-export const selectMenu = (state: { app: { menu: MenuI } }) => {
+export const selectMenu = (state: { app: { menu: Required<MenuI> } }) => {
   return state.app.menu;
 };
-export const selectPopup = (state: { app: { popup: PopupI } }) => {
+export const selectPopup = (state: { app: { popup: Required<PopupI> } }) => {
   return state.app.popup;
 };
-export const selectHeader = (state: { app: { header: HeaderI } }) => {
+export const selectHeader = (state: { app: { header: Required<HeaderI> } }) => {
   return state.app.header;
 };
