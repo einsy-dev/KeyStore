@@ -5,19 +5,19 @@ import { useCallback } from "react";
 import DragableFlatList, { RenderItemParams } from "react-native-draggable-flatlist";
 import { useDispatch, useSelector } from "react-redux";
 
-export function GroupList({ edit = false }: { edit: boolean }) {
+export function GroupList() {
   const data = useSelector(selectListData);
   const dispatch = useDispatch();
 
   const renderItem = useCallback(
     ({ item, drag }: RenderItemParams<GroupI>) => (
-      <Group data={item} drag={drag} edit={edit} className="mb-2">
+      <Group data={item} drag={drag} className="mb-2">
         {Object.keys(item.keys).length
           ? Object.keys(item.keys).map((keyId: string) => <Key key={keyId} groupId={item.id} data={item.keys[keyId]} />)
           : null}
       </Group>
     ),
-    [edit]
+    []
   );
 
   return (

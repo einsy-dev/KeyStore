@@ -59,7 +59,7 @@ export default function Form_Group() {
       </View>
 
       {Object.keys(state.keys).length ? (
-        <View className="card px-2 pt-2 rounded">
+        <View className="card pe-2 pt-2 rounded">
           <DraggableFlatList
             data={Object.keys(state.keys).map((id) => ({ ...state.keys[id] }))}
             keyExtractor={(item: KeyI, index: number) => `dragable_list-${item.id}-${index} `}
@@ -69,7 +69,14 @@ export default function Form_Group() {
                   <Pressable onPressIn={drag}>
                     <GripVertical width={30} height={30} />
                   </Pressable>
-                  <Key groupId={groupId} data={data[groupId].keys[item.id]} />
+                  <Key
+                    groupId={groupId}
+                    data={data[groupId].keys[item.id]}
+                    onPress={() =>
+                      router.push({ pathname: "/(pages)/[groupId]/[keyId]", params: { groupId, keyId: item.id } })
+                    }
+                    onLongPress={() => null}
+                  />
                 </View>
               );
             }}

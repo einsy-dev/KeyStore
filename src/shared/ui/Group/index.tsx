@@ -9,13 +9,11 @@ import { useDispatch } from "react-redux";
 
 export function Group({
   data,
-  edit = false,
   children,
   className = "",
   drag = () => null
 }: {
   data: GroupI;
-  edit?: boolean;
   children?: ReactNode;
   className?: string;
   drag?: () => void;
@@ -34,9 +32,9 @@ export function Group({
   const Icon: IconI = (Icons as any)[data.icon];
   return (
     <View className={`card rounded ${className}`}>
-      <TouchableOpacity onPress={() => setActive((prev) => !prev)} onLongPress={handleMenu} disabled={edit}>
+      <TouchableOpacity onPress={() => setActive((prev) => !prev)} onLongPress={handleMenu}>
         <View className="flex-row">
-          <TouchableNativeFeedback onPressIn={() => edit && drag()}>
+          <TouchableNativeFeedback onPressIn={drag}>
             <View className="items-center justify-center p-2">
               <Icon width={40} height={40} />
             </View>

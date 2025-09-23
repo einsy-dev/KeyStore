@@ -1,10 +1,20 @@
 import { setMenu } from "@/lib/store/app";
 import { copyText } from "@/utils";
 import { useKeyMenu } from "@/widgets/context-menu";
-import { Text, TouchableOpacity, View } from "react-native";
+import { GestureResponderEvent, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch } from "react-redux";
 
-export function Key({ groupId, data }: { groupId: string; data: KeyI }) {
+export function Key({
+  groupId,
+  data,
+  onPress,
+  onLongPress
+}: {
+  groupId: string;
+  data: KeyI;
+  onPress?: (e: GestureResponderEvent) => void;
+  onLongPress?: (e: GestureResponderEvent) => void;
+}) {
   const menu = useKeyMenu(groupId, data);
   const dispatch = useDispatch();
 
@@ -16,8 +26,8 @@ export function Key({ groupId, data }: { groupId: string; data: KeyI }) {
     <View key={data.id} className="flex-row flex-1 gap-2">
       <KeyItem
         data={data.name}
-        onPress={() => copyText(data.name.value)}
-        onLongPress={() => handleLongPress(data.name.value)}
+        onPress={(e) => (onPress ? onPress(e) : copyText(data.name.value))}
+        onLongPress={(e) => (onLongPress ? onLongPress(e) : handleLongPress(data.name.value))}
       />
       <KeyItem
         data={data.value}
@@ -34,10 +44,10 @@ function KeyItem({
   onLongPress
 }: {
   data: KeyNameI | KeyValueI;
-  onPress?: () => void;
-  onLongPress?: () => void;
+  onPress?: (e: GestureResponderEvent) => void;
+  onLongPress?: (e: GestureResponderEvent) => void;
 }) {
-  if (!data.value) return null;
+  if (!data || !data.value) return null;
   return (
     <TouchableOpacity onPress={onPress} onLongPress={onLongPress} delayPressOut={100} className="flex-1">
       <View className="app rounded relative px-4 py-2">

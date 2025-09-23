@@ -38,7 +38,7 @@ function Router() {
 
         <Stack.Screen name="(pages)/[groupId]/index" />
         <Stack.Screen name="(pages)/[groupId]/[keyId]" />
-        <Stack.Screen name="(pages)/settings" />
+        <Stack.Screen name="(pages)/settings" options={{ headerShown: false }} />
       </Stack.Protected>
 
       <Stack.Protected guard={!isAuth}>

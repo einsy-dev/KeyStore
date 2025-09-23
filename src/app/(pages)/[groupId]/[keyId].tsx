@@ -35,7 +35,12 @@ export default function KeyGroupForm() {
     if (!state.name.value || (type === "double" && !state.value.value)) {
       return setErr("*Please fill all fields");
     }
-    dispatch((keyId === "new" ? createKey : updateKey)({ groupId, key: state as KeyI }));
+    dispatch(
+      (keyId === "new" ? createKey : updateKey)({
+        groupId,
+        key: type === "double" ? (state as KeyI) : ({ ...state, value: { label: "", value: "", hide: false } } as KeyI)
+      })
+    );
     router.back();
     setErr("");
     setState((prev: any) =>
