@@ -3,9 +3,10 @@ import { ConfigProvider, SessionProvider, useSession } from "@/lib/providers";
 import store from "@/lib/store";
 import { useColor } from "@/shared/hooks";
 import { ContextMenu } from "@/widgets/context-menu";
-import { Header } from "@/widgets/header";
+import { HeaderMain } from "@/widgets/main/ui/HeaderMain";
 import { Modal } from "@/widgets/modal";
 import { Popup } from "@/widgets/popup";
+import { HeaderSettings } from "@/widgets/settings/ui/HeaderSettings";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { ReactNode } from "react";
@@ -31,14 +32,14 @@ export default function Layout() {
 function Router() {
   const { isAuth } = useSession();
   return (
-    <Stack screenOptions={{ header: () => <Header />, animation: "fade" }}>
+    <Stack screenOptions={{ animation: "fade" }}>
       <Stack.Protected guard={isAuth}>
-        <Stack.Screen name="(pages)/main" />
+        <Stack.Screen name="(pages)/main" options={{ header: () => <HeaderMain /> }} />
         <Stack.Screen name="modal/mainEdit" options={{ presentation: "modal" }} />
 
         <Stack.Screen name="(pages)/[groupId]/index" />
         <Stack.Screen name="(pages)/[groupId]/[keyId]" />
-        <Stack.Screen name="(pages)/settings" options={{ headerShown: false }} />
+        <Stack.Screen name="(pages)/settings" options={{ header: () => <HeaderSettings /> }} />
       </Stack.Protected>
 
       <Stack.Protected guard={!isAuth}>

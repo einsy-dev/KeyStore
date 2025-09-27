@@ -21,7 +21,7 @@ export function ChangeLanguage() {
       </Pressable>
       <SizeDecorator
         active={active}
-        className="absolute top-full left-0 right-0 card z-20 items-center rounded"
+        className="absolute top-full left-0 right-0 z-20 items-center rounded"
         config={{ duration: 100 }}
       >
         {Object.keys(data)

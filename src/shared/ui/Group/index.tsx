@@ -1,26 +1,28 @@
-import * as Icons from "@/assets/icons/user";
 import { setMenu } from "@/lib/store/app";
-import { ReactNode, useState } from "react";
-import { Text, TouchableNativeFeedback, TouchableOpacity, View } from "react-native";
-
 import { SizeDecorator } from "@/shared/decorators";
 import { useGroupMenu } from "@/widgets/context-menu";
+import { ReactNode } from "react";
+import { Text, TouchableOpacity, View } from "react-native";
 import { useDispatch } from "react-redux";
+import { Icon } from "../Icon";
 
 export function Group({
   data,
   children,
   className = "",
-  drag = () => null
+  drag = () => null,
+  active,
+  setActive
 }: {
   data: GroupI;
   children?: ReactNode;
   className?: string;
   drag?: () => void;
+  active: boolean;
+  setActive: (id: string) => void;
 }) {
   const dispatch = useDispatch();
   const menu = useGroupMenu(data.id ?? null);
-  const [active, setActive] = useState(false);
   function handleMenu() {
     dispatch(
       setMenu({
@@ -29,16 +31,16 @@ export function Group({
       })
     );
   }
-  const Icon: IconI = (Icons as any)[data.icon];
   return (
     <View className={`card rounded ${className}`}>
-      <TouchableOpacity onPress={() => setActive((prev) => !prev)} onLongPress={handleMenu}>
+      <TouchableOpacity onPress={() => setActive(data.id)} onLongPress={handleMenu}>
         <View className="flex-row">
-          <TouchableNativeFeedback onPressIn={drag}>
-            <View className="items-center justify-center p-2">
-              <Icon width={40} height={40} />
-            </View>
-          </TouchableNativeFeedback>
+          <Icon
+            iconId={data.icon}
+            onPressIn={() => {
+              drag();
+            }}
+          />
           <View className="flex-1 justify-center">
             <View className="flex-1 px-4 items-center justify-center">
               <Text className="text text-2xl w-full" numberOfLines={1} ellipsizeMode="clip">

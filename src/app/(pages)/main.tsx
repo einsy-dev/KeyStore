@@ -14,7 +14,7 @@ export default function Main() {
   });
 
   return (
-    <View className="app flex-1 px-4 py-2">
+    <View className="app flex-1 py-2">
       <GroupList />
     </View>
   );

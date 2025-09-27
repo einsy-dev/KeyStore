@@ -4,17 +4,20 @@ import { useKeyMenu } from "@/widgets/context-menu";
 import { GestureResponderEvent, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch } from "react-redux";
 
-export function Key({
-  groupId,
-  data,
-  onPress,
-  onLongPress
-}: {
+interface KeyProps {
   groupId: string;
   data: KeyI;
   onPress?: (e: GestureResponderEvent) => void;
   onLongPress?: (e: GestureResponderEvent) => void;
-}) {
+}
+
+interface KeyItemProps {
+  data: KeyNameI | KeyValueI;
+  onPress?: (e: GestureResponderEvent) => void;
+  onLongPress?: (e: GestureResponderEvent) => void;
+}
+
+export function Key({ groupId, data, onPress, onLongPress }: KeyProps) {
   const menu = useKeyMenu(groupId, data);
   const dispatch = useDispatch();
 
@@ -38,15 +41,7 @@ export function Key({
   );
 }
 
-function KeyItem({
-  data,
-  onPress,
-  onLongPress
-}: {
-  data: KeyNameI | KeyValueI;
-  onPress?: (e: GestureResponderEvent) => void;
-  onLongPress?: (e: GestureResponderEvent) => void;
-}) {
+function KeyItem({ data, onPress, onLongPress }: KeyItemProps) {
   if (!data || !data.value) return null;
   return (
     <TouchableOpacity onPress={onPress} onLongPress={onLongPress} delayPressOut={100} className="flex-1">
