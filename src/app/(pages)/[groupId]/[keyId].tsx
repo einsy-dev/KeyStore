@@ -22,7 +22,7 @@ const defaultKey: KeyNameI | KeyValueI = {
 export default function KeyGroupForm() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { t } = useConfig();
+  // const { t } = useConfig();
   const { groupId, keyId } = useLocalSearchParams<LocalSearchParamI>();
   const data = useSelector(selectData);
   const [state, setState] = useState<Optinal<KeyI, "id">>(

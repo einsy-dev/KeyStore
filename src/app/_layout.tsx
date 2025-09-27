@@ -3,6 +3,8 @@ import { ConfigProvider, SessionProvider, useSession } from "@/lib/providers";
 import store from "@/lib/store";
 import { useColor } from "@/shared/hooks";
 import { ContextMenu } from "@/widgets/context-menu";
+import { HeaderFormGroup } from "@/widgets/form-group/ui/HeaderFormGroup";
+import { HeaderFormKey } from "@/widgets/form-key/ui/HeaderFormKey";
 import { HeaderMain } from "@/widgets/main/ui/HeaderMain";
 import { Modal } from "@/widgets/modal";
 import { Popup } from "@/widgets/popup";
@@ -35,11 +37,9 @@ function Router() {
     <Stack screenOptions={{ animation: "fade" }}>
       <Stack.Protected guard={isAuth}>
         <Stack.Screen name="(pages)/main" options={{ header: () => <HeaderMain /> }} />
-        <Stack.Screen name="modal/mainEdit" options={{ presentation: "modal" }} />
-
-        <Stack.Screen name="(pages)/[groupId]/index" />
-        <Stack.Screen name="(pages)/[groupId]/[keyId]" />
         <Stack.Screen name="(pages)/settings" options={{ header: () => <HeaderSettings /> }} />
+        <Stack.Screen name="(pages)/[groupId]/index" options={{ header: () => <HeaderFormGroup /> }} />
+        <Stack.Screen name="(pages)/[groupId]/[keyId]" options={{ header: () => <HeaderFormKey /> }} />
       </Stack.Protected>
 
       <Stack.Protected guard={!isAuth}>

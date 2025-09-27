@@ -1,45 +1,51 @@
-import { TextInput } from "@/shared/ui";
-import { Search } from "lucide-react-native";
-import { useCallback } from "react";
-import { SectionList, Text, View } from "react-native";
+import * as Icons from "@/assets/icons/user";
+import { OpacityDecorator, SlideDecorator } from "@/shared/decorators";
+import { KeyboardAvoidingView, TextInput } from "@/shared/ui";
+import { delay } from "@/utils";
+import { useEffect, useState } from "react";
+import { Dimensions, FlatList, Pressable, View } from "react-native";
+import { parseIcons } from "../../lib/parse";
+import { RenderItem } from "./RenderItem";
 
-interface SelectIconI {
-  onSelect: (id: string) => void;
-}
+export function SelectIcon({ onSelect, active, setActive }: SelectIconI) {
+  const [search, setSearch] = useState("");
+  const data = parseIcons(Icons, 6, search);
+  const renderItem = RenderItem(onSelect, 45);
 
-interface RenderItemI {
-  item: string;
-}
-
-interface RenderSection {
-  section: {
-    title: string;
-  };
-}
-
-const data = [{ title: "", data: [] }];
-
-export function SelectIcon({ onSelect }: SelectIconI) {
-  const renderSection = useCallback(({ section: { title } }: RenderSection) => {
-    return <Text>{title}</Text>;
-  }, []);
-
-  const renderItem = useCallback(({ item }: RenderItemI) => {
-    return <Text>{item}</Text>;
-  }, []);
+  useEffect(() => {
+    delay(() => setSearch(""), 100);
+  }, [active]);
 
   return (
-    <View className="flex-1">
-      <View className="flex-row">
-        <TextInput />
-        <Search width={35} height={35} />
-      </View>
-      <SectionList
-        sections={data}
-        renderItem={renderItem}
-        renderSectionHeader={renderSection}
-        keyExtractor={(item: string, index: number) => item + "-" + index}
+    <>
+      <OpacityDecorator
+        active={active}
+        slideConfig={{ duration: 0, startY: Dimensions.get("screen").height }}
+        className="absolute inset-0 flex-1 bg-v-50"
       />
-    </View>
+      <SlideDecorator
+        active={active}
+        config={{ startY: Dimensions.get("screen").height }}
+        className="absolute inset-0 flex-1"
+      >
+        <KeyboardAvoidingView className="flex-1">
+          <Pressable onPress={() => setActive(false)} className="flex-1 justify-end">
+            <View className="h-[350px] px-4">
+              <Pressable onPress={(e) => e.stopPropagation()}>
+                <View className="flex-row">
+                  <TextInput value={search} onChangeText={setSearch} />
+                </View>
+                <FlatList
+                  data={data}
+                  renderItem={renderItem}
+                  keyExtractor={(item, index) => item + "-" + index}
+                  keyboardShouldPersistTaps="handled"
+                />
+              </Pressable>
+            </View>
+          </Pressable>
+        </KeyboardAvoidingView>
+      </SlideDecorator>
+    </>
   );
 }

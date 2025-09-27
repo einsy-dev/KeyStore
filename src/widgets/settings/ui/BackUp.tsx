@@ -54,14 +54,14 @@ function BackupModal({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isImport]);
 
-  function ImportFile() {
-    try {
-      const json = JSON.parse(decrypt(file.current!.value, value));
-      console.log(json);
-    } catch {}
-  }
-  function ExportFile() {}
-  function DownloadFile() {}
+  // function ImportFile() {
+  //   try {
+  //     const json = JSON.parse(decrypt(file.current!.value, value));
+  //     console.log(json);
+  //   } catch {}
+  // }
+  // function ExportFile() {}
+  // function DownloadFile() {}
   return (
     <View className="card p-4 w-5/6 rounded gap-4">
       <View>
