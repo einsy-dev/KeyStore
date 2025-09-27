@@ -17,14 +17,12 @@ export default function SignIn() {
     if (status !== "error") return;
     delay(() => {
       setValue("");
-    }, 300);
+    }, 500);
   }, [isCanceled, signInBio, status]);
 
   useEffect(() => {
     if (value.length < 4) return;
-    (async () => {
-      await signIn(value);
-    })();
+    delay(() => signIn(value));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 

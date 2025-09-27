@@ -13,7 +13,13 @@ export function GroupList() {
   const renderItem = useCallback(
     ({ item, drag }: RenderItemParams<GroupI>) => (
       <ScaleDecorator activeScale={1.05}>
-        <Group data={item} drag={drag} className="mb-2" active={active === item.id} setActive={setActive}>
+        <Group
+          data={item}
+          drag={drag}
+          className="mb-2"
+          active={active === item.id}
+          setActive={(id: string) => setActive((prev) => (prev === id ? "" : id))}
+        >
           {Object.keys(item.keys).length
             ? Object.keys(item.keys).map((keyId: string) => (
                 <Key key={keyId} groupId={item.id} data={item.keys[keyId]} />

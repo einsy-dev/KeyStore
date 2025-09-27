@@ -4,6 +4,7 @@ import { Circle } from "lucide-react-native";
 
 export function Item({ value, status }: { value: string; status: "success" | "error" | null }) {
   const { color } = useColor();
+  const statusColor = status === "success" ? "#22bb33" : status === "error" ? "red" : color;
 
   return (
     <ScaleDecorator
@@ -14,12 +15,12 @@ export function Item({ value, status }: { value: string; status: "success" | "er
         active={status === "success" || status === "error"}
         decorate="borderColor"
         colorStart={color === "white" ? "#fff" : "#000"}
-        colorEnd={status === "success" ? "green" : status === "error" ? "red" : undefined}
+        colorEnd={statusColor}
         config={{ durationOn: 100, durationOff: 200 }}
         className="border rounded aspect-[4/5] h-[60px] items-center justify-center"
       >
         <OpacityDecorator active={value || status === "success" ? true : false} slideConfig={{ duration: 0 }}>
-          <Circle color={color} fill={color} />
+          <Circle color={statusColor} fill={statusColor} />
         </OpacityDecorator>
       </ColorDecorator>
     </ScaleDecorator>

@@ -1,15 +1,13 @@
 import { useConfig } from "@/lib/providers";
 import { setHeader } from "@/lib/store/app";
 import { createGroup, selectData, updateGroup } from "@/lib/store/data";
-import { useColor } from "@/shared/hooks";
 import { Icon, KeyboardAvoidingView, TextInput } from "@/shared/ui";
 import { KeyList } from "@/widgets/form-group/ui/KeysList";
 import { SelectIcon } from "@/widgets/form-group/ui/select-icon/SelectIcon";
 import { useFocusEffect } from "@react-navigation/native";
-import { Link, useLocalSearchParams, useRouter } from "expo-router";
-import { CirclePlus } from "lucide-react-native";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
-import { Keyboard, Text, View } from "react-native";
+import { Keyboard, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Form_Group() {
@@ -19,7 +17,6 @@ export default function Form_Group() {
   const data: { [id: string]: GroupI } = useSelector(selectData);
   const dispatch = useDispatch();
   const [selectIconActive, setSelectIconActive] = useState(false);
-  const { color } = useColor();
   const [state, setState] = useState<Optinal<GroupI, "id">>(
     groupId === "new" ? { name: "", icon: "", keys: {} } : (data[groupId] as GroupI)
   );
@@ -54,13 +51,6 @@ export default function Form_Group() {
 
       <KeyList groupId={groupId} data={data} state={state} setState={setState} />
 
-      <Link href={{ pathname: "/(pages)/[groupId]/[keyId]", params: { groupId, keyId: "new" } }} className="mx-auto">
-        <View className="flex flex-col items-center">
-          <CirclePlus color={color} />
-          <Text className="text">Add key</Text>
-        </View>
-      </Link>
-      
       <SelectIcon
         onSelect={(id: string) => {
           setState((prev) => ({ ...prev, icon: id }));
