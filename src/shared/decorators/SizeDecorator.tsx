@@ -20,7 +20,7 @@ export function SizeDecorator({
   contentContainerClassName?: string;
   keyView?: string;
 } & ViewProps) {
-  const { onLayout, height, startSize } = useSize(config);
+  const { onLayout, height, startSize } = useSize({ ...config });
 
   useEffect(() => {
     startSize(active);

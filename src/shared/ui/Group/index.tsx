@@ -33,7 +33,12 @@ export function Group({
   }
   return (
     <View className={`card rounded ${className}`}>
-      <TouchableOpacity onPress={() => setActive(data.id)} onLongPress={handleMenu}>
+      <TouchableOpacity
+        onPress={() => setActive(data.id)}
+        onLongPress={handleMenu}
+        delayLongPress={100}
+        delayPressOut={100}
+      >
         <View className="flex-row">
           <Icon
             iconId={data.icon}

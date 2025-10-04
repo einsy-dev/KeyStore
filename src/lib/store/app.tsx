@@ -17,10 +17,7 @@ const defaultPopup: PopupI = {
 };
 const defaultHeader: HeaderI = {
   active: false,
-  title: "",
-  onBack: undefined,
-  onSubmit: undefined,
-  onMenu: undefined
+  component: null
 };
 
 export const appSlice = createSlice({

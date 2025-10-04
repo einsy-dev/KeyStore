@@ -15,18 +15,18 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   });
 
   useEffect(() => {
+    let date: number;
     const listener = AppState.addEventListener("change", (appState) => {
-      if (appState !== "active" || !state.auth.autoLock) return;
-      dispatch(setModal({ active: false }));
-      dispatch(setPopup({ active: false }));
-      dispatch(setMenu({ active: false }));
-      _signOut();
+      if (appState !== "active") {
+        date = Date.now();
+      } else {
+        if (Date.now() - date > 5000 && state.auth.autoLock) _signOut();
+      }
     });
     return () => {
       if (listener) listener.remove();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state]);
+  }, [_signOut, state]);
 
   async function _signInBio() {
     if (state.auth.isAuth || !state.auth.isBioAvailable) return;
@@ -66,6 +66,9 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   async function _signOut() {
     if (!state.auth.isAuth) return;
     router.dismissTo({ pathname: "/sign-in" });
+    dispatch(setModal({ active: false }));
+    dispatch(setPopup({ active: false }));
+    dispatch(setMenu({ active: false }));
     setAuth({ status: null, isAuth: false, isCanceled: false });
   }
   // possibly avoided by using background services but this works by now

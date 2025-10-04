@@ -1,12 +1,12 @@
 import { GoBack } from "@/shared/ui/Header/GoBack";
-import { Header } from "@/shared/ui/Header/Header";
+import { View } from "react-native";
 import { ChangeLanguage } from "./ChangeLanguage";
 
 export function HeaderSettings() {
   return (
-    <Header>
+    <View className="header">
       <GoBack />
       <ChangeLanguage />
-    </Header>
+    </View>
   );
 }

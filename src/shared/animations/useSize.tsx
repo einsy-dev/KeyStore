@@ -14,10 +14,9 @@ export function useSize(config: Partial<SizeConfigI> = {}) {
     ...defaultConfig,
     ...config
   };
-  const status = useSharedValue(false);
-
-  const height = useSharedValue(0);
-  const width = useSharedValue(0);
+  const status = useSharedValue(false); // active status
+  const height = useSharedValue(0); // save componet actual height
+  const width = useSharedValue(0); // save componet actual width
 
   const derivedHeight = useDerivedValue(() =>
     withTiming(height.value * Number(status.value), {
@@ -36,6 +35,7 @@ export function useSize(config: Partial<SizeConfigI> = {}) {
   }
 
   function startSize(active: boolean) {
+    if (status.value === active) return;
     status.value = active;
   }
   return { onLayout, height: derivedHeight, width: derivedWidth, startSize };

@@ -32,5 +32,37 @@
     ],
     "description": "",
     "scope": "typescriptreact"
+  },
+  "redux dispatch": {
+    "prefix": [
+      "dispatch"
+    ],
+    "body": [
+      "const dispatch = useDispatch();"
+    ],
+    "description": "",
+    "scope": "typescriptreact"
+  },
+  "function": {
+    "prefix": [
+      "func"
+    ],
+    "body": [
+      "function $1($2) {\r",
+      "    $3\r",
+      "  }"
+    ],
+    "description": "",
+    "scope": "typescriptreact"
+  },
+  "console log": {
+    "prefix": [
+      "clg"
+    ],
+    "body": [
+      "console.log($1)"
+    ],
+    "description": "",
+    "scope": "typescriptreact"
   }
 }

@@ -1,10 +1,10 @@
 import { useConfig } from "@/lib/providers";
-import { setHeader } from "@/lib/store/app";
 import { createKey, selectData, updateKey } from "@/lib/store/data";
 import { CheckBox, KeyboardAvoidingView, TextInput } from "@/shared/ui";
 import { genPass } from "@/utils";
+import { HeaderFormKey } from "@/widgets/form-key/ui/HeaderFormKey";
 import { KeyMode } from "@/widgets/form-key/ui/KeyMode";
-import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { SetStateAction, useState } from "react";
 import { Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +20,6 @@ const defaultKey: KeyNameI | KeyValueI = {
 };
 
 export default function KeyGroupForm() {
-  const router = useRouter();
   const dispatch = useDispatch();
   // const { t } = useConfig();
   const { groupId, keyId } = useLocalSearchParams<LocalSearchParamI>();
@@ -35,13 +34,23 @@ export default function KeyGroupForm() {
     if (!state.name.value || (type === "double" && !state.value.value)) {
       return setErr("*Please fill all fields");
     }
+    const newState: Optinal<KeyI, "id"> = {
+      ...state,
+      name: { ...state.name, label: state.name.label.trim(), value: state.name.value.trim() },
+      value: { ...state.value, label: state.value.label.trim() || "", value: state.value.value.trim() || "" }
+    };
     dispatch(
       (keyId === "new" ? createKey : updateKey)({
         groupId,
-        key: type === "double" ? (state as KeyI) : ({ ...state, value: { label: "", value: "", hide: false } } as KeyI)
+        key:
+          type === "double"
+            ? (newState as KeyI)
+            : ({ ...newState, value: { label: "", value: "", hide: false } } as KeyI)
       })
     );
-    router.back();
+    if (keyId === "new") {
+      setState((prev) => ({ ...prev, name: defaultKey, value: defaultKey }));
+    }
     setErr("");
     setState((prev: any) =>
       Object.keys(prev).reduce((acc: any, el: any) => {
@@ -51,12 +60,9 @@ export default function KeyGroupForm() {
     );
   }
 
-  useFocusEffect(() => {
-    dispatch(setHeader({ title: "", onSubmit: handleSubmit }));
-  });
-
   return (
     <KeyboardAvoidingView className="app flex-1 p-4 gap-4">
+      <HeaderFormKey onSubmit={handleSubmit} />
       <KeyMode state={type} setState={setType} />
       <FormElement
         state={state.name}
@@ -81,19 +87,24 @@ function FormElement({ state, setState }: { state: KeyNameI | KeyValueI; setStat
         <TextInput
           label={t("formKey.label")}
           value={state.label}
-          onChangeText={(text) => setState((prev: KeyNameI | KeyValueI) => ({ ...prev, label: text }))}
+          onChangeText={(text) =>
+            setState((prev: KeyNameI | KeyValueI) => ({ ...prev, label: text.replace("\n", "") }))
+          }
           className="text text-lg w-full"
         />
 
         <TextInput
           label={t("formKey.value")}
           value={state.value}
-          onChangeText={(text) => setState((prev: KeyNameI | KeyValueI) => ({ ...prev, value: text }))}
+          onChangeText={(text) =>
+            setState((prev: KeyNameI | KeyValueI) => ({ ...prev, value: text.replace("\n", "") }))
+          }
           className="text-lg"
         />
       </View>
       <View className="flex-row gap-4">
         <CheckBox
+          checked={state.hide}
           onChange={(hide) => {
             setState((prev: KeyNameI | KeyValueI) => ({ ...prev, hide }));
           }}

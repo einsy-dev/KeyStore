@@ -1,12 +1,12 @@
 import { GoBack } from "@/shared/ui/Header/GoBack";
-import { Header } from "@/shared/ui/Header/Header";
 import { Submit } from "@/shared/ui/Header/Submit";
+import { View } from "react-native";
 
-export function HeaderFormGroup() {
+export function HeaderFormGroup({ onSubmit }: { onSubmit: () => void }) {
   return (
-    <Header>
+    <View className="header">
       <GoBack />
-      <Submit />
-    </Header>
+      <Submit onPress={onSubmit} />
+    </View>
   );
 }

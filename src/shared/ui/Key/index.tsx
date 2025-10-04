@@ -35,7 +35,7 @@ export function Key({ groupId, data, onPress, onLongPress }: KeyProps) {
       <KeyItem
         data={data.value}
         onPress={() => copyText(data.value.value)}
-        onLongPress={() => handleLongPress(data.name.value)}
+        onLongPress={() => handleLongPress(data.value.value)}
       />
     </View>
   );
@@ -44,7 +44,13 @@ export function Key({ groupId, data, onPress, onLongPress }: KeyProps) {
 function KeyItem({ data, onPress, onLongPress }: KeyItemProps) {
   if (!data || !data.value) return null;
   return (
-    <TouchableOpacity onPress={onPress} onLongPress={onLongPress} delayPressOut={100} className="flex-1">
+    <TouchableOpacity
+      onPress={onPress}
+      onLongPress={onLongPress}
+      delayLongPress={100}
+      delayPressOut={100}
+      className="flex-1"
+    >
       <View className="app rounded relative px-4 py-2">
         <Text className={`text text-xl }`} numberOfLines={1}>
           {data.hide ? "*".repeat(data.value.length) : data.value}

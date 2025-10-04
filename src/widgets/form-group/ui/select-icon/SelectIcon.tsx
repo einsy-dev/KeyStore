@@ -30,10 +30,10 @@ export function SelectIcon({ onSelect, active, setActive }: SelectIconI) {
       >
         <KeyboardAvoidingView className="flex-1">
           <Pressable onPress={() => setActive(false)} className="flex-1 justify-end">
-            <View className="h-[350px] px-4">
+            <View className="app rounded-2xl h-[350px] py-2 px-4">
               <Pressable onPress={(e) => e.stopPropagation()}>
                 <View className="flex-row">
-                  <TextInput value={search} onChangeText={setSearch} />
+                  <TextInput value={search} onChangeText={setSearch} className="w-full" />
                 </View>
                 <FlatList
                   data={data}

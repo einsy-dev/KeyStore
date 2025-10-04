@@ -3,12 +3,8 @@ import { ConfigProvider, SessionProvider, useSession } from "@/lib/providers";
 import store from "@/lib/store";
 import { useColor } from "@/shared/hooks";
 import { ContextMenu } from "@/widgets/context-menu";
-import { HeaderFormGroup } from "@/widgets/form-group/ui/HeaderFormGroup";
-import { HeaderFormKey } from "@/widgets/form-key/ui/HeaderFormKey";
-import { HeaderMain } from "@/widgets/main/ui/HeaderMain";
 import { Modal } from "@/widgets/modal";
 import { Popup } from "@/widgets/popup";
-import { HeaderSettings } from "@/widgets/settings/ui/HeaderSettings";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { ReactNode } from "react";
@@ -34,17 +30,17 @@ export default function Layout() {
 function Router() {
   const { isAuth } = useSession();
   return (
-    <Stack screenOptions={{ animation: "fade" }}>
+    <Stack screenOptions={{ animation: "fade", headerShown: false }}>
       <Stack.Protected guard={isAuth}>
-        <Stack.Screen name="(pages)/main" options={{ header: () => <HeaderMain /> }} />
-        <Stack.Screen name="(pages)/settings" options={{ header: () => <HeaderSettings /> }} />
-        <Stack.Screen name="(pages)/[groupId]/index" options={{ header: () => <HeaderFormGroup /> }} />
-        <Stack.Screen name="(pages)/[groupId]/[keyId]" options={{ header: () => <HeaderFormKey /> }} />
+        <Stack.Screen name="(pages)/main" />
+        <Stack.Screen name="(pages)/settings" />
+        <Stack.Screen name="(pages)/[groupId]/index" />
+        <Stack.Screen name="(pages)/[groupId]/[keyId]" />
       </Stack.Protected>
 
       <Stack.Protected guard={!isAuth}>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(pages)/sign-in" options={{ headerShown: false }} />
+        <Stack.Screen name="index" />
+        <Stack.Screen name="(pages)/sign-in" />
       </Stack.Protected>
     </Stack>
   );

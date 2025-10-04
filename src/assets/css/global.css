@@ -18,6 +18,10 @@
 		@apply bg-v-light-fg dark:bg-v-dark-fg;
 	}
 
+	.header {
+		@apply app flex-row justify-between items-center w-full;
+	}
+
 	.text {
 		@apply text-v-light-text dark:text-v-dark-text;
 	}
